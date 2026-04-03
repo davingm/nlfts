@@ -94,7 +94,7 @@ onMounted(async () => {
             </p>
             
             <div class="pt-4 flex items-center justify-between">
-              <NuxtLink to="/pendaftaran" class="group flex items-center gap-3 text-sm font-bold text-gray-900 dark:text-white transition-all hover:text-primary-500">
+              <NuxtLink to="https://ppdb.smkassalaambandung.sch.id/" target="_blank" class="group flex items-center gap-3 text-sm font-bold text-gray-900 dark:text-white transition-all hover:text-primary-500">
                 <span>Daftar Sekarang</span>
                 <div class="w-8 h-8 rounded-full border border-gray-100 dark:border-white/10 flex items-center justify-center transition-all group-hover:border-primary-500 group-hover:bg-primary-500 group-hover:text-white">
                   <UIcon name="i-lucide-arrow-right" class="w-3.5 h-3.5" />

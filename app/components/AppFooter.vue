@@ -187,8 +187,8 @@ const onGiantMove = (e: MouseEvent) => {
 
           <div class="flex items-center gap-8 text-[9px] font-black uppercase tracking-[0.4em] text-gray-400">
             <span>© {{ new Date().getFullYear() }}</span>
-            <NuxtLink to="/legal" class="hover:text-primary-500 transition-colors">Legal</NuxtLink>
-            <NuxtLink to="/status" class="hover:text-primary-500 transition-colors">Status</NuxtLink>
+            <NuxtLink to="#" class="hover:text-primary-500 transition-colors">Legal</NuxtLink>
+            <NuxtLink to="#" class="hover:text-primary-500 transition-colors">Status</NuxtLink>
           </div>
         </div>
 

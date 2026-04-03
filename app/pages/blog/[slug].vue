@@ -1,7 +1,9 @@
 <script setup lang="ts">
 const route = useRoute()
 
-const { data: post } = await useAsyncData(route.path, () => queryCollection('posts').path(route.path).first())
+const { data: post } = await useAsyncData(route.path, () => queryCollection('posts')
+  .where('path', 'LIKE', `%${route.params.slug as string}`)
+  .first())
 if (!post.value) {
   throw createError({ statusCode: 404, statusMessage: 'Post not found', fatal: true })
 }
