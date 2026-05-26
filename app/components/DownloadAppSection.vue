@@ -187,7 +187,7 @@ onMounted(async () => {
             <NuxtLink 
               to="https://wa.me/6285187153883?text=Halo%20RakitWeb%2C%20saya%20ingin%20konsultasi%20pembuatan%20aplikasi%20Android" 
               target="_blank"
-              class="group relative inline-flex items-center gap-5 px-10 py-5 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-[20px] transition-all hover:shadow-[0_20px_50px_rgba(0,193,106,0.2)] active:scale-95 overflow-hidden"
+              class="group relative inline-flex items-center gap-5 px-10 py-5 bg-gray-950 dark:bg-white text-white dark:text-gray-950 rounded-[20px] transition-all active:scale-95 overflow-hidden"
             >
               <div class="absolute inset-0 bg-primary-500/10 -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
               <UIcon name="i-lucide-message-circle" class="w-6 h-6 relative z-10" />
