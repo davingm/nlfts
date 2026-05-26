@@ -8,7 +8,7 @@ plans:
   - title: Website Starter
     description: Cocok untuk UMKM dan personal branding yang ingin hadir di internet.
     price:
-      year: Rp490rb
+      month: Rp490rb
     button:
       label: Konsultasi Sekarang
       color: neutral
