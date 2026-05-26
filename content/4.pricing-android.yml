@@ -1,0 +1,40 @@
+title: Paket Harga Aplikasi Android
+description: Pilih paket pengembangan aplikasi Android sesuai kebutuhan bisnis Anda.
+seo:
+  title: Harga Aplikasi Android - RakitWeb
+  description: Lihat paket harga jasa pembuatan aplikasi Android dari RakitWeb.
+navigation.icon: i-lucide-smartphone
+plans:
+  - title: Aplikasi Starter
+    description: Cocok untuk UMKM untuk membuat aplikasi POS atau kasir.
+    price:
+      month: Rp500rb
+      year: "-"
+    button:
+      label: Konsultasi Sekarang
+      color: primary
+      variant: solid
+    features:
+      - Aplikasi POS / Kasir
+      - Desain Custom & Modern
+      - Integrasi API (Opsional)
+      - Support & Maintenance
+      - Gratis Revisi 2x
+      - Selesai dalam 14-30 Hari
+logos:
+  title: Teknologi yang Kami Gunakan
+  icons:
+    - i-simple-icons-kotlin
+    - i-simple-icons-android
+    - i-simple-icons-firebase
+    - i-simple-icons-googlecloud
+faq:
+  title: Pertanyaan yang Sering Diajukan
+  description: Punya pertanyaan? Kami siap membantu. Hubungi kami via WhatsApp jika tidak ada di sini.
+  items:
+    - label: Berapa lama waktu pengerjaan aplikasi Android?
+      content: Paket Starter selesai dalam 14-30 hari kerja tergantung kompleksitas fitur.
+    - label: Apakah sudah termasuk publish ke Play Store?
+      content: Ya, kami bantu proses publish hingga aplikasi live di Google Play Store.
+    - label: Apakah ada garansi setelah aplikasi selesai?
+      content: Ya! Kami memberikan 1 bulan support gratis setelah aplikasi selesai.
