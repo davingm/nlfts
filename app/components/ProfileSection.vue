@@ -8,7 +8,7 @@ if (process.client) {
 
 const sectionRef = ref<HTMLElement | null>(null)
 
-// Layanan Unggulan RakitWeb
+// product Unggulan RakitWeb
 const features = [
   {
     title: 'Jasa Pembuatan Website',
@@ -80,7 +80,7 @@ onMounted(async () => {
         
         <div class="lg:col-span-5 space-y-8">
           <div class="reveal flex flex-col space-y-4">
-            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary-500">Layanan Kami</span>
+            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary-500">product Kami</span>
             <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
               Solusi Digital Lengkap <br class="hidden md:block"/> untuk Bisnis Anda.
             </h2>

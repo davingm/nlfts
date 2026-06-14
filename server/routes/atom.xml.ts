@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
   <id>${baseUrl}/</id>
   <updated>${updated}</updated>
   <author><name>RakitWeb</name><email>halo@rakitweb.id</email></author>
-  <icon>${baseUrl}/rakitweb.jpeg</icon>
+  <icon>${baseUrl}/rakitweb.png</icon>
   ${entries}
 </feed>`
 

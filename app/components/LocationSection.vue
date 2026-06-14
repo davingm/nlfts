@@ -5,7 +5,7 @@ const sectionRef = ref<HTMLElement | null>(null)
 
 const info = {
   address: "Semarang, Jawa Tengah, Indonesia",
-  email: "halo@rakitweb.dev",
+  email: "rakitweb.nlfts.dev",
   phone: "+62 851-8715-3883",
   instagram: "@rakitweb",
   meta: [
@@ -96,7 +96,7 @@ const onMouseLeave = (el: HTMLElement) => {
                 <a :href="'mailto:' + info.email" class="text-[11px] font-black uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">{{ info.email }}</a>
                 <a :href="'https://wa.me/6283160325595'" target="_blank" class="text-[11px] font-black uppercase tracking-widest text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors">{{ info.phone }}</a>
              </div>
-             <a href="https://www.instagram.com/rakitweb_id" target="_blank" class="text-[11px] font-mono font-black uppercase tracking-[0.4em] text-primary-500">Instagram / @rakitweb_id</a>
+             <a href="https://www.instagram.com/rakitweb_id" target="_blank" class="text-[15px] font-black text-gray-500">Instagram :  @rakitweb_id</a>
           </div>
         </div>
 

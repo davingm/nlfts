@@ -23,7 +23,7 @@ useHead(() => ({
   ],
 
   link: [
-    { rel: 'icon', type: 'image/jpeg', href: '/rakitweb.jpeg' },
+    { rel: 'icon', type: 'image/png', href: '/rakitweb.png' },
     { rel: 'canonical', href: canonicalUrl.value },
     // RSS feeds
     { rel: 'alternate', type: 'application/rss+xml', title: 'RakitWeb Blog RSS', href: 'https://rakitweb.id/rss.xml' },
@@ -41,7 +41,7 @@ useHead(() => ({
         '@type': 'Organization',
         name: 'RakitWeb',
         url: 'https://rakitweb.id',
-        logo: 'https://rakitweb.id/rakitweb.jpeg',
+        logo: 'https://rakitweb.id/rakitweb.png',
         description: 'Jasa pembuatan website, hosting, domain, game server, dan aplikasi Android di Semarang, Indonesia.',
         address: {
           '@type': 'PostalAddress',
@@ -120,8 +120,8 @@ useHead(() => ({
 
 useSeoMeta({
   titleTemplate: '%s - RakitWeb',
-  ogImage: '/rakitweb.jpeg',
-  twitterImage: '/rakitweb.jpeg',
+  ogImage: '/rakitweb.png',
+  twitterImage: '/rakitweb.png',
   twitterCard: 'summary_large_image'
 })
 

@@ -4,7 +4,7 @@ useSeoMeta({
   description: 'Kenali tim di balik RakitWeb — developer, designer, dan engineer yang membangun solusi digital terbaik untuk bisnis Anda.',
   ogTitle: 'Tim Kami - RakitWeb',
   ogDescription: 'Kenali tim di balik RakitWeb — developer, designer, dan engineer yang membangun solusi digital terbaik untuk bisnis Anda.',
-  ogImage: '/rakitweb.jpeg'
+  ogImage: '/rakitweb.png'
 })
 
 const team = [
@@ -27,7 +27,7 @@ const team = [
     name: 'Chandra',
     role: 'Founder of RakitWeb',
     experience: '2+ tahun pengalaman',
-    avatar: './blog/kucing.jpeg',
+    avatar: './blog/kucing.png',
     fallbackAvatar: 'https://ui-avatars.com/api/?name=Web+Engineer&background=10b981&color=fff&size=200&bold=true',
     bio: 'Spesialis UI/UX dan performa frontend. Memastikan setiap pixel tampil sempurna di semua perangkat.',
     stacks: [

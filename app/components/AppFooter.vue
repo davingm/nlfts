@@ -3,7 +3,7 @@ import gsap from 'gsap'
 
 const columns = [
   {
-    label: 'Layanan',
+    label: 'product',
     children: [
       { label: 'Website Company Profile' },
       { label: 'Landing Page' },
@@ -159,15 +159,14 @@ const onGiantMove = (e: MouseEvent) => {
   >
     <UContainer>
       <!-- TOP GRID -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24 relative z-20">
-        
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24 relative z-20">     
         <!-- BRANDING SIDE -->
         <div class="lg:col-span-4 space-y-8">
           <div class="flex items-center gap-2">
             <span class="text-2xl font-black tracking-tight text-gray-900 dark:text-white">Rakit<span class="text-primary-500">Web</span></span>
           </div>
           
-          <p class="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-primary-500 leading-loose max-w-[280px] opacity-70">
+          <p class="text-xs tracking-[0.3em] text-primary-500 leading-loose max-w-[280px] opacity-70">
             Solusi digital terbaik untuk bisnis masa depan — website, hosting, android & game server.
           </p>
 

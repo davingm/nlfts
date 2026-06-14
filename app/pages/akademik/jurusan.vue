@@ -5,11 +5,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 useSeoMeta({
-  title: 'Layanan RakitWeb',
-  description: 'Layanan jasa pembuatan website, hosting, domain, game server, dan aplikasi Android dari RakitWeb — solusi digital terpercaya di Semarang.',
-  ogTitle: 'Layanan RakitWeb — Solusi Digital Lengkap',
-  ogDescription: 'Temukan layanan digital terbaik dari RakitWeb untuk bisnis Anda.',
-  ogImage: 'https://rakitweb.id/rakitweb.jpeg',
+  title: 'product RakitWeb',
+  description: 'product jasa pembuatan website, hosting, domain, game server, dan aplikasi Android dari RakitWeb — solusi digital terpercaya di Semarang.',
+  ogTitle: 'product RakitWeb — Solusi Digital Lengkap',
+  ogDescription: 'Temukan product digital terbaik dari RakitWeb untuk bisnis Anda.',
+  ogImage: 'https://rakitweb.id/rakitweb.png',
   twitterCard: 'summary_large_image',
   robots: 'index, follow'
 })

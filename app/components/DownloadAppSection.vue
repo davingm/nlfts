@@ -131,10 +131,6 @@ onMounted(async () => {
         <circle class="data-orb fill-primary-500/40" r="2" />
         <circle class="data-orb fill-primary-500/10" r="5" />
       </svg>
-
-      <!-- Decorative Edge Numbers/Labels -->
-      <div class="absolute top-10 left-10 text-[9px] font-mono font-black uppercase tracking-[0.5em] text-gray-300 dark:text-gray-700 writing-vertical-rl">RAKITWEB_ANDROID_V1</div>
-      <div class="absolute bottom-10 right-10 text-[9px] font-mono font-black uppercase tracking-[0.5em] text-gray-300 dark:text-gray-700">01 — 06 // 2026</div>
       
       <!-- Center Gradient Glow -->
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-500/5 blur-[150px] rounded-full pointer-events-none" />

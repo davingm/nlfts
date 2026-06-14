@@ -5,8 +5,8 @@ useSeoMeta({
   title: 'Tentang RakitWeb',
   description: 'Informasi lengkap tentang RakitWeb — jasa pembuatan website, hosting, domain, game server, dan aplikasi Android di Semarang, Indonesia.',
   ogTitle: 'Tentang RakitWeb — Solusi Digital Terpercaya',
-  ogDescription: 'Pelajari lebih lanjut tentang RakitWeb dan layanan digital yang kami tawarkan untuk bisnis Anda.',
-  ogImage: 'https://rakitweb.id/rakitweb.jpeg',
+  ogDescription: 'Pelajari lebih lanjut tentang RakitWeb dan product digital yang kami tawarkan untuk bisnis Anda.',
+  ogImage: 'https://rakitweb.id/rakitweb.png',
   twitterCard: 'summary_large_image',
   robots: 'index, follow'
 })

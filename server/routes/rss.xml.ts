@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
     const description = escapeXml(post.description ?? '')
     const category = post.badge?.label ? `<category>${escapeXml(post.badge.label)}</category>` : ''
 
-    let image = `${baseUrl}/rakitweb.jpeg`
+    let image = `${baseUrl}/rakitweb.png`
     if (post.image?.src) {
       image = post.image.src.startsWith('http')
         ? post.image.src
@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
       <pubDate>${pubDate}</pubDate>
       <dc:creator>${escapeXml(author)}</dc:creator>
       ${category}
-      <enclosure url="${image}" type="image/jpeg" length="0"/>
+      <enclosure url="${image}" type="image/png" length="0"/>
     </item>`
   }).join('\n')
 
@@ -59,7 +59,7 @@ export default defineEventHandler(async (event) => {
     <lastBuildDate>${now}</lastBuildDate>
     <ttl>60</ttl>
     <image>
-      <url>${baseUrl}/rakitweb.jpeg</url>
+      <url>${baseUrl}/rakitweb.png</url>
       <title>RakitWeb Blog</title>
       <link>${baseUrl}/blog</link>
       <width>144</width>

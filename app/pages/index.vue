@@ -12,13 +12,13 @@ useSeoMeta({
   ogTitle: 'RakitWeb — Jasa Pembuatan Website & Digital Solution',
   description: 'RakitWeb menyediakan jasa pembuatan website, setup hosting & domain, pembuatan aplikasi Android, hingga konfigurasi game server dengan harga terjangkau.',
   ogDescription: 'RakitWeb menyediakan jasa pembuatan website, setup hosting & domain, pembuatan aplikasi Android, hingga konfigurasi game server dengan harga terjangkau.',
-  ogImage: 'https://rakitweb.id/rakitweb.jpeg',
+  ogImage: 'https://rakitweb.id/rakitweb.png',
   ogUrl: 'https://rakitweb.id',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'RakitWeb — Jasa Pembuatan Website & Digital Solution',
   twitterDescription: 'RakitWeb: solusi digital terbaik untuk bisnis Anda — website, hosting, Android, dan game server.',
-  twitterImage: 'https://rakitweb.id/rakitweb.jpeg',
+  twitterImage: 'https://rakitweb.id/rakitweb.png',
 })
 
 // Impact Stats Data
@@ -199,19 +199,13 @@ onUnmounted(() => {
             Konsultasi Gratis
           </NuxtLink>
           <NuxtLink
-            to="#layanan"
+            to="#product"
             class="flex items-center gap-2 px-8 py-3 text-sm font-bold text-gray-500 dark:text-gray-300 border border-gray-200 dark:border-white/10 rounded-2xl backdrop-blur-md transition-all hover:bg-gray-50 dark:hover:bg-white/5"
           >
-            <span>Lihat Layanan</span>
+            <span>Lihat product</span>
           </NuxtLink>
         </div>
       </section>
-
-      <!-- Branding -->
-      <div class="absolute bottom-12 left-12 hidden md:flex items-center gap-4 opacity-30">
-        <div class="w-12 h-[1px] bg-primary-500" />
-        <span class="text-[9px] font-mono tracking-widest uppercase">RakitWeb Digital</span>
-      </div>
     </div>
 
     <!-- TRUSTED BY SECTION -->
