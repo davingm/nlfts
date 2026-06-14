@@ -121,145 +121,155 @@ const onImgError = (idx: number) => { imgErrors.value[idx] = true }
 </script>
 
 <template>
-  <div class="min-h-screen bg-white dark:bg-[#09090b]">
+<section class="pt-36 pb-16 px-4 sm:px-6">
+  <UContainer>
+    <div class="max-w-3xl">
+      
+      <h1 class="text-4xl sm:text-6xl font-normal tracking-tight text-zinc-900 dark:text-white leading-[1.08] mb-6">
+        Orang-orang tangguh di balik sistem digital Anda.
+      </h1>
+      <p class="text-sm sm:text-base text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-xl font-normal">
+        Kami adalah tim kecil terdistribusi yang bergerak cepat — developer, engineer, dan creator yang fokus mendedikasikan presisi pada performa platform Anda.
+      </p>
+    </div>
+  </UContainer>
+</section>
 
-    <!-- HERO -->
-    <section class="pt-32 pb-20 px-6">
-      <UContainer>
-        <div class="max-w-2xl">
-          <p class="text-xs font-mono font-bold uppercase tracking-[0.3em] text-primary-500 mb-6">Tim Kami</p>
-          <h1 class="text-4xl md:text-6xl font-black tracking-tight text-gray-900 dark:text-white leading-[1.05] mb-6">
-            Orang-orang di<br />balik RakitWeb.
-          </h1>
-          <p class="text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-lg">
-            Kami adalah tim kecil yang bergerak cepat — developer, engineer, dan builder yang fokus membangun produk digital berkualitas tinggi.
+<!-- ════════════════════════════════════════════════ -->
+<!-- TEAM GRID (Subtle Grid Layout)                   -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="py-12 px-4 sm:px-6">
+  <UContainer>
+    <!-- Grid layout dengan gap mini dan pembatas elegan -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-200 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-800/80 rounded-xl overflow-hidden shadow-sm dark:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)]">
+      
+      <!-- STREAMING_CHUNK: Rendering Team Member Cards... -->
+      <div
+        v-for="(member, idx) in team"
+        :key="member.name"
+        class="bg-white dark:bg-[#000000] p-8 flex flex-col justify-between gap-6 hover:bg-zinc-50/50 dark:hover:bg-zinc-950/20 transition-all duration-300 group"
+      >
+        <div>
+          <!-- Avatar & Core Info Header -->
+          <div class="flex items-center gap-4 mb-6">
+            <div class="relative shrink-0">
+              <img
+                :src="imgErrors[idx] ? member.fallbackAvatar : member.avatar"
+                :alt="member.name"
+                class="w-12 h-12 rounded-full object-cover border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 group-hover:scale-105 transition-transform duration-300"
+                @error="onImgError(idx)"
+              />
+              <!-- Online Status Ring Indicator -->
+              <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-[#000000]" />
+            </div>
+            
+            <div class="flex-1 min-w-0">
+              <h3 class="text-sm font-medium text-zinc-950 dark:text-zinc-50 truncate">{{ member.name }}</h3>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">{{ member.role }}</p>
+              <p class="text-[9px] font-mono text-zinc-400 uppercase tracking-widest mt-1">{{ member.experience }}</p>
+            </div>
+          </div>
+
+          <!-- Personal Biography Narrative -->
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-normal mb-6">
+            {{ member.bio }}
           </p>
         </div>
-      </UContainer>
-    </section>
 
-    <!-- DIVIDER -->
-    <div class="border-t border-gray-100 dark:border-white/5" />
-
-    <!-- TEAM GRID -->
-    <section class="py-20 px-6">
-      <UContainer>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-100 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-2xl overflow-hidden">
-          <div
-            v-for="(member, idx) in team"
-            :key="member.name"
-            class="bg-white dark:bg-[#09090b] p-8 flex flex-col gap-6 hover:bg-gray-50 dark:hover:bg-white/[0.03] transition-colors duration-300"
-          >
-            <!-- Avatar + Info -->
-            <div class="flex items-start gap-4">
-              <div class="relative shrink-0">
-                <img
-                  :src="imgErrors[idx] ? member.fallbackAvatar : member.avatar"
-                  :alt="member.name"
-                  class="w-14 h-14 rounded-2xl object-cover bg-gray-100 dark:bg-white/5"
-                  @error="onImgError(idx)"
-                />
-                <div class="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-primary-500 rounded-full border-2 border-white dark:border-[#09090b]" />
-              </div>
-              <div class="flex-1 min-w-0">
-                <h3 class="text-sm font-bold text-gray-900 dark:text-white truncate">{{ member.name }}</h3>
-                <p class="text-xs text-primary-500 font-semibold mt-0.5">{{ member.role }}</p>
-                <p class="text-[10px] font-mono text-gray-400 uppercase tracking-wider mt-1">{{ member.experience }}</p>
-              </div>
-            </div>
-
-            <!-- Bio -->
-            <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-              {{ member.bio }}
-            </p>
-
-            <!-- Divider -->
-            <div class="border-t border-gray-100 dark:border-white/5" />
-
-            <!-- Stack -->
-            <div class="space-y-3">
-              <p class="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400">Tech Stack</p>
-              <div class="flex flex-wrap gap-2">
-                <div
-                  v-for="stack in member.stacks"
-                  :key="stack.name"
-                  class="group flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-gray-50 dark:bg-white/[0.04] border border-gray-100 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-200 cursor-default"
-                  :title="stack.name"
-                >
-                  <UIcon :name="stack.icon" class="w-3.5 h-3.5 shrink-0" :style="{ color: stack.color }" />
-                  <span class="text-[10px] font-semibold text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">{{ stack.name }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </UContainer>
-    </section>
-
-    <!-- DIVIDER -->
-    <div class="border-t border-gray-100 dark:border-white/5" />
-
-    <!-- ALL STACKS SECTION -->
-    <section class="py-20 px-6">
-      <UContainer>
-        <div class="max-w-4xl mx-auto">
-          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <p class="text-xs font-mono font-bold uppercase tracking-[0.3em] text-primary-500 mb-3">Teknologi</p>
-              <h2 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white">
-                Stack yang kami kuasai.
-              </h2>
-            </div>
-            <p class="text-xs text-gray-400 max-w-xs leading-relaxed">
-              Dari frontend hingga backend, mobile hingga cloud — kami memilih teknologi yang tepat untuk setiap kebutuhan.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-4 sm:grid-cols-7 gap-3">
+        <!-- Technology Stack Mini Tags -->
+        <div class="pt-6 border-t border-zinc-100 dark:border-zinc-900">
+          <p class="text-[9px] font-mono uppercase tracking-[0.25em] text-zinc-400 mb-3.5">Fokus Stack</p>
+          <div class="flex flex-wrap gap-1.5">
             <div
-              v-for="stack in allStacks"
+              v-for="stack in member.stacks"
               :key="stack.name"
-              class="group flex flex-col items-center gap-2 p-3 rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-100 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/15 hover:bg-white dark:hover:bg-white/[0.06] transition-all duration-200 cursor-default"
-              :title="stack.name"
+              class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200/50 dark:border-zinc-800/80 hover:border-zinc-350 dark:hover:border-zinc-700 transition-all duration-150 cursor-default"
             >
-              <UIcon :name="stack.icon" class="w-6 h-6 shrink-0 transition-transform duration-200 group-hover:scale-110" :style="{ color: stack.color }" />
-              <span class="text-[9px] font-semibold text-gray-500 dark:text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-center leading-tight">{{ stack.name }}</span>
+              <UIcon :name="stack.icon" class="w-3.5 h-3.5 shrink-0 grayscale group-hover:grayscale-0 transition-all duration-300" :style="{ color: stack.color }" />
+              <span class="text-[10px] font-normal text-zinc-600 dark:text-zinc-400">{{ stack.name }}</span>
             </div>
           </div>
         </div>
-      </UContainer>
-    </section>
 
-    <!-- CTA -->
-    <section class="py-20 px-6 border-t border-gray-100 dark:border-white/5">
-      <UContainer>
-        <div class="max-w-xl">
-          <h2 class="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white mb-4">
-            Tertarik bekerja sama?
+      </div>
+    </div>
+  </UContainer>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- ECOSYSTEM ALL STACKS SECTION (Clean Grid)        -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="py-16 px-4 sm:px-6">
+  <UContainer>
+    <div class="max-w-4xl mx-auto">
+      <!-- Section Typography Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-zinc-100 dark:border-zinc-900 pb-8">
+        <div>
+          <p class="text-[10px] font-mono uppercase tracking-[0.25em] text-zinc-400 mb-3">Arsitektur Ekosistem</p>
+          <h2 class="text-xl sm:text-2xl font-normal tracking-tight text-zinc-950 dark:text-white">
+            Teknologi yang kami kendalikan.
           </h2>
-          <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
-            Kami selalu terbuka untuk proyek baru dan kolaborasi menarik. Hubungi kami dan ceritakan kebutuhan Anda.
-          </p>
-          <div class="flex items-center gap-4">
-            <NuxtLink
-              to="https://wa.me/6283160325595"
-              target="_blank"
-              class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-bold rounded-xl hover:opacity-90 transition-opacity"
-            >
-              <UIcon name="i-simple-icons-whatsapp" class="w-4 h-4" />
-              Hubungi Kami
-            </NuxtLink>
-            <NuxtLink
-              to="/pricing"
-              class="inline-flex items-center gap-2 px-5 py-2.5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300 text-sm font-bold rounded-xl hover:border-gray-400 dark:hover:border-white/30 transition-colors"
-            >
-              Lihat Harga
-              <UIcon name="i-lucide-arrow-right" class="w-3.5 h-3.5" />
-            </NuxtLink>
-          </div>
         </div>
-      </UContainer>
-    </section>
+        <p class="text-xs text-zinc-400 dark:text-zinc-500 max-w-xs leading-relaxed font-normal">
+          Dari front-end interaktif hingga back-end, kami memilih tumpukan teknologi paling andal untuk performa platform yang mulus.
+        </p>
+      </div>
 
-  </div>
+      <!-- STREAMING_CHUNK: Rendering Tech Ecosystem Badges... -->
+      <div class="grid grid-cols-3 sm:grid-cols-7 gap-2">
+        <div
+          v-for="stack in allStacks"
+          :key="stack.name"
+          class="group flex flex-col items-center gap-2.5 p-4 rounded-lg bg-zinc-50/50 dark:bg-zinc-950/20 border border-zinc-200/40 dark:border-zinc-800/60 hover:border-zinc-300 dark:hover:border-zinc-700/80 hover:bg-white dark:hover:bg-zinc-950 transition-all duration-150 cursor-default"
+        >
+          <!-- Warna asli ikon langsung menyala terang tanpa nunggu di-hover -->
+          <UIcon :name="stack.icon" class="w-5 h-5 shrink-0 transition-transform duration-200 group-hover:scale-105" :style="{ color: stack.color }" />
+          <span class="text-[10px] font-normal text-zinc-500 dark:text-zinc-500 group-hover:text-zinc-950 dark:group-hover:text-zinc-300 transition-colors text-center leading-tight">{{ stack.name }}</span>
+        </div>
+      </div>
+    </div>
+  </UContainer>
+</section>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- CALL TO ACTION (CTA - Vercel Dark Panel Look)    -->
+<!-- ════════════════════════════════════════════════ -->
+<section class="py-20 px-4 sm:px-6">
+  <UContainer>
+    <div class="max-w-4xl mx-auto rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50 dark:bg-[#09090b] p-8 sm:p-12 relative overflow-hidden">
+      
+      <!-- Background glow subtle effect -->
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+      <div class="max-w-lg relative z-10">
+        <h2 class="text-2xl sm:text-3xl font-normal tracking-tight text-zinc-950 dark:text-white mb-4">
+          Akselerasikan sistem digital bisnis Anda hari ini.
+        </h2>
+        <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mb-8 leading-relaxed font-normal">
+          Kami selalu bersemangat untuk membangun proyek baru dan mendesain integrasi arsitektur cloud yang modern. Ceritakan kebutuhan Anda kepada kami.
+        </p>
+        
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- High Contrast Button Vercel-Style -->
+          <NuxtLink
+            to="https://wa.me/6283160325595"
+            target="_blank"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-zinc-950 dark:bg-zinc-50 text-white dark:text-zinc-950 text-xs font-medium rounded-md hover:opacity-90 active:scale-[0.98] transition-all"
+          >
+            <UIcon name="i-simple-icons-whatsapp" class="w-4 h-4" />
+            Hubungi Kami via WhatsApp
+          </NuxtLink>
+          
+          <NuxtLink
+            to="/pricing"
+            class="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 text-xs font-medium rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+          >
+            Lihat Skema Harga
+            <UIcon name="i-lucide-arrow-right" class="w-3.5 h-3.5" />
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
+  </UContainer>
+</section>
 </template>

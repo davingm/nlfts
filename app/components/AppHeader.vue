@@ -4,7 +4,7 @@ import gsap from 'gsap'
 
 // ── Navigation Data (UTUH & LENGKAP) ───────────────────────────
 const productLinks = [
-  { icon: 'i-lucide-globe', label: 'Jasa Pembuatan Website', desc: 'Company profile, landing page, toko online.', to: '/#product' },
+  { icon: 'i-lucide-globe', label: 'Jasa Pembuatan Website', desc: 'Company profile, landing page, toko online.', to: '/jasa' },
   { icon: 'i-lucide-server', label: 'Hosting & Domain Setup', desc: 'Setup, migrasi, dan konfigurasi server.', to: '/#product' },
   { icon: 'i-simple-icons-nuxtdotjs', label: 'Nuxtjs', desc: 'Framework Vue super cepat untuk web modern.', to: '/#product', color: '#00DC82' },
   { icon: 'i-lucide-smartphone', label: 'Aplikasi Android', desc: 'Pembuatan aplikasi Android custom.', to: '/#product' },
