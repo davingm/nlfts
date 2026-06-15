@@ -12,9 +12,9 @@ const productLinks = [
   { icon: 'i-simple-icons-nestjs', label: 'Nestjs', desc: 'Backend Node.js yang scalable & enterprise-grade.', to: '/#product', color: '#E0234E' }
 ]
 
-const paketLinks = [
-  { icon: 'i-lucide-rocket', label: 'Paket Website Starter', desc: '5-10 halaman + hosting + domain, Rp350rb-750rb.', to: '/pricing' },
-  { icon: 'i-lucide-star', label: 'Paket Website Pro', desc: 'Custom + SEO + maintenance 3 bulan, Rp1,5jt-4jt.', to: '/pricing' },
+const paketLinks = [  
+  { icon: 'i-lucide-rocket', label: 'Paket Website Starter', desc: '5-10 halaman + hosting + domain, Rp350rb-750rb.', to: '/jasa/situs-statis' },
+  { icon: 'i-lucide-star', label: 'Paket Website Pro', desc: 'Custom + SEO + maintenance 3 bulan, Rp1,5jt-4jt.', to: '/jasa/aplikasi-web' },
   { icon: 'i-lucide-server', label: 'Paket Game Server', desc: 'Panel + config + maintenance, Rp200rb-800rb/bulan.', to: '/pricing' },
   { icon: 'i-lucide-smartphone', label: 'Paket Android', desc: 'Aplikasi POS & kasir, Rp500rb/bulan.', to: '/pricing-android' }
 ]

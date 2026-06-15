@@ -52,9 +52,10 @@
           <div>
             <div class="flex items-center justify-between">
               <span class="text-xs font-mono text-zinc-400 dark:text-zinc-500">0{{ service.id }} / {{ service.category }}</span>
-              <a href="#" class="text-xs font-medium text-zinc-400 transition-colors duration-200 hover:text-black dark:hover:text-white underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700">
+              
+              <NuxtLink :to="service.link" class="text-xs font-medium text-zinc-400 transition-colors duration-200 hover:text-black dark:hover:text-white underline underline-offset-4 decoration-zinc-300 dark:decoration-zinc-700">
                 Lihat Selengkapnya &rarr;
-              </a>
+              </NuxtLink>
             </div>
             
             <h2 class="mt-4 text-xl font-medium text-black dark:text-white">{{ service.title }}</h2>
@@ -174,14 +175,16 @@ useSeoMeta({
   ogImage: '/rakitweb-services.png'
 })
 
+// Ditambahkan properti data "link" ke setiap layanan
 const services = [
   {
-    id: 1,
+    id: 1,  
     category: 'Situs Statis',
     title: 'Corporate & Portfolio Site',
     description: 'Situs representasi bisnis dengan arsitektur SSG (Static Site Generation). Memiliki kecepatan muat sekejap mata, keandalan server tinggi, dan ramah SEO.',
     features: ['Nuxt / Next Arsitektur', 'Integrasi Headless CMS', 'Optimasi Gambar Otomatis', 'Skor Performa Core Web Vitals 95+'],
-    timeline: '2 - 3 Minggu'
+    timeline: '2 - 3 Minggu',
+    link: '/jasa/situs-statis' // Target Halaman Baru
   },
   {
     id: 2,
@@ -189,7 +192,8 @@ const services = [
     title: 'Custom Web Application',
     description: 'Sistem aplikasi berbasis web yang dinamis untuk kebutuhan operasional spesifik, dasbor internal, sistem manajemen data, atau portal SaaS.',
     features: ['Arsitektur API Terstruktur', 'Sistem Autentikasi Amalan Terbaik', 'Real-time Data Syncing', 'Manajemen State Kompleks'],
-    timeline: '4 - 8 Minggu'
+    timeline: '4 - 8 Minggu',
+    link: '/jasa/aplikasi-web'
   },
   {
     id: 3,
@@ -197,7 +201,8 @@ const services = [
     title: 'Headless E-Commerce Platform',
     description: 'Toko online modern dengan pemisahan frontend dan backend. Memungkinkan checkout super cepat, kebebasan kustomisasi desain UI, serta manajemen katalog yang lincah.',
     features: ['Integrasi Payment Gateway', 'Sistem Keranjang & Inventori', 'Keamanan Transaksi Tinggi', 'Dasbor Analitik Penjualan'],
-    timeline: '5 - 9 Minggu'
+    timeline: '5 - 9 Minggu',
+    link: '/jasa/perniagaan'
   }
 ]
 

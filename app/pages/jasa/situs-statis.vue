@@ -139,31 +139,18 @@
       <div class="mb-4 px-6">
         <h2 class="text-xs font-mono text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Kompatibilitas Ekosistem</h2>
       </div>
-
-      <!-- Debug: tampilkan logo asli (gambar SVG dari CDN simple-icons) untuk perbandingan -->
-      <div class="mx-auto max-w-5xl px-6 pb-4">
-        <div class="text-sm font-mono text-zinc-500 dark:text-zinc-400 mb-2">Debug Logos — original SVGs</div>
-        <div class="flex items-center gap-4">
-          <img src="/rakitweb.png" alt="RakitWeb" class="h-10 w-auto" />
-          <img src="https://cdn.simpleicons.org/nuxtdotjs/00DC82" alt="Nuxt.js" class="h-10 w-auto" />
-          <img src="https://cdn.simpleicons.org/nestjs/E0234E" alt="NestJS" class="h-10 w-auto" />
-          <img src="https://cdn.simpleicons.org/nextdotjs/000000" alt="Next.js" class="h-10 w-auto bg-white/0" />
-        </div>
-      </div>
-
+      
       <div class="relative w-full flex overflow-x-hidden border-y border-zinc-100 dark:border-zinc-900 py-6 bg-zinc-50/30 dark:bg-zinc-950/10 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-20 before:bg-gradient-to-r before:from-white before:to-transparent dark:before:from-black after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-20 after:bg-gradient-to-l after:from-white after:to-transparent dark:after:from-black">
         
-        <div class="flex gap-16 shrink-0 items-center justify-around min-w-full animate-[marqueeRight_30s_linear_infinite]">
-          <div v-for="(tech, i) in frontendFrameworks" :key="'f1-'+i" class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-            <UIcon :name="tech.icon" class="h-6 w-6" :style="{ color: tech.color }" />
-            <span class="font-mono text-xs font-medium tracking-tight text-zinc-700 dark:text-zinc-300">{{ tech.name }}</span>
+        <div class="flex gap-16 shrink-0 items-center justify-around min-w-full logo-marquee-right">
+          <div v-for="(tech, i) in frontendFrameworks" :key="'f1-'+i" class="flex items-center justify-center rounded-full p-2 transition-transform duration-300 hover:scale-110">
+            <UIcon :name="tech.icon" class="h-10 w-10" :style="{ color: tech.color }" />
           </div>
         </div>
 
-        <div class="flex gap-16 shrink-0 items-center justify-around min-w-full animate-[marqueeRight_30s_linear_infinite]" aria-hidden="true">
-          <div v-for="(tech, i) in frontendFrameworks" :key="'f2-'+i" class="flex items-center gap-3 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-            <UIcon :name="tech.icon" class="h-6 w-6" :style="{ color: tech.color }" />
-            <span class="font-mono text-xs font-medium tracking-tight text-zinc-700 dark:text-zinc-300">{{ tech.name }}</span>
+        <div class="flex gap-16 shrink-0 items-center justify-around min-w-full logo-marquee-right" aria-hidden="true">
+          <div v-for="(tech, i) in frontendFrameworks" :key="'f2-'+i" class="flex items-center justify-center rounded-full p-2 transition-transform duration-300 hover:scale-110">
+            <UIcon :name="tech.icon" class="h-10 w-10" :style="{ color: tech.color }" />
           </div>
         </div>
 
@@ -217,7 +204,7 @@
 
         <div class="p-8 md:p-12 md:col-span-2 flex flex-col justify-center bg-white dark:bg-black">
           <h2 class="text-2xl font-medium tracking-tight sm:text-3xl text-black dark:text-white">
-            Mulai bangun situs statis performa tinggi. <span class="text-zinc-400 dark:text-zinc-500">Estimasi investasi mulai dari IDR 10M.</span>
+            Mulai bangun situs statis performa tinggi. <span class="text-zinc-400 dark:text-zinc-500">Estimasi investasi mulai dari.</span><span class="text-indigo-600 dark:text-indigo-400">Rp350rb-750rb</span>
           </h2>
           <p class="mt-3 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 max-w-xl">
             Sempurna untuk profil korporasi, landing page pemasaran, atau portofolio profesional yang membutuhkan optimasi <span class="text-emerald-500 font-medium">Core Web Vitals</span> sempurna tanpa celah downtime.
@@ -269,22 +256,40 @@ const workflows = [
   { title: 'CI/CD & Launching', desc: 'Pengujian performa Core Web Vitals otomatis, konfigurasi DNS domain kustom, sertifikasi SSL otomatis, dan peluncuran produk secara global.' }
 ]
 
-// Di-filter murni hanya tumpukan teknologi ekosistem Frontend Web & Mobile saja
+// Murni hanya tumpukan teknologi ekosistem Frontend Web & Mobile (Warna Asli Sesuai Metadata)
 const frontendFrameworks = [
+  { name: 'HTML5', icon: 'i-simple-icons-html5', color: '#E34F26' },
+  { name: 'CSS3', icon: 'i-simple-icons-css3', color: '#1572B6' },
+  { name: 'JavaScript', icon: 'i-simple-icons-javascript', color: '#F7DF1E' },
+  { name: 'TypeScript', icon: 'i-simple-icons-typescript', color: '#3178C6' },
+  { name: 'Tailwind CSS', icon: 'i-simple-icons-tailwindcss', color: '#38B2AC' },
+  { name: 'SCSS', icon: 'i-simple-icons-sass', color: '#CC6699' },
+  { name: 'Vue.js', icon: 'i-simple-icons-vuedotjs', color: '#42B883' },
   { name: 'Nuxt.js', icon: 'i-simple-icons-nuxtdotjs', color: '#00DC82' },
+  { name: 'React', icon: 'i-simple-icons-react', color: '#61DAFB' },
   { name: 'Next.js', icon: 'i-simple-icons-nextdotjs', color: '#000000' },
   { name: 'Angular', icon: 'i-simple-icons-angular', color: '#DD0031' },
-  { name: 'TypeScript', icon: 'i-simple-icons-typescript', color: '#3178C6' },
-  { name: 'JavaScript', icon: 'i-simple-icons-javascript', color: '#F7DF1E' },
-  { name: 'Flutter', icon: 'i-simple-icons-flutter', color: '#02569B' },
-  { name: 'React Native', icon: 'i-simple-icons-react', color: '#61DAFB' }
+  { name: 'Svelte', icon: 'i-simple-icons-svelte', color: '#FF3E00' },
+  { name: 'Astro', icon: 'i-simple-icons-astro', color: '#0EA5E9' },
+  { name: 'Qwik', icon: 'i-simple-icons-qwik', color: '#9C1AFF' },
+  { name: 'Preact', icon: 'i-simple-icons-preact', color: '#673AB7' },
+  { name: 'Lit', icon: 'i-simple-icons-lit', color: '#FF3B00' }
 ]
 </script>
 
 <style scoped>
-/* Animasi kereta linear ke arah KANAN murni (Dari -100% bergerak kembali ke 0%) */
-@keyframes marqueeRight {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(0%); }
+/* Daftarkan animasi kustom langsung ke class agar memotong jalur kompilasi Tailwind JIT */
+.logo-marquee-right {
+  animation: keretaMajuKanan 30s linear infinite;
+}
+
+/* Menggerakkan track kontainer dari kiri (-100%) bergerak maju kembali menuju titik awal (0%) */
+@keyframes keretaMajuKanan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
 </style>
