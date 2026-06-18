@@ -6,7 +6,7 @@ const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
 
 <template>
   <div class="min-h-screen bg-white dark:bg-[#09090b] selection:bg-primary/30 flex flex-col items-center">
-    <div class="w-full max-w-7xl mx-auto border-x border-gray-200 dark:border-white/10 flex flex-col flex-grow min-h-screen relative">
+    <div class="w-full lg:w-[95%] max-w-[1600px] mx-auto border-x border-gray-200 dark:border-white/10 flex flex-col flex-grow min-h-screen relative">
       <AppHeader />
 
       <UMain class="flex-grow">

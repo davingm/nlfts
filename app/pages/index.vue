@@ -210,7 +210,7 @@ onUnmounted(() => {
 
     <!-- TRUSTED BY SECTION -->
     <section class="relative border-y border-gray-100 dark:border-white/5 bg-white dark:bg-[#09090b] overflow-hidden">
-      <div class="flex flex-col md:flex-row w-full max-w-7xl mx-auto relative group/section">
+      <div class="flex flex-col md:flex-row w-full max-w-[1600px] mx-auto relative group/section">
         <div class="md:w-[280px] shrink-0 p-8 flex flex-col items-center md:items-start justify-center border-r border-gray-100 dark:border-white/5 z-20 bg-white dark:bg-[#09090b] relative">
           <h2 class="text-xs md:text-sm font-black tracking-[0.1em] text-gray-400 dark:text-gray-500 uppercase leading-snug text-center md:text-left">
             Dipercaya Oleh<br />

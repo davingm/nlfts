@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-white dark:bg-black text-zinc-950 dark:text-white antialiased selection:bg-zinc-200 dark:selection:bg-zinc-800">
     
     <section class="w-full bg-white dark:bg-black text-zinc-950 dark:text-white px-8 pt-32 pb-12 antialiased">
-      <div class="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+      <div class="mx-auto max-w-[1600px] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
         
         <div class="lg:col-span-7">
           <h1 class="text-[44px] sm:text-[64px] font-bold tracking-tight leading-[1.02] text-zinc-950 dark:text-white">
@@ -32,7 +32,7 @@
       </div>
     </section>
 
-    <section class="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 border-b border-zinc-200 dark:border-zinc-900 divide-y lg:divide-y-0 lg:divide-x divide-zinc-200 dark:divide-zinc-900">
+    <section class="mx-auto max-w-[1600px] grid grid-cols-1 lg:grid-cols-12 border-b border-zinc-200 dark:border-zinc-900 divide-y lg:divide-y-0 lg:divide-x divide-zinc-200 dark:divide-zinc-900">
       
       <div class="p-12 lg:py-16 lg:col-span-4 space-y-4 flex flex-col justify-center">
         <div class="flex items-center gap-2 text-xs font-mono text-zinc-400 dark:text-zinc-500">
@@ -103,7 +103,7 @@
       </div>
     </section>
 
-    <section class="relative mx-auto max-w-7xl px-6 py-24">
+    <section class="relative mx-auto max-w-[1600px] px-6 py-24">
       <div class="absolute -bottom-[14px] right-4 text-zinc-400 dark:text-zinc-700 font-light text-xl select-none">+</div>
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 border border-zinc-200 dark:border-zinc-900 rounded-2xl p-10 bg-gradient-to-b from-zinc-50 to-white dark:from-[#050505] dark:to-black">

@@ -183,7 +183,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Main Navigation Bar -->
-    <div class="max-w-7xl mx-auto px-5 sm:px-6">
+    <div class="max-w-[1600px] mx-auto px-5 sm:px-6">
       <div class="flex items-center justify-between h-14">
         <!-- Logo (Dihapus class 'invert' / pembalik filter warna agar biru aslinya tetap terjaga di semua mode) -->
         <NuxtLink to="/" class="nav-enter shrink-0 flex items-center">
@@ -278,7 +278,7 @@ onUnmounted(() => {
       @mouseenter="cancelClose"
       @mouseleave="scheduleClose"
     >
-      <div class="max-w-7xl mx-auto px-6 py-8">
+      <div class="max-w-[1600px] mx-auto px-6 py-8">
 
         <!-- ▸ Product Panel (3 Columns Grid - Susunan Rapi Nuxt & Nest di Kolom Kanan) -->
         <div v-if="activeMenu === 'product'">

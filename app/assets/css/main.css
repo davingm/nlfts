@@ -26,3 +26,8 @@
   --ui-bg-elevated: #18181b;
   --ui-bg-accented: #27272a;
 }
+
+:root {
+  --ui-container: 1600px;
+}
+
