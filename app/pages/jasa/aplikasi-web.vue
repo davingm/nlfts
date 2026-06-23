@@ -1,7 +1,33 @@
+<script setup lang="ts">
+useSeoMeta({
+  title: 'Custom Web Application - Detail Layanan',
+  description: 'Sistem aplikasi berbasis web yang dinamis untuk kebutuhan operasional spesifik, dasbor internal, sistem manajemen data, atau portal SaaS.',
+  ogTitle: 'Custom Web Application - Detail Layanan',
+  ogDescription: 'Sistem aplikasi berbasis web yang dinamis untuk kebutuhan operasional spesifik, dasbor internal, sistem manajemen data, atau portal SaaS.',
+  ogImage: 'https://nlfts.dev/og/main.png',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Custom Web Application - Detail Layanan',
+  twitterDescription: 'Sistem aplikasi berbasis web yang dinamis untuk kebutuhan operasional spesifik, dasbor internal, sistem manajemen data, atau portal SaaS.',
+  twitterImage: 'https://nlfts.dev/og/main.png'
+})
+</script>
+
 <template>
   <div class="min-h-screen bg-white dark:bg-black text-zinc-950 dark:text-white antialiased selection:bg-zinc-200 dark:selection:bg-zinc-800">
     
-    <section class="w-full bg-white dark:bg-black text-zinc-950 dark:text-white px-8 pt-32 pb-12 antialiased">
+    <nav class="mx-auto max-w-[1600px] px-8 pt-12">
+      <NuxtLink 
+        to="/jasa" 
+        class="inline-flex items-center gap-2 text-xs font-medium text-zinc-400 transition-colors duration-200 hover:text-black dark:hover:text-white"
+      >
+        <span class="text-sm">&larr;</span> Kembali ke Pilihan Layanan
+      </NuxtLink>
+    </nav>
+
+    <section class="w-full bg-white dark:bg-black text-zinc-950 dark:text-white px-8 pt-16 pb-12 antialiased">
       <div class="mx-auto max-w-[1600px] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
         
         <div class="lg:col-span-7">
@@ -85,7 +111,7 @@
 
           <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
             <div class="h-14 w-14 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black flex items-center justify-center shadow-2xl overflow-hidden p-2">
-              <img src="/NLFTs.png" alt="NLFTs Logo" class="w-full h-full object-contain" />
+              <img src="/nlfts.webp" alt="NLFTs Logo" class="w-full h-full object-contain" />
             </div>
           </div>
 

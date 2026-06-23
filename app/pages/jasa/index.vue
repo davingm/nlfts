@@ -6,7 +6,7 @@
           Layanan & Solusi
         </span>
         <h1 class="text-4xl font-normal tracking-tighter sm:text-5xl md:text-6xl text-black dark:text-white">
-          Rakit platform digital berkinerja tinggi.
+          NLFTs — Startup berbasis komunitas untuk teknologi perangkat lunak generasi berikutnya.
         </h1>
         <p class="mx-auto max-w-2xl text-base text-zinc-500 sm:text-lg dark:text-zinc-400">
           Kami merancang sistem web ultra-cepat, responsif, dan dioptimalkan secara mendalam demi kenyamanan pengguna serta konversi bisnis yang maksimal.
@@ -172,7 +172,12 @@ useSeoMeta({
   description: 'Layanan pengembangan website berbasis Vue, Nuxt, dan Next.js yang fokus pada kecepatan ekstrem, optimasi SEO, dan antarmuka minimalis modern.',
   ogTitle: 'Jasa Pembuatan Website Modern - NLFTs',
   ogDescription: 'Layanan pengembangan website berkinerja tinggi dengan arsitektur modern dan pendekatan bebas hambatan.',
-  ogImage: '/NLFTs-services.png'
+  ogImage: 'https://nlfts.dev/og/main.png',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  twitterCard: 'summary_large_image',
+  twitterImage: 'https://nlfts.dev/og/main.png'
 })
 
 // Ditambahkan properti data "link" ke setiap layanan

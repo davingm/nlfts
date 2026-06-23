@@ -20,17 +20,13 @@ const paketLinks = [
 ]
 
 const upcomingEvents = [
-  { day: '01', month: 'JUN', title: 'Promo Website Starter', location: 'Mulai Rp350.000 sekali bayar' },
-  { day: '15', month: 'JUN', title: 'Diskon Setup Hosting', location: 'Setup + migrasi mulai Rp150.000' },
-  { day: '20', month: 'JUN', title: 'Konsultasi Gratis', location: 'Via WhatsApp kapan saja' },
-  { day: '01', month: 'JUL', title: 'Paket Game Server Baru', location: 'Minecraft, CS:GO, GTA & lebih' },
-  { day: '10', month: 'JUL', title: 'Workshop Web Development', location: 'Online — Semarang, Indonesia' }
+  { day: '404', month: '', title: 'Tidak Ada Event', location: 'Bersih' },
 ]
 
 const featuredEvents = [
-  { title: 'Website\nStarter', dateMonth: 'JUN', dateRange: '350rb', year: '2026', city: 'SEMARANG', country: 'ID', img: 'https://jurnal.mifandimandiri.com/public/journals/17/submission_149_149_coverImage_en_US.png' },
-  { title: 'GAME\nSERVER', dateMonth: 'JUN', dateRange: '200rb', year: '2026', city: 'CLOUD', country: 'ID', img: 'https://cdn-dynmedia-1.microsoft.com/is/image/microsoftassets/minecraft-tiny-takeover-thumbnail' },
-  { title: 'ANDROID\nAPP', dateMonth: 'JUL', dateRange: 'Custom', year: '2026', city: 'SEMARANG', country: 'ID', img: 'https://bwaplatformbucket.sgp1.cdn.digitaloceanspaces.com/assets/thumbnail_tips/Login.png' }
+  { title: 'Bandung', dateMonth: 'JUN', dateRange: '00', year: '2026', city: 'Nuxtjs Community', country: 'ID', img: './location/bandung.webp' },
+  { title: 'Yogyakarta', dateMonth: 'JUN', dateRange: '00', year: '2026', city: 'Laravel Community', country: 'ID', img: './location/jogja.webp' },
+  { title: 'Jakarta', dateMonth: 'JUL', dateRange: '00', year: '2026', city: 'Angular Community', country: 'ID', img: './location/monas.webp' }
 ]
 
 // ── State ───────────────────────────────────────────
@@ -58,7 +54,12 @@ let ctx: gsap.Context | null = null
 const getMenuKey = (menu: string) => {
   return menu.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')
 }
-
+const navItems = [
+  // { label: 'Product', key: 'product' },
+  // { label: 'Paket Harga', key: 'paket-harga' },
+  { label: 'Resources', key: 'resources' },
+  { label: 'Kegiatan & Acara', key: 'event' }
+]
 // ── Desktop Navigation Logic ────────────────────────
 const openMenu = (menu: string) => {
   clearTimeout(closeTimeout)
@@ -95,6 +96,11 @@ const scheduleClose = () => {
 }
 
 const cancelClose = () => clearTimeout(closeTimeout)
+
+const onMenuButtonHover = (menu: string, event: MouseEvent) => {
+  openMenu(menu)
+  trackHover(event)
+}
 
 const trackHover = (event: MouseEvent) => {
   const el = event.currentTarget as HTMLElement
@@ -161,6 +167,39 @@ onUnmounted(() => {
   clearTimeout(closeTimeout)
   document.body.style.overflow = ''
 })
+
+const Resources = [
+  {
+    title: "Learn",
+    links: [
+      { label: "Docs", to: "/docs/getting-started" },
+      { label: "About", to: "/about" },
+      { label: "Blog", to: "/blog" },
+      { label: "Changelog", to: "/changelog" },
+      { label: "Members", to: "/members" },
+    ],
+  },
+  {
+    title: "",
+    links: [
+      { label: "Terhubung", to: "/terhubung" },
+      { label: "Karir", to: "/karir" },
+      { label: "Marketing", to: "/marketing" },
+      { label: "Gallery", to: "/Gallery" },
+      { label: "Faq", to: "/faq" },
+    ],
+  },
+  {
+    title: "",
+    links: [
+      { label: "Customers", to: "/customers" },
+      { label: "Marketplace", to: "/marketplace" },
+      { label: "Partner Finder", to: "/partner-finder" },
+      { label: "AWS", to: "/aws" },
+      { label: "Community ↗", to: "/community" },
+    ],
+  },
+];
 </script>
 
 <template>
@@ -177,7 +216,7 @@ onUnmounted(() => {
           <span class="inline-flex items-center justify-center bg-zinc-800 text-[9px] font-bold px-1.5 py-0.5 rounded text-white tracking-widest">FREE</span>
           <span class="text-zinc-300">Konsultasi pembuatan platform digital gratis via WhatsApp.</span>
        </div>
-       <NuxtLink to="https://wa.me/6283160325595" target="_blank" class="hidden sm:flex items-center gap-1 font-medium hover:text-white transition-colors">
+       <NuxtLink to="https://nlfts.dev/wa" target="_blank" class="hidden sm:flex items-center gap-1 font-medium hover:text-white transition-colors">
           Hubungi Kami <UIcon name="i-lucide-arrow-right" class="w-3.5 h-3.5" />
        </NuxtLink>
     </div>
@@ -185,14 +224,12 @@ onUnmounted(() => {
     <!-- Main Navigation Bar -->
     <div class="max-w-[1600px] mx-auto px-5 sm:px-6">
       <div class="flex items-center justify-between h-14">
-        <!-- Logo (Dihapus class 'invert' / pembalik filter warna agar biru aslinya tetap terjaga di semua mode) -->
         <NuxtLink to="/" class="nav-enter shrink-0 flex items-center">
           <AppLogo class="h-6 w-auto" />
         </NuxtLink>
-
-        <!-- Desktop Nav (Vercel-Style Dynamic Hover Backplate) -->
         <nav
-          class="hidden lg:flex items-center gap-0.5 relative py-3"
+          class="hidden lg:flex items-center justify-end gap-0.5 relative py-3 w-full"
+          @mouseenter="cancelClose"
           @mouseleave="() => { scheduleClose(); resetHover(); }"
         >
           <!-- Sliding Backdrop Pill -->
@@ -204,40 +241,23 @@ onUnmounted(() => {
               opacity: hoverState.opacity,
               height: '30px'
             }"
-          />
+          ></div>
 
-          <!-- Interactive Mega Menu Buttons (product diganti ke nama Product) -->
+          <!-- Interactive Mega Menu Buttons -->
           <button
-            v-for="menu in ['Product', 'Paket Harga', 'Tentang & Kontak']"
-            :key="menu"
+            v-for="item in navItems"
+            :key="item.key"
             class="nav-enter relative text-[13px] font-medium px-3 h-7.5 rounded-md flex items-center gap-1 transition-colors duration-150 z-10"
-            :class="activeMenu === getMenuKey(menu) ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-50'"
-            @mouseenter="() => { openMenu(getMenuKey(menu)); trackHover($event); }"
+            :class="activeMenu === item.key ? 'text-zinc-950 dark:text-zinc-50' : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-50'"
+            @mouseenter="onMenuButtonHover(item.key, $event)"
           >
-            {{ menu }}
+            {{ item.label }}
             <UIcon 
               name="i-lucide-chevron-down" 
               class="w-3 h-3 opacity-40 transition-transform duration-200"
-              :class="activeMenu === getMenuKey(menu) ? 'rotate-180 opacity-80' : ''"
+              :class="activeMenu === item.key ? 'rotate-180 opacity-80' : ''"
             />
           </button>
-
-          <!-- Simple Links inside Hover Area -->
-          <NuxtLink
-            to="https://wa.me/6283160325595"
-            target="_blank"
-            class="nav-enter relative text-[13px] font-medium px-3 h-7.5 rounded-md flex items-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-50 transition-colors z-10"
-            @mouseenter="() => { scheduleClose(); trackHover($event); }"
-          >
-            WhatsApp
-          </NuxtLink>
-          <NuxtLink
-            to="/team"
-            class="nav-enter relative text-[13px] font-medium px-3 h-7.5 rounded-md flex items-center text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-50 transition-colors z-10"
-            @mouseenter="() => { scheduleClose(); trackHover($event); }"
-          >
-            Tim
-          </NuxtLink>
         </nav>
 
         <!-- Right Side Controls -->
@@ -274,125 +294,83 @@ onUnmounted(() => {
     <div
       v-if="activeMenu"
       ref="dropdownEl"
-      class="absolute left-0 right-0 top-full bg-white dark:bg-[#000000] border-b border-zinc-250 dark:border-zinc-800 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.06)] dark:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)]"
+      class="absolute left-0 right-0 top-full z-20"
       @mouseenter="cancelClose"
       @mouseleave="scheduleClose"
     >
-      <div class="max-w-[1600px] mx-auto px-6 py-8">
-
-        <!-- ▸ Product Panel (3 Columns Grid - Susunan Rapi Nuxt & Nest di Kolom Kanan) -->
-        <div v-if="activeMenu === 'product'">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
-            <NuxtLink
-              v-for="item in productLinks"
-              :key="item.label"
-              :to="item.to"
-              class="dd-animate group flex items-start gap-4 p-2 -mx-2 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors duration-150"
-            >
-              <!-- Menampilkan Logo Brand Asli (Nuxt/Nest) atau fallback Lucide Icon -->
-              <div class="w-8 h-8 rounded border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 flex items-center justify-center shrink-0 group-hover:border-zinc-400 dark:group-hover:border-zinc-600 transition-colors">
-                <span v-if="item.svg" v-html="item.svg" class="flex items-center justify-center w-5 h-5" />
-                <UIcon
-                  v-else
-                  :name="item.icon"
-                  :style="item.color ? { color: item.color } : null"
-                  class="w-4 h-4 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-800 dark:group-hover:text-zinc-200 transition-colors"
-                />
-              </div>
-              <div>
-                <div class="text-[13px] font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-1">
-                  {{ item.label }}
-                  <UIcon name="i-lucide-arrow-up-right" class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all transform translate-y-0.5 group-hover:translate-y-0 text-zinc-400" />
-                </div>
-                <div class="text-xs text-zinc-400 dark:text-zinc-500 mt-1 leading-relaxed">{{ item.desc }}</div>
-              </div>
-            </NuxtLink>
-          </div>
-        </div>
-
-        <!-- ▸ Paket Harga Panel (4 Columns Grid) -->
-        <div v-else-if="activeMenu === 'paket-harga'">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <NuxtLink
-              v-for="item in paketLinks"
-              :key="item.label"
-              :to="item.to"
-              class="dd-animate group flex flex-col justify-between p-4 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/10 hover:bg-white dark:hover:bg-black hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-150"
-            >
-              <div>
-                <div class="w-8 h-8 rounded bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center mb-4">
-                  <UIcon :name="item.icon" class="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
-                </div>
-                <div class="text-[13px] font-medium text-zinc-900 dark:text-zinc-100">{{ item.label }}</div>
-                <div class="text-xs text-zinc-400 dark:text-zinc-500 mt-1 leading-relaxed">{{ item.desc }}</div>
-              </div>
-              <div class="text-[11px] font-medium text-zinc-900 dark:text-zinc-300 mt-5 flex items-center gap-1 group-hover:text-zinc-500 transition-colors">
-                Selengkapnya <UIcon name="i-lucide-arrow-right" class="w-3 h-3" />
-              </div>
-            </NuxtLink>
-          </div>
-        </div>
-
-        <!-- ▸ Tentang & Kontak Panel (Megamenu: Events & Feature Cards) -->
-        <div v-else-if="activeMenu === 'tentang-kontak'" class="flex gap-8">
-          <!-- Left Sidebar: Event List -->
-          <div class="w-[300px] shrink-0 pr-8 border-r border-zinc-200 dark:border-zinc-800/60">
-            <h3 class="dd-animate text-[11px] font-bold text-zinc-400 dark:text-zinc-500 tracking-wider uppercase mb-5">Promo & Info Terbaru</h3>
-            <div class="space-y-1">
-              <div
-                v-for="evt in upcomingEvents"
-                :key="evt.title"
-                class="dd-animate flex items-start gap-3 p-2 -mx-2 rounded-md hover:bg-zinc-50 dark:hover:bg-zinc-900/40 group cursor-pointer transition-colors"
-              >
-                <!-- Mono Calendar Date Card -->
-                <div class="w-8 h-8 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex flex-col items-center justify-center shrink-0">
-                  <span class="text-xs font-bold text-zinc-800 dark:text-zinc-200 leading-none">{{ evt.day }}</span>
-                  <span class="text-[7px] font-bold text-zinc-400 uppercase leading-none mt-0.5">{{ evt.month }}</span>
-                </div>
-                <div class="min-w-0 pt-0.5">
-                  <h4 class="text-xs font-medium leading-tight text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-500 transition-colors">{{ evt.title }}</h4>
-                  <p class="text-[10px] text-zinc-400 dark:text-zinc-500 mt-0.5 truncate">{{ evt.location }}</p>
+      <div class="max-w-[1600px] mx-auto px-6 py-4">
+        <div class="rounded-[26px] border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-[#020202] shadow-[0_30px_70px_-26px_rgba(15,23,42,0.18)] dark:shadow-[0_30px_80px_-32px_rgba(0,0,0,0.55)] overflow-hidden">
+          <div class="px-6 py-8 lg:px-8 lg:py-10">
+            <div v-if="activeMenu === 'resources'">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-2">
+                <div v-for="section in Resources" :key="section.title">
+                  <h4 class="dd-animate text-[11px] font-bold text-zinc-400 dark:text-zinc-500 tracking-wider uppercase mb-4">
+                    {{ section.title }}
+                  </h4>
+                  <ul class="space-y-2">
+                    <li v-for="item in section.links" :key="item.to" class="dd-animate">
+                      <HoverLink 
+                          :to="item.to" 
+                          :label="item.label" 
+                        />
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
-            <NuxtLink to="/blog" class="dd-animate inline-flex items-center gap-1 text-xs font-medium text-zinc-900 dark:text-zinc-200 mt-4 hover:gap-1.5 transition-all">
-              Lihat semua berita <UIcon name="i-lucide-arrow-right" class="w-3.5 h-3.5" />
-            </NuxtLink>
-          </div>
 
-          <!-- Right Content: Featured Cards -->
-          <div class="flex-1 flex gap-4 bg-zinc-50/30 dark:bg-zinc-900/10 p-3 rounded-xl border border-zinc-200/55 dark:border-zinc-800/40">
-            <div
-              v-for="card in featuredEvents"
-              :key="card.title"
-              class="dd-animate flex-1 relative overflow-hidden rounded-lg group cursor-pointer border border-zinc-200/60 dark:border-zinc-800 shadow-sm"
-              style="aspect-ratio: 3/4;"
-            >
-              <img :src="card.img" :alt="card.title" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105">
-              <!-- Dark Smooth Gradient Top to Bottom -->
-              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10 z-[1]" />
-              
-              <!-- Title Overlay -->
-              <div class="absolute top-0 left-0 right-0 pt-4 px-4 z-10">
-                <h4 class="text-[13px] font-bold text-white text-center leading-snug tracking-tight whitespace-pre-line">{{ card.title }}</h4>
-              </div>
-              
-              <!-- Bottom Meta Info -->
-              <div class="absolute bottom-0 left-0 right-0 px-4 pb-3.5 z-10">
-                <div class="flex items-baseline text-white/90">
-                  <span class="text-[8px] font-semibold uppercase tracking-wider text-zinc-300">{{ card.dateMonth }}</span>
-                  <span class="text-xs font-extrabold leading-none ml-1">{{ card.dateRange }}</span>
-                  <span class="text-[8px] font-medium text-zinc-400 ml-auto">{{ card.year }}</span>
+            <div v-else-if="activeMenu === 'event'" class="flex gap-8">
+              <div class="w-[300px] shrink-0 pr-8 border-r border-zinc-200 dark:border-zinc-800/60">
+                <h3 class="dd-animate text-[11px] font-bold text-zinc-400 dark:text-zinc-500 tracking-wider uppercase mb-5">Event Terbaru</h3>
+                <div class="space-y-1">
+                  <div
+                    v-for="evt in upcomingEvents"
+                    :key="evt.title"
+                    class="dd-animate flex items-start gap-3 p-2 -mx-2 rounded-md hover:bg-zinc-50 dark:hover:bg-zinc-900/40 group cursor-pointer transition-colors"
+                  >
+                    <div class="w-8 h-8 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex flex-col items-center justify-center shrink-0">
+                      <span class="text-xs font-bold text-zinc-800 dark:text-zinc-200 leading-none">{{ evt.day }}</span>
+                      <span class="text-[7px] font-bold text-zinc-400 uppercase leading-none mt-0.5">{{ evt.month }}</span>
+                    </div>
+                    <div class="min-w-0 pt-0.5">
+                      <h4 class="text-xs font-medium leading-tight text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-500 transition-colors">{{ evt.title }}</h4>
+                      <p class="text-[10px] text-zinc-400 dark:text-zinc-500 mt-0.5 truncate">{{ evt.location }}</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="flex justify-between mt-1 border-t border-white/10 pt-1">
-                  <span class="text-[8px] font-semibold text-zinc-400 uppercase tracking-widest">{{ card.city }}</span>
-                  <span class="text-[8px] font-semibold text-zinc-400 uppercase tracking-widest">{{ card.country }}</span>
+                <NuxtLink to="/blog" class="dd-animate inline-flex items-center gap-1 text-xs font-medium text-zinc-900 dark:text-zinc-200 mt-4 hover:gap-1.5 transition-all">
+                  Lihat semua Acara <UIcon name="i-lucide-arrow-right" class="w-3.5 h-3.5" />
+                </NuxtLink>
+              </div>
+
+              <div class="flex-1 flex gap-4 bg-zinc-50/30 dark:bg-zinc-900/10 p-3 rounded-xl border border-zinc-200/55 dark:border-zinc-800/40">
+                <div
+                  v-for="card in featuredEvents"
+                  :key="card.title"
+                  class="dd-animate flex-1 relative overflow-hidden rounded-lg group cursor-pointer border border-zinc-200/60 dark:border-zinc-800 shadow-sm"
+                  style="aspect-ratio: 3/4;"
+                >
+                  <img :src="card.img" :alt="card.title" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10 z-[1]" />
+                  <div class="absolute top-0 left-0 right-0 pt-4 px-4 z-10">
+                    <h4 class="text-[13px] font-bold text-white text-center leading-snug tracking-tight whitespace-pre-line">{{ card.title }}</h4>
+                  </div>
+                  <div class="absolute bottom-0 left-0 right-0 px-4 pb-3.5 z-10">
+                    <div class="flex items-baseline text-white/90">
+                      <span class="text-[8px] font-semibold uppercase tracking-wider text-zinc-300">{{ card.dateMonth }}</span>
+                      <span class="text-xs font-extrabold leading-none ml-1">{{ card.dateRange }}</span>
+                      <span class="text-[8px] font-medium text-zinc-400 ml-auto">{{ card.year }}</span>
+                    </div>
+                    <div class="flex justify-between mt-1 border-t border-white/10 pt-1">
+                      <span class="text-[8px] font-semibold text-zinc-400 uppercase tracking-widest">{{ card.city }}</span>
+                      <span class="text-[8px] font-semibold text-zinc-400 uppercase tracking-widest">{{ card.country }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </header>
@@ -435,69 +413,80 @@ onUnmounted(() => {
 
         <!-- Interactive Navigation Accordions -->
         <div class="space-y-1 py-1">
-          <!-- Accordion: Product -->
-          <div class="border-b border-zinc-100 dark:border-zinc-900">
-            <button
-              class="w-full flex items-center justify-between py-3 text-xs font-semibold tracking-wider uppercase text-zinc-400"
-              @click="toggleMobileSection('product')"
-            >
-              Product
-              <UIcon name="i-lucide-chevron-down" class="w-4 h-4 text-zinc-400 transition-transform duration-200" :class="expandedMobile === 'product' ? 'rotate-180' : ''" />
-            </button>
-            <div v-show="expandedMobile === 'product'" class="pb-3 grid grid-cols-1 gap-2 pl-2">
-              <NuxtLink v-for="item in productLinks" :key="item.label" :to="item.to" class="flex items-center gap-3 py-1 text-xs text-zinc-500 dark:text-zinc-400" @click="closeMobile">
-                <span v-if="item.svg" v-html="item.svg" class="flex items-center justify-center w-4 h-4" />
-                <UIcon v-else :name="item.icon" class="w-3.5 h-3.5" /> {{ item.label }}
-              </NuxtLink>
-            </div>
-          </div>
 
-          <!-- Accordion: Paket Harga -->
+          <!-- Accordion: Resources -->
           <div class="border-b border-zinc-100 dark:border-zinc-900">
             <button
               class="w-full flex items-center justify-between py-3 text-xs font-semibold tracking-wider uppercase text-zinc-400"
-              @click="toggleMobileSection('paket')"
+              @click="toggleMobileSection('resources')"
             >
-              Paket Harga
-              <UIcon name="i-lucide-chevron-down" class="w-4 h-4 text-zinc-400 transition-transform duration-200" :class="expandedMobile === 'paket' ? 'rotate-180' : ''" />
+              Resources
+              <UIcon name="i-lucide-chevron-down" class="w-4 h-4 text-zinc-400 transition-transform duration-200" :class="expandedMobile === 'resources' ? 'rotate-180' : ''" />
             </button>
-            <div v-show="expandedMobile === 'paket'" class="pb-3 grid grid-cols-1 gap-2 pl-2">
-              <NuxtLink v-for="item in paketLinks" :key="item.label" :to="item.to" class="flex items-center gap-3 py-1 text-xs text-zinc-500 dark:text-zinc-400" @click="closeMobile">
-                <UIcon :name="item.icon" class="w-3.5 h-3.5" /> {{ item.label }}
-              </NuxtLink>
-            </div>
-          </div>
-
-          <!-- Accordion: Tentang & Kontak (Events/Promos) -->
-          <div class="border-b border-zinc-100 dark:border-zinc-900">
-            <button
-              class="w-full flex items-center justify-between py-3 text-xs font-semibold tracking-wider uppercase text-zinc-400"
-              @click="toggleMobileSection('tentang')"
-            >
-              Tentang & Kontak
-              <UIcon name="i-lucide-chevron-down" class="w-4 h-4 text-zinc-400 transition-transform duration-200" :class="expandedMobile === 'tentang' ? 'rotate-180' : ''" />
-            </button>
-            <div v-show="expandedMobile === 'tentang'" class="pb-3 pl-2 space-y-4">
-              <!-- Event Items -->
-              <div class="space-y-2">
-                <div v-for="evt in upcomingEvents" :key="evt.title" class="flex items-center gap-2">
-                  <div class="text-[10px] bg-zinc-100 dark:bg-zinc-900 text-zinc-500 px-1 rounded uppercase font-semibold font-mono">{{ evt.day }} {{ evt.month }}</div>
-                  <span class="text-xs text-zinc-500 dark:text-zinc-400 truncate">{{ evt.title }}</span>
+            <div v-show="expandedMobile === 'resources'" class="pb-3 pl-2">
+              <div v-for="section in Resources" :key="section.title" class="mb-3">
+                <p v-if="section.title" class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1.5">{{ section.title }}</p>
+                <div class="grid grid-cols-1 gap-1">
+                  <NuxtLink
+                    v-for="item in section.links"
+                    :key="item.to"
+                    :to="item.to"
+                    class="flex items-center gap-2 py-1 text-xs text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                    @click="closeMobile"
+                  >
+                    <UIcon name="i-lucide-arrow-right" class="w-3 h-3 opacity-50" />
+                    {{ item.label }}
+                  </NuxtLink>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Simple Bottom Links -->
-          <NuxtLink to="/blog" class="block py-3 text-xs font-semibold tracking-wider uppercase text-zinc-400 border-b border-zinc-100 dark:border-zinc-900" @click="closeMobile">
-            Blog & Info
-          </NuxtLink>
-          <NuxtLink to="https://wa.me/6283160325595" target="_blank" class="block py-3 text-xs font-semibold tracking-wider uppercase text-emerald-500 border-b border-zinc-100 dark:border-zinc-900" @click="closeMobile">
-            WhatsApp Chat →
-          </NuxtLink>
-          <NuxtLink to="/team" class="block py-3 text-xs font-semibold tracking-wider uppercase text-zinc-400 border-b border-zinc-100 dark:border-zinc-900" @click="closeMobile">
-            Tim Kami
-          </NuxtLink>
+          <!-- Accordion: Kegiatan & Acara -->
+          <div class="border-b border-zinc-100 dark:border-zinc-900">
+            <button
+              class="w-full flex items-center justify-between py-3 text-xs font-semibold tracking-wider uppercase text-zinc-400"
+              @click="toggleMobileSection('event')"
+            >
+              Kegiatan & Acara
+              <UIcon name="i-lucide-chevron-down" class="w-4 h-4 text-zinc-400 transition-transform duration-200" :class="expandedMobile === 'event' ? 'rotate-180' : ''" />
+            </button>
+            <div v-show="expandedMobile === 'event'" class="pb-3 pl-2 space-y-3">
+              <!-- Upcoming Events -->
+              <div class="space-y-2">
+                <div v-for="evt in upcomingEvents" :key="evt.title" class="flex items-center gap-2.5 py-1">
+                  <div class="w-8 h-8 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex flex-col items-center justify-center shrink-0">
+                    <span class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 leading-none">{{ evt.day }}</span>
+                    <span class="text-[7px] font-bold text-zinc-400 uppercase leading-none mt-0.5">{{ evt.month }}</span>
+                  </div>
+                  <div>
+                    <p class="text-xs font-medium text-zinc-700 dark:text-zinc-300">{{ evt.title }}</p>
+                    <p class="text-[10px] text-zinc-400">{{ evt.location }}</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Featured Event Locations -->
+              <div class="grid grid-cols-3 gap-2 mt-2">
+                <div
+                  v-for="card in featuredEvents"
+                  :key="card.title"
+                  class="relative overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800"
+                  style="aspect-ratio: 2/3;"
+                >
+                  <img :src="card.img" :alt="card.title" class="absolute inset-0 w-full h-full object-cover">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div class="absolute bottom-0 left-0 right-0 p-1.5 z-10">
+                    <p class="text-[8px] font-bold text-white text-center">{{ card.title }}</p>
+                    <p class="text-[7px] text-zinc-300 text-center">{{ card.city }}</p>
+                  </div>
+                </div>
+              </div>
+              <NuxtLink to="/blog" class="inline-flex items-center gap-1 text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors mt-1" @click="closeMobile">
+                Lihat semua Acara <UIcon name="i-lucide-arrow-right" class="w-3 h-3" />
+              </NuxtLink>
+            </div>
+          </div>
+
         </div>
 
         <!-- Footer -->

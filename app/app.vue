@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
 const colorMode = useColorMode()
 const route = useRoute()
 
@@ -23,7 +25,7 @@ useHead(() => ({
   ],
 
   link: [
-    { rel: 'icon', type: 'image/png', href: '/NLFTs.png' },
+    { rel: 'icon', type: 'image/png', href: '/nlfts.webp' },
     { rel: 'canonical', href: canonicalUrl.value },
     // RSS feeds
     { rel: 'alternate', type: 'application/rss+xml', title: 'NLFTs Blog RSS', href: 'https://NLFTs.dev/rss.xml' },
@@ -41,7 +43,7 @@ useHead(() => ({
         '@type': 'Organization',
         name: 'NLFTs',
         url: 'https://NLFTs.dev',
-        logo: 'https://NLFTs.dev/NLFTs.png',
+        logo: 'https://NLFTs.dev/nlfts.webp',
         description: 'Jasa pembuatan website, hosting, domain, game server, dan aplikasi Android di Semarang, Indonesia.',
         address: {
           '@type': 'PostalAddress',
@@ -56,7 +58,7 @@ useHead(() => ({
           availableLanguage: 'Indonesian'
         },
         sameAs: [
-          'https://www.instagram.com/NLFTs_id',
+          'https://www.instagram.com/nlfts.dev',
           'https://github.com/NLFTs',
           'https://www.tiktok.com/@webcraftidng'
         ]
@@ -120,17 +122,20 @@ useHead(() => ({
 
 useSeoMeta({
   titleTemplate: '%s - NLFTs',
-  ogImage: '/NLFTs.png',
-  twitterImage: '/NLFTs.png',
-  twitterCard: 'summary_large_image'
+  ogSiteName: 'NLFTs',
+  ogImage: 'https://nlfts.dev/og/main.png',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  twitterCard: 'summary_large_image',
+  twitterSite: '@nlfts_dev',
+  twitterImage: 'https://nlfts.dev/og/main.png'
 })
 
 const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('docs'), {
   transform: data => data.find(item => item.path === '/docs')?.children || []
 })
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'), {
-  server: false
-})
+const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('docs'))
 const isSearchOpen = useState('search-open', () => false)
 
 const links = [{
@@ -152,6 +157,20 @@ const links = [{
 }]
 
 provide('navigation', navigation)
+
+// Ensure default theme is dark when the user has not explicitly chosen a preference.
+// This preserves the existing toggle behavior but makes dark the initial theme.
+onMounted(() => {
+  try {
+    const keys = ['nuxt-color-mode', 'color-mode', 'theme']
+    const hasStored = keys.some(k => !!localStorage.getItem(k))
+    if (!hasStored && colorMode && colorMode.value !== 'dark') {
+      colorMode.value = 'dark'
+    }
+  } catch (e) {
+    // ignore (SSR or localStorage blocked)
+  }
+})
 </script>
 
 <template>

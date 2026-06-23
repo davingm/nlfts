@@ -1,24 +1,22 @@
 <script setup lang="ts">
 import gsap from 'gsap'
-import ImpactStats from '@/components/ImpactStats.vue'
-import ProfileSection from '@/components/ProfileSection.vue'
-import BlogSection from '@/components/BlogSection.vue'
-import DownloadAppSection from '@/components/DownloadAppSection.vue'
-import TestimonialsSection from '@/components/TestimonialsSection.vue'
 
 // SEO Implementation
 useSeoMeta({
-  title: 'NLFTs — Komunitas Programer terbesar di Bandung Indonesia',
-  ogTitle: 'NLFTs — Komunitas Programer terbesar di Bandung Indonesia',
-  description: 'NLFTs adalah Startup Sekaligus komunitas yang berbasis di Bandung Jawa Barat yang berfokus pada pembangunan teknologi perangkat lunak..',
-  ogDescription: 'NLFTs adalah Startup Sekaligus komunitas yang berbasis di Bandung Jawa Barat yang berfokus pada pembangunan teknologi perangkat lunak..',
-  ogImage: 'https://nlfts.dev/rakitweb.png',
-  ogUrl: 'https://rakitweb.id',
+  title: 'NLFTs — Startup berbasis komunitas untuk teknologi perangkat lunak',
+  ogTitle: 'NLFTs — Startup berbasis komunitas untuk teknologi perangkat lunak',
+  description: 'NLFTs adalah Startup berbasis komunitas yang berfokus pada pembangunan teknologi perangkat lunak generasi berikutnya. Beroperasi dalam lingkup wilayah Indonesia, NLFTs menggabungkan kolaborasi terbuka dengan aturan, kepemilikan intelektual yang jelas, dan mekanisme lisensi yang tegak sehingga inovasi dapat berjalan cepat dan berkelanjutan.',
+  ogDescription: 'NLFTs adalah Startup berbasis komunitas yang berfokus pada pembangunan teknologi perangkat lunak generasi berikutnya. Beroperasi dalam lingkup wilayah Indonesia, NLFTs menggabungkan kolaborasi terbuka dengan aturan, kepemilikan intelektual yang jelas, dan mekanisme lisensi yang tegak sehingga inovasi dapat berjalan cepat dan berkelanjutan.',
+  ogImage: 'https://nlfts.dev/og/main.png',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  ogUrl: 'https://nlfts.dev',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'NLFTs — Komunitas Programer terbesar di Bandung Indonesia',
-  twitterDescription: 'NLFTs adalah Startup berbasis komunitas yang berfokus pada pembangunan teknologi perangkat lunak..',
-  twitterImage: 'https://rakitweb.id/rakitweb.png',
+  twitterDescription: 'NLFTs adalah Startup berbasis komunitas yang berfokus pada pembangunan teknologi perangkat lunak generasi berikutnya. Beroperasi dalam lingkup wilayah Indonesia, NLFTs menggabungkan kolaborasi terbuka dengan aturan, kepemilikan intelektual yang jelas, dan mekanisme lisensi yang tegak sehingga inovasi dapat berjalan cepat dan berkelanjutan.',
+  twitterImage: 'https://nlfts.dev/og/main.png',
 })
 
 const impactStats = [
@@ -56,15 +54,14 @@ interface Brand {
 // Brand Data for Ticker
 const allBrands: Brand[] = [
   { name: 'Google', logo: 'https://www.vectorlogo.zone/logos/google/google-ar21.svg', isImage: true },
-  { name: 'Vuxi', logo: '/company/Vuxi.png', fallback: 'https://www.logo.wine/a/logo/Mitsubishi_Fuso_Truck_and_Bus_Corporation/Mitsubishi_Fuso_Truck_and_Bus_Corporation-Logo.wine.svg', isImage: true },
+  { name: 'Vuxi', logo: '/company/Vuxi.webp', fallback: 'https://www.logo.wine/a/logo/Mitsubishi_Fuso_Truck_and_Bus_Corporation/Mitsubishi_Fuso_Truck_and_Bus_Corporation-Logo.wine.svg', isImage: true },
   { name: 'NLFTs', logo: 'NLFTs', isImage: false },
-  { name: 'Fuso', logo: '/company/fuso.png', isImage: true },
-  { name: 'Mitsubishi', logo: '/company/mitshubisi.png', isImage: true },
-  { name: 'Dakpng', logo: '/company/dakpng.png', isImage: true },
-  { name: 'Vercel', logo: 'https://www.vectorlogo.zone/logos/vercel/vercel-ar21.svg', isImage: true },
   { name: 'Next.js', logo: 'https://www.vectorlogo.zone/logos/nextjs/nextjs-ar21.svg', isImage: true },
   { name: 'Nuxt', logo: 'https://www.vectorlogo.zone/logos/nuxtjs/nuxtjs-ar21.svg', isImage: true },
-  { name: 'Tailwind CSS', logo: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-ar21.svg', isImage: true }
+  { name: 'Tailwind CSS', logo: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-ar21.svg', isImage: true },
+  { name: 'Grantara', logo: 'Grantara', isImage: false },
+  { name: 'Tik', logo: 'Tik.dev', isImage: false }
+
 ]
 
 interface BrandSlot {
@@ -236,8 +233,8 @@ onUnmounted(() => {
 <template>
 <main>
   <div class="relative overflow-hidden selection:bg-emerald-500/30 pb-32">
-    <div class="absolute inset-0 bg-gradient-to-b from-blue-600 via-orange-500 to-black z-0"></div>
-    <div class="absolute inset-0 -bottom-40 z-[1] bg-[url('/images/gunung-transpert.png')] bg-cover bg-center bg-no-repeat"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-white dark:from-black via-orange-400 to-black z-0"></div>
+    <div class="absolute inset-0 -bottom-40 z-[1] bg-[url('/images/gunung-transpert.webp')] bg-cover bg-center bg-no-repeat"></div>
 
     <div class="relative z-10 pt-12 md:pt-16 pb-2">
       <div class="max-w-[1500px] mx-auto px-6 sm:px-12 md:px-16">
@@ -247,7 +244,9 @@ onUnmounted(() => {
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span>Solusi Digital #1 untuk Bisnis Anda — Bandung, Indonesia</span>
+            <span class="text-gray-800 dark:text-gray-200">
+              Komunitas No #1 di Bandung, dan Seluruh Indonesia
+            </span>
           </div>
 
           <div class="min-h-[130px] sm:min-h-[150px] flex flex-col items-start justify-center mb-6 w-full">
@@ -261,7 +260,7 @@ onUnmounted(() => {
 
           <div class="hero-actions opacity-0 flex flex-col sm:flex-row justify-start gap-4 w-full sm:w-auto mb-8 md:mb-10">
             <NuxtLink to="https://wa.me/6285187153883" target="_blank" class="px-6 py-2.5 bg-white text-gray-950 text-sm font-medium rounded-lg shadow-sm hover:bg-gray-100 active:scale-98 transition-all duration-200 flex items-center justify-center gap-2">
-              <span>Konsultasi Gratis</span>
+              <span>Bergabung</span>
               <UIcon name="i-lucide-arrow-right" class="w-4 h-4" />
             </NuxtLink>
             <NuxtLink to="#product" class="px-6 py-2.5 bg-black/20 border border-white/20 text-white text-sm font-medium rounded-lg hover:bg-black/30 active:scale-98 transition-all duration-200 flex items-center justify-center">
@@ -277,7 +276,7 @@ onUnmounted(() => {
         <div class="py-4">
           <div class="text-center mb-6">
             <p class="text-[9px] font-bold tracking-[0.25em] text-white/70 uppercase">
-              DI PERCAYA OLEH KLIEN KAMI
+              Partner Kami
             </p>
           </div>
 
@@ -287,15 +286,27 @@ onUnmounted(() => {
               :key="i"
               class="brand-slot-item w-28 sm:w-32 md:w-36 h-12 sm:h-14 relative overflow-hidden flex items-center justify-center"
             >
-              <div class="relative w-full h-full flex items-center justify-center">
+            <div class="relative w-full h-full flex items-center justify-center">
                 <div :class="`brand-item-current-${i} absolute inset-0 flex items-center justify-center`">
                   <img 
                     v-if="slotItem.current?.isImage" 
                     :src="slotItem.current.logo" 
-                    class="h-8 sm:h-10 md:h-12 w-full object-contain invert opacity-60 hover:opacity-100 transition-opacity duration-300 pointer-events-none grayscale" 
+                    class="h-8 sm:h-10 md:h-12 w-full object-contain invert opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale" 
                     :alt="slotItem.current.name" 
+                    @error="(e) => handleImageError(e, i, false)"
                   />
                   <span v-else class="text-base sm:text-lg font-bold text-white/70">{{ slotItem.current?.name }}</span>
+                </div>
+
+                <div :class="`brand-item-incoming-${i} absolute inset-0 flex items-center justify-center`" style="transform: translateY(100%); opacity: 0;">
+                  <img 
+                    v-if="slotItem.next?.isImage" 
+                    :src="slotItem.next.logo" 
+                    class="h-8 sm:h-10 md:h-12 w-full object-contain invert opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale" 
+                    :alt="slotItem.next.name" 
+                    @error="(e) => handleImageError(e, i, true)"
+                  />
+                  <span v-else class="text-base sm:text-lg font-bold text-white/70">{{ slotItem.next?.name }}</span>
                 </div>
               </div>
             </div>
@@ -308,9 +319,9 @@ onUnmounted(() => {
   <ImpactStats :stats="impactStats" />
   <ProfileSection />
   <BlogSection />
-  <DownloadAppSection />
+  <DevSection />
   <TestimonialsSection />
-  <LocationSection />
+  <Cta />
 </main>
 </template>
 

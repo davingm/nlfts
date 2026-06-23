@@ -1,343 +1,265 @@
-  <script setup lang="ts">
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-if (process.client) {
-  gsap.registerPlugin(ScrollTrigger)
-}
-
-const sectionRef = ref<HTMLElement | null>(null)
-
-const testimonials = [
-  { 
-    name: "Ihsan, Owner Ruang Berita", role: "",
-    content: "Kami order website berita ke NLFTs, hasil nya mantap! terutama untuk server nya lancar jaya", 
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ihsan", 
-    isDark: true, logo: "i-lucide-globe" 
-  },
-  { 
-    name: "Rina Wulandari", role: "Pemilik UMKM Fashion, Semarang", 
-    content: "NLFTs bantu setup toko online kami dari nol. Sekarang omzet naik karena pelanggan bisa order online 24 jam. Tim-nya ramah dan responsif.", 
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rina", 
-    isDark: false 
-  },
-  { 
-    name: "Agus Prasetyo", role: "Owner Server Minecraft Indonesia", 
-    content: "Game server Minecraft kami di-setup sama NLFTs, performanya stabil banget! Maintenance juga full, jadi kami tinggal main aja.", 
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Agus", 
-    isDark: false 
-  },
-  { 
-    name: "Dewi Rahayu", role: "Manajer PT Maju Bersama", 
-    content: "Company profile kami dikerjakan profesional dan sesuai brief. Website jadi lebih elegan dan mewakili brand perusahaan kami. Highly recommended!", 
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Dewi", 
-    isDark: false 
-  },
-  { 
-    name: "Hendra Kurniawan", role: "Developer Startup Semarang", 
-    content: "Minta bantuan setup server VPS dan instalasi panel Pterodactyl. Dikerjakan cepat, beres dalam 2 jam, dan semuanya berjalan mulus. Top!", 
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hendra", 
-    isDark: false 
-  },
-  { 
-    name: "Sari Indah", role: "Pemilik Klinik Kecantikan, Semarang", 
-    content: "Landing page kami dibuat menarik dan konversinya tinggi. Banyak pelanggan baru yang datang dari hasil promosi pakai landing page NLFTs.", 
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sari", 
-    isDark: false 
-  },
-  { 
-    name: "Rizky Firmansyah", role: "Admin Server CS:GO Community", 
-    content: "Server CS:GO kami di-handle penuh sama NLFTs. Dari setup sampai maintenance, semua beres. Owner tinggal fokus komunitas, server aman.", 
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rizky", 
-    isDark: true, logo: "i-lucide-server" 
-  }
-]
-
-
-// Advanced 3D Hover System with Spotlight Border
-const onMouseMove = (e: MouseEvent, el: HTMLElement) => {
-  const rect = el.getBoundingClientRect()
-  const mouseX = e.clientX - rect.left
-  const mouseY = e.clientY - rect.top
-  const centerX = rect.width / 2
-  const centerY = rect.height / 2
-  
-  // Calculate relative rotation (max 6deg for more stability)
-  const rotateX = ((mouseY - centerY) / centerY) * -6
-  const rotateY = ((mouseX - centerX) / centerX) * 6
-  
-  // Elements
-  const inner = el.querySelector(".testi-inner")
-  const glow = el.querySelector(".testi-glow") as HTMLElement
-  const borderSpotlight = el.querySelector(".testi-border-spotlight") as HTMLElement
-  
-  gsap.to(el, {
-    rotateX,
-    rotateY,
-    transformPerspective: 1200,
-    duration: 0.5,
-    ease: "power2.out"
-  })
-
-  gsap.to(inner, {
-    x: rotateY * 1.2,
-    y: rotateX * -1.2,
-    duration: 0.5,
-    ease: "power2.out"
-  })
-
-  // Spotlight Follow
-  if (glow) {
-    gsap.to(glow, {
-      opacity: 1,
-      x: mouseX - glow.offsetWidth / 2,
-      y: mouseY - glow.offsetHeight / 2,
-      duration: 0.3,
-      ease: "power2.out"
-    })
-  }
-
-  // Border Spotlight Follow
-  if (borderSpotlight) {
-    gsap.to(borderSpotlight, {
-      opacity: 1,
-      x: mouseX - borderSpotlight.offsetWidth / 2,
-      y: mouseY - borderSpotlight.offsetHeight / 2,
-      duration: 0.3,
-      ease: "power2.out"
-    })
-  }
-}
-
-const onMouseLeave = (el: HTMLElement) => {
-  const inner = el.querySelector(".testi-inner")
-  const glow = el.querySelector(".testi-glow") as HTMLElement
-  const borderSpotlight = el.querySelector(".testi-border-spotlight") as HTMLElement
-
-  gsap.to([el, inner], {
-    rotateX: 0,
-    rotateY: 0,
-    x: 0,
-    y: 0,
-    duration: 1,
-    ease: "elastic.out(1, 0.4)"
-  })
-
-  if (glow) gsap.to(glow, { opacity: 0, duration: 0.6 })
-  if (borderSpotlight) gsap.to(borderSpotlight, { opacity: 0, duration: 0.6 })
-}
-
-onMounted(async () => {
-  await nextTick()
-  if (!sectionRef.value) return
-
-  const ctx = gsap.context(() => {
-    const columns = gsap.utils.toArray(".testi-col")
-    columns.forEach((col: any, i) => {
-      gsap.from(col, {
-        scrollTrigger: {
-          trigger: col,
-          start: "top 85%",
-        },
-        y: 40,
-        opacity: 0,
-        delay: i * 0.15,
-        duration: 1.2,
-        ease: "power2.out"
-      })
-    })
-  }, sectionRef.value)
-
-  onUnmounted(() => ctx.revert())
-})
-</script>
-
 <template>
-  <section 
-    ref="sectionRef"
-    class="relative py-24 md:py-32 bg-[#F9F9F8] dark:bg-[#09090b] border-b border-gray-100 dark:border-white/5 overflow-hidden"
-  >
-    <!-- SUBTLE BACKGROUND BLUR -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-500/5 blur-[150px] rounded-full pointer-events-none" />
+  <section class="relative overflow-hidden bg-white dark:bg-[#09090b] py-20">
 
-    <UContainer class="relative z-10">
-      
-      <!-- GRID LAYOUT -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start perspective-2000">
-        
-        <!-- Column 1 -->
-        <div class="testi-col flex flex-col gap-6 lg:gap-8">
-          <!-- Large Dark Card -->
-          <div 
-            class="testi-card group p-[1.5px] bg-white/5 rounded-[25px] relative overflow-hidden preserve-3d transition-shadow duration-500 hover:shadow-[0_40px_80px_-20px_rgba(0,193,106,0.3)] shadow-2xl"
-            @mousemove="onMouseMove($event, $el)"
-            @mouseleave="onMouseLeave($el)"
+    <!-- Header -->
+     <div class="text-center max-w-lg mx-auto px-6 mb-16">
+        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400 opacity-80">
+          Testimonials
+        </span>
+        <h2 class="text-3xl font-medium text-gray-900 dark:text-white mt-3 mb-4 tracking-tight">
+          Trusted by developers
+        </h2>
+        <p class="text-sm text-gray-400 dark:text-gray-500 font-light">
+          Discover what the community says about our platform.
+        </p>
+      </div>
+
+    <!-- Grid -->
+    <div class="relative overflow-hidden" style="max-height: 780px;">
+      <div class="flex gap-4 px-6 max-w-[1400px] mx-auto items-start pb-8">
+
+        <!-- Col 1 — paling rendah -->
+        <div class="flex flex-col gap-4 flex-1 mt-36">
+          <div
+            v-for="t in columns[0]" :key="t.id"
+            class="rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#09090b]/95 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-black/50"
           >
-            <!-- SPOTLIGHT BORDER EFFECT -->
-            <div class="testi-border-spotlight absolute inset-0 w-80 h-80 bg-primary-400 blur-[40px] opacity-0 pointer-events-none rounded-full" />
-            
-            <div class="relative w-full h-full bg-[#0F0F0F] rounded-[24px] p-10 md:p-12 text-white flex flex-col justify-between min-h-[400px] overflow-hidden preserve-3d">
-              <div class="testi-glow absolute inset-0 w-[400px] h-[400px] bg-primary-500/30 blur-[120px] pointer-events-none opacity-0" />
-              <div class="testi-inner space-y-8 flex-1 flex flex-col justify-between preserve-3d">
-                <div class="space-y-8">
-                  <div class="flex items-center gap-3 opacity-80">
-                    <UIcon :name="testimonials[0]?.logo || ''" class="w-6 h-6 text-primary-500" />
-                    <span class="text-sm font-bold uppercase tracking-widest">Partner</span>
-                  </div>
-                  <p class="text-xl md:text-2xl font-medium leading-[1.3] tracking-tight">
-                    "{{ testimonials[0]?.content }}"
-                  </p>
-                </div>
-                <div class="flex items-center justify-between mt-12">
-                  <div class="space-y-1">
-                    <div class="text-sm font-black uppercase tracking-wider">{{ testimonials[0]?.name }}</div>
-                    <div class="text-[10px] uppercase font-bold text-gray-500">{{ testimonials[0]?.role }}</div>
-                  </div>
-                  <img :src="testimonials[0]?.avatar" class="w-10 h-10 rounded-lg object-cover bg-white/10 p-0.5 border border-white/20" />
-                </div>
+            <div class="flex items-center gap-3 mb-3">
+              <img :src="t.avatar" :alt="t.name" class="w-10 h-10 rounded-full object-cover shrink-0 ring-2 ring-white dark:ring-gray-700" />
+              <div>
+                <p class="text-sm font-semibold text-gray-900 dark:text-white leading-tight">{{ t.name }}</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{{ t.role }}</p>
               </div>
             </div>
-          </div>
-
-          <!-- Small Light Card 4 -->
-          <div 
-            class="testi-card group p-[1.5px] bg-gray-200 dark:bg-white/5 rounded-[25px] relative overflow-hidden preserve-3d transition-shadow duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)] shadow-sm"
-            @mousemove="onMouseMove($event, $el)"
-            @mouseleave="onMouseLeave($el)"
-          >
-            <div class="testi-border-spotlight absolute inset-0 w-64 h-64 bg-primary-300 blur-[30px] opacity-0 pointer-events-none rounded-full" />
-            
-            <div class="relative w-full h-full bg-white dark:bg-[#0F1420] rounded-[24px] p-8 md:p-10 flex flex-col justify-between overflow-hidden preserve-3d">
-              <div class="testi-glow absolute inset-0 w-80 h-80 bg-primary-500/10 blur-[80px] pointer-events-none opacity-0" />
-              <div class="testi-inner preserve-3d">
-                <p class="text-lg text-gray-800 dark:text-gray-100 leading-[1.5] mb-10">
-                    "{{ testimonials[4]?.content }}"
-                </p>
-                <div class="flex items-center justify-between">
-                    <div class="space-y-0.5">
-                      <div class="text-xs font-black uppercase text-gray-900 dark:text-white">{{ testimonials[4]?.name }}</div>
-                      <div class="text-[9px] uppercase font-bold text-gray-400">{{ testimonials[4]?.role }}</div>
-                    </div>
-                    <img :src="testimonials[4]?.avatar" class="w-8 h-8 rounded-lg border border-gray-100 dark:border-white/10 shadow-sm" />
-                </div>
-              </div>
-            </div>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300 [&_strong]:font-semibold [&_strong]:text-gray-900 [&_strong]:dark:text-white" v-html="t.text" />
           </div>
         </div>
 
-        <!-- Column 2 -->
-        <div class="testi-col flex flex-col gap-6 lg:gap-8">
-          <div 
-            v-for="idx in [1, 3, 5]" :key="idx" 
-            class="testi-card group p-[1.5px] bg-gray-200 dark:bg-white/5 rounded-[25px] relative overflow-hidden preserve-3d transition-shadow duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)] shadow-sm"
-            @mousemove="onMouseMove($event, $el)"
-            @mouseleave="onMouseLeave($el)"
+        <!-- Col 2 — mid rendah -->
+        <div class="flex flex-col gap-4 flex-1 mt-16">
+          <div
+            v-for="t in columns[1]" :key="t.id"
+            class="rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#09090b]/95 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-black/50"
           >
-            <div class="testi-border-spotlight absolute inset-0 w-64 h-64 bg-primary-300 blur-[30px] opacity-0 pointer-events-none rounded-full" />
-            <div class="relative w-full h-full bg-white dark:bg-[#0F1420] rounded-[24px] p-8 md:p-10 flex flex-col justify-between overflow-hidden preserve-3d">
-              <div class="testi-glow absolute inset-0 w-80 h-80 bg-primary-500/10 blur-[80px] pointer-events-none opacity-0" />
-              <div class="testi-inner preserve-3d">
-                <p class="text-lg text-gray-800 dark:text-gray-100 leading-[1.5] mb-12">
-                    "{{ testimonials[idx - 1]?.content }}"
-                </p>
-                <div class="flex items-center justify-between">
-                    <div class="space-y-0.5">
-                      <div class="text-xs font-black uppercase text-gray-900 dark:text-white">{{ testimonials[idx - 1]?.name }}</div>
-                      <div class="text-[9px] uppercase font-bold text-gray-400">{{ testimonials[idx - 1]?.role }}</div>
-                    </div>
-                    <img :src="testimonials[idx - 1]?.avatar" class="w-8 h-8 rounded-lg border border-gray-100 dark:border-white/10 shadow-sm" />
-                </div>
+            <div class="flex items-center gap-3 mb-3">
+              <img :src="t.avatar" :alt="t.name" class="w-10 h-10 rounded-full object-cover shrink-0 ring-2 ring-white dark:ring-gray-700" />
+              <div>
+                <p class="text-sm font-semibold text-gray-900 dark:text-white leading-tight">{{ t.name }}</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{{ t.role }}</p>
               </div>
             </div>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300 [&_strong]:font-semibold [&_strong]:text-gray-900 [&_strong]:dark:text-white" v-html="t.text" />
           </div>
         </div>
 
-        <!-- Column 3 -->
-        <div class="testi-col flex flex-col gap-6 lg:gap-8">
-          <!-- Small Light Card 2 -->
-          <div 
-             class="testi-card group p-[1.5px] bg-gray-200 dark:bg-white/5 rounded-[25px] relative overflow-hidden preserve-3d transition-shadow duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)] shadow-sm"
-            @mousemove="onMouseMove($event, $el)"
-            @mouseleave="onMouseLeave($el)"
+        <!-- Col 3 — CENTER PEAK (tertinggi) -->
+        <div class="flex flex-col gap-4 flex-1 mt-0">
+          <div
+            v-for="t in columns[2]" :key="t.id"
+            class="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#09090b]/95 p-5 transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_24px_rgba(0,0,0,0.18)]"
           >
-            <div class="testi-border-spotlight absolute inset-0 w-64 h-64 bg-primary-400 blur-[30px] opacity-0 pointer-events-none rounded-full" />
-            <div class="relative w-full h-full bg-white dark:bg-[#0F1420] rounded-[24px] p-8 md:p-10 flex flex-col justify-between overflow-hidden preserve-3d">
-              <div class="testi-glow absolute inset-0 w-80 h-80 bg-primary-500/10 blur-[80px] pointer-events-none opacity-0" />
-              <div class="testi-inner preserve-3d">
-                <p class="text-lg text-gray-800 dark:text-gray-100 leading-[1.5] mb-10">
-                    "{{ testimonials[2]?.content }}"
-                </p>
-                <div class="flex items-center justify-between">
-                    <div class="space-y-0.5">
-                      <div class="text-xs font-black uppercase text-gray-900 dark:text-white">{{ testimonials[2]?.name }}</div>
-                      <div class="text-[9px] uppercase font-bold text-gray-400">{{ testimonials[2]?.role }}</div>
-                    </div>
-                    <img :src="testimonials[2]?.avatar" class="w-8 h-8 rounded-lg border border-gray-100 dark:border-white/10 shadow-sm" />
-                </div>
+            <div class="flex items-center gap-3 mb-3">
+              <img :src="t.avatar" :alt="t.name" class="w-10 h-10 rounded-full object-cover shrink-0 ring-2 ring-white dark:ring-gray-700" />
+              <div>
+                <p class="text-sm font-semibold text-gray-900 dark:text-white leading-tight">{{ t.name }}</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{{ t.role }}</p>
               </div>
             </div>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300 [&_strong]:font-semibold [&_strong]:text-gray-900 [&_strong]:dark:text-white" v-html="t.text" />
           </div>
+        </div>
 
-          <!-- Large Dark Card 6 -->
-          <div 
-            class="testi-card group p-[1.5px] bg-white/5 rounded-[25px] relative overflow-hidden preserve-3d transition-shadow duration-500 hover:shadow-[0_40px_80px_-20px_rgba(0,193,106,0.3)] shadow-2xl"
-            @mousemove="onMouseMove($event, $el)"
-            @mouseleave="onMouseLeave($el)"
+        <!-- Col 4 — mid rendah -->
+        <div class="flex flex-col gap-4 flex-1 mt-16">
+          <div
+            v-for="t in columns[3]" :key="t.id"
+            class="rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#09090b]/95 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-black/50"
           >
-            <div class="testi-border-spotlight absolute inset-0 w-80 h-80 bg-primary-400 blur-[40px] opacity-0 pointer-events-none rounded-full" />
-            <div class="relative w-full h-full bg-[#0F0F0F] rounded-[24px] p-10 md:p-12 text-white flex flex-col justify-between min-h-[420px] overflow-hidden preserve-3d">
-              <div class="testi-glow absolute inset-0 w-[400px] h-[400px] bg-primary-500/30 blur-[120px] pointer-events-none opacity-0" />
-              <div class="testi-inner flex-1 flex flex-col justify-between preserve-3d">
-                <div class="space-y-8">
-                  <div class="flex items-center gap-3 opacity-80">
-                    <UIcon :name="testimonials[6]?.logo || ''" class="w-6 h-6 text-primary-500" />
-                    <span class="text-sm font-bold uppercase tracking-widest">Industry Core</span>
-                  </div>
-                  <p class="text-xl md:text-2xl font-medium leading-[1.3] tracking-tight">
-                    "{{ testimonials[6]?.content }}"
-                  </p>
-                </div>
-                <div class="flex items-center justify-between mt-12">
-                  <div class="space-y-1">
-                    <div class="text-sm font-black uppercase tracking-wider">{{ testimonials[6]?.name }}</div>
-                    <div class="text-[10px] uppercase font-bold text-gray-500">{{ testimonials[6]?.role }}</div>
-                  </div>
-                  <img :src="testimonials[6]?.avatar" class="w-10 h-10 rounded-lg object-cover bg-white/10 p-0.5 border border-white/20" />
-                </div>
+            <div class="flex items-center gap-3 mb-3">
+              <img :src="t.avatar" :alt="t.name" class="w-10 h-10 rounded-full object-cover shrink-0 ring-2 ring-white dark:ring-gray-700" />
+              <div>
+                <p class="text-sm font-semibold text-gray-900 dark:text-white leading-tight">{{ t.name }}</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{{ t.role }}</p>
               </div>
             </div>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300 [&_strong]:font-semibold [&_strong]:text-gray-900 [&_strong]:dark:text-white" v-html="t.text" />
+          </div>
+        </div>
+
+        <!-- Col 5 — paling rendah -->
+        <div class="flex flex-col gap-4 flex-1 mt-36">
+          <div
+            v-for="t in columns[4]" :key="t.id"
+            class="rounded-xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-[#09090b]/95 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-black/50"
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <img :src="t.avatar" :alt="t.name" class="w-10 h-10 rounded-full object-cover shrink-0 ring-2 ring-white dark:ring-gray-700" />
+              <div>
+                <p class="text-sm font-semibold text-gray-900 dark:text-white leading-tight">{{ t.name }}</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{{ t.role }}</p>
+              </div>
+            </div>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300 [&_strong]:font-semibold [&_strong]:text-gray-900 [&_strong]:dark:text-white" v-html="t.text" />
           </div>
         </div>
 
       </div>
 
-    </UContainer>
+      <!-- Fade overlay light mode -->
+      <div class="fade-bottom pointer-events-none absolute bottom-0 left-0 right-0 h-[520px] block dark:hidden" />
+      <!-- Fade overlay dark mode -->
+      <div class="fade-bottom-dark pointer-events-none absolute bottom-0 left-0 right-0 h-[520px] hidden dark:block" />
+    </div>
+
   </section>
 </template>
 
+<script setup>
+import { computed } from 'vue'
+
+const testimonials = [
+// Col 0
+{
+id: 1,
+col: 0,
+name: 'Lintang Wijaya',
+role: 'Pemilik Group besar Kota Jaya',
+avatar: 'https://avatars.githubusercontent.com/u/216552062?s=130&v=4',
+text: `<strong>NLFTs mengubah cara saya memandang pengembangan perangkat lunak.</strong> Fokusnya bukan sekadar menyelesaikan masalah, tetapi membangun solusi yang modern, scalable, dan berkelanjutan.`
+},
+{
+id: 2,
+col: 0,
+name: 'Rehan Ramdhan',
+role: 'Kontributor Open Source',
+avatar: 'https://avatars.githubusercontent.com/u/218329504?s=130&v=4',
+text: `Bergabung dengan NLFTs mempertemukan saya dengan developer yang memiliki visi yang sama. Diskusi yang terjadi selalu relevan dengan teknologi terbaru dan kebutuhan industri saat ini.`
+},
+{
+id: 3,
+col: 0,
+name: 'Naufal Hidayat',
+role: 'Full Stack Engineer',
+avatar: 'https://i.pravatar.cc/80?img=9',
+text: `Di sini saya menemukan lingkungan yang mendorong saya untuk terus berkembang. Setiap anggota memiliki semangat untuk belajar, membangun, dan berbagi pengalaman teknis tingkat lanjut.`
+},
+
+// Col 1
+{
+id: 4,
+col: 1,
+name: 'Rizky Ms',
+role: 'Nuxt Engineer',
+avatar: 'https://avatars.githubusercontent.com/u/230048582?s=130&v=4  ',
+text: `<strong>NLFTs bukan sekadar komunitas, tetapi tempat berkumpulnya developer yang serius mengembangkan kemampuan mereka.</strong> Mulai dari NestJS, Spring, Go, hingga arsitektur sistem modern selalu menjadi topik yang menarik untuk dibahas.`
+},
+{
+id: 5,
+col: 1,
+name: 'Miftah Aufar',
+role: 'Spring Architect',
+avatar: 'https://avatars.githubusercontent.com/u/232498018?s=130&v=4',
+text: `Yang membuat NLFTs berbeda adalah budaya open source yang kuat. Anggotanya aktif berkontribusi pada ekosistem Nuxt sekaligus mengembangkan framework dan tooling internal sendiri.`
+},
+
+// Col 2
+{
+id: 7,
+col: 2,
+name: 'Nairha',
+role: 'Founder NLFTs',
+avatar: 'https://avatars.githubusercontent.com/u/204519754?s=130&v=4',
+text: `<strong>NLFTs dibangun untuk developer yang ingin terus berkembang dan berada di garis depan teknologi.</strong> Kami tidak berfokus pada pembelajaran dasar, tetapi pada eksplorasi teknologi modern, kontribusi open source, dan pengembangan solusi nyata untuk industri.`
+},
+{
+id: 8,
+col: 2,
+name: 'Reyhan',
+role: 'Kontributor Nuxt',
+avatar: 'https://avatars.githubusercontent.com/u/202130049?s=130&v=4',
+text: `Budaya belajar di NLFTs sangat positif. Semua anggota saling mendorong untuk berkontribusi, bereksperimen, dan menciptakan sesuatu yang bermanfaat bagi komunitas maupun industri.`
+},
+
+// Col 3
+{
+id: 10,
+col: 3,
+name: 'Radietya Pratama',
+role: 'Fonder Prataryn Enterpise',
+avatar: 'https://avatars.githubusercontent.com/u/226198461?s=130&v=4',
+text: `Meskipun berpusat di Bandung, NLFTs membuka kesempatan bagi developer dari seluruh Indonesia untuk terhubung, berkolaborasi, dan berkembang bersama.`
+},
+{
+id: 11,
+col: 3,
+name: 'Destkaa',
+role: 'DevOps Engineer',
+avatar: 'https://avatars.githubusercontent.com/u/228332586?s=130&v=4',
+text: `<strong>Di sini tidak ada fokus pada materi dasar.</strong> NLFTs ditujukan bagi mereka yang ingin memperdalam teknologi modern, memahami arsitektur tingkat lanjut, dan mengikuti perkembangan industri secara aktif.`
+},
+// Col 4
+{
+id: 13,
+col: 4,
+name: 'Marsha Bara',
+role: 'Technical Lead',
+avatar: 'https://avatars.githubusercontent.com/u/228843429?s=130&v=4',
+text: `<strong>NLFTs memiliki visi yang jelas: membangun ekosistem teknologi modern dan berkontribusi terhadap perkembangan open source.</strong> Itu yang membuat saya bangga menjadi bagian dari komunitas ini.`
+},
+{
+id: 14,
+col: 4,
+name: 'Fakhri Ibnu Nabil',
+role: 'Frontend Specialist',
+avatar: 'https://avatars.githubusercontent.com/u/228840381?s=130&v=4',
+text: `Saya bergabung karena tertarik dengan Nuxt, tetapi bertahan karena kualitas anggota dan diskusi yang luar biasa. Setiap pertemuan selalu memberikan perspektif baru.`
+},
+
+]
+
+
+const columns = computed(() => {
+  const cols = [[], [], [], [], []]
+  testimonials.forEach((t) => cols[t.col].push(t))
+  return cols
+})
+</script>
+
 <style scoped>
-section {
-  font-feature-settings: "cv11", "ss01", "cv01";
+.fade-bottom {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0)    0%,
+    rgba(255, 255, 255, 0.15) 15%,
+    rgba(255, 255, 255, 0.55) 35%,
+    rgba(255, 255, 255, 0.88) 55%,
+    rgba(255, 255, 255, 1)    70%,
+    rgba(255, 255, 255, 1)    100%
+  );
 }
 
-.perspective-2000 {
-  perspective: 2000px;
+.fade-bottom-dark {
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0)    0%,
+    rgba(10, 10, 10, 0.15) 15%,
+    rgba(10, 10, 10, 0.55) 35%,
+    rgba(10, 10, 10, 0.88) 55%,
+    rgba(10, 10, 10, 1)    70%,
+    rgba(10, 10, 10, 1)    100%
+  );
 }
 
-.preserve-3d {
-  transform-style: preserve-3d;
+@media (max-width: 1024px) {
+  .flex > div:nth-child(1),
+  .flex > div:nth-child(5) {
+    display: none;
+  }
 }
 
-.testi-card {
-  will-change: transform;
-}
-
-.testi-inner {
-  will-change: transform;
+@media (max-width: 640px) {
+  .flex > div:not(:nth-child(3)) {
+    display: none;
+  }
 }
 </style>
-
-
-
-
-

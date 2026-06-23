@@ -42,9 +42,9 @@ const columns = [
 
 const socialLinks = [
   { icon: 'i-simple-icons-github', to: 'https://github.com/NLFTs', label: 'GitHub' },
-  { icon: 'i-simple-icons-instagram', to: 'https://www.instagram.com/NLFTs_id', label: 'Instagram' },
-  { icon: 'i-simple-icons-whatsapp', to: 'https://wa.me/6283160325595', label: 'WhatsApp' },
-  { icon: 'i-simple-icons-tiktok', to: 'https://www.tiktok.com/@webcraftidng', label: 'TikTok' }
+  { icon: 'i-simple-icons-instagram', to: 'https://nlfts.dev/instagram', label: 'Instagram' },
+  { icon: 'i-simple-icons-whatsapp', to: 'https://nlfts.dev/wa', label: 'WhatsApp' },
+  { icon: 'i-simple-icons-tiktok', to: 'https://nlfts.dev/tiktok', label: 'TikTok' }
 ]
 
 // Elite Magnetic Link Effect
@@ -154,72 +154,83 @@ const onGiantMove = (e: MouseEvent) => {
 
 <template>
     <footer 
-    class="bg-white dark:bg-[#09090b] pt-24 pb-12 overflow-hidden border-t border-zinc-200/80 dark:border-zinc-800"
+    class="relative bg-white dark:bg-[#09090b] pt-24 pb-0 overflow-hidden border-t border-zinc-200/80 dark:border-zinc-800"
     @mousemove="onGiantMove"
   >
     <UContainer>
       <!-- TOP GRID -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24 relative z-20">     
-        <!-- BRANDING SIDE -->
-        <div class="lg:col-span-4 space-y-8">
-          <div class="flex items-center gap-2">
-            <span class="text-2xl font-black tracking-tight text-gray-900 dark:text-white">Rakit<span class="text-primary-500">Web</span></span>
-          </div>
-          
-          <p class="text-xs tracking-[0.3em] text-primary-500 leading-loose max-w-[280px] opacity-70">
-            Solusi digital terbaik untuk bisnis masa depan — website, hosting, android & game server.
-          </p>
-
-          <div class="flex items-center gap-8">
-            <NuxtLink 
-              v-for="social in socialLinks" 
-              :key="social.label"
-              :to="social.to"
-              target="_blank"
-              class="text-gray-400 dark:hover:text-white transition-colors relative p-2"
-              @mousemove="onSocialMove"
-              @mouseleave="onSocialLeave"
-            >
-              <UIcon :name="social.icon" class="w-6 h-6 shrink-0 z-10 relative" />
-              <div class="absolute inset-0 bg-primary-500/10 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
-            </NuxtLink>
-          </div>
-
-          <div class="flex items-center gap-8 text-[9px] font-black uppercase tracking-[0.4em] text-gray-400">
-            <span>© {{ new Date().getFullYear() }}</span>
-            <NuxtLink to="#" class="hover:text-primary-500 transition-colors">Legal</NuxtLink>
-            <NuxtLink to="#" class="hover:text-primary-500 transition-colors">Status</NuxtLink>
-          </div>
-        </div>
-
-        <!-- LINKS SIDE -->
-        <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-12">
-          <div v-for="col in columns" :key="col.label" class="space-y-6">
-            <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-gray-900 dark:text-white opacity-20">{{ col.label }}</h3>
-            <ul class="space-y-4">
-              <li v-for="link in col.children" :key="link.label">
-                <NuxtLink 
-                  to="#"
-                  class="relative inline-flex flex-col items-start text-[13px] font-bold text-gray-500 dark:text-gray-400 cursor-pointer group"
-                  @mouseenter="onLinkEnter"
-                  @mouseleave="onLinkLeave"
-                >
-                  <div class="link-aura absolute inset-x-[-12px] inset-y-[-4px] bg-primary-500/20 rounded-lg blur-md opacity-0 scale-50 pointer-events-none" />
-                  <span class="relative z-10">{{ link.label }}</span>
-                  <div class="link-line w-full h-[1.5px] bg-primary-500 mt-1 opacity-0 scale-x-0 origin-center" />
-                </NuxtLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+    
+    <!-- BRANDING & UTILITY -->
+    <div class="lg:col-span-4 flex flex-col justify-between">
+      <div class="space-y-6">
+        <span class="text-xl font-bold tracking-tighter text-gray-900 dark:text-white">NLFT<span class="text-primary-500">s</span></span>
+        <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[240px] leading-relaxed">
+          Membangun masa depan perangkat lunak melalui kolaborasi komunitas.
+        </p>
       </div>
+      
+      <div class="mt-8 lg:mt-0 text-[10px] uppercase tracking-widest text-gray-400">
+        &copy; {{ new Date().getFullYear() }} NLFTs. All rights reserved.
+      </div>
+    </div>
 
-      <!-- GIANT BRANDING TEXT -->
-      <div class="giant-branding relative mt-24 select-none pointer-events-none">
-        <h1 class="text-[clamp(80px,25vw,400px)] font-[1000] leading-none tracking-[-0.08em] uppercase whitespace-nowrap -mb-[0.2em] transform-gpu">
-          <span class="text-gray-900 dark:text-white">Rakit</span><span class="text-primary-500">Web</span>
+    <!-- LINKS -->
+    <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div v-for="col in columns" :key="col.label" class="space-y-6">
+        <h3 class="text-[10px] font-bold uppercase tracking-widest text-gray-900 dark:text-white">
+          {{ col.label }}
+        </h3>
+        <ul class="space-y-3">
+          <li v-for="link in col.children" :key="link.label">
+            <NuxtLink 
+              :to="link.to"
+              class="text-sm text-gray-500 hover:text-primary-500 dark:text-gray-400 transition-colors duration-200"
+            >
+              {{ link.label }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOCIALS BOTTOM BAR -->
+  <div class="mt-24 flex items-center justify-between border-t border-gray-100 dark:border-gray-800 pt-8">
+    <div class="flex items-center gap-6">
+      <NuxtLink 
+        v-for="social in socialLinks" 
+        :key="social.label"
+        :to="social.to"
+        target="_blank"
+        class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+      >
+        <UIcon :name="social.icon" class="w-5 h-5" />
+      </NuxtLink>
+    </div>
+    
+    <div class="flex gap-6 text-[11px] font-medium text-gray-400">
+      <!-- Removed broken internal links to avoid prerendering 404 routes -->
+    </div>
+  </div>
+
+<!-- GIANT BRANDING TEXT -->
+      <div class="relative mt-40 select-none pointer-events-none">
+        <h1
+          class="text-center text-[clamp(180px,25vw,520px)] font-[1000] leading-none tracking-[-0.08em]"
+        >
+          <span class="text-zinc-900 dark:text-white">
+            NLFT
+          </span>
+          <span class="text-primary-500">
+            s
+          </span>
         </h1>
+
+        <!-- Dark fade overlay -->
+        <div
+          class="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-white dark:from-[#09090b] via-white/90 dark:via-[#09090b]/90 to-transparent"
+        />
       </div>
     </UContainer>
   </footer>

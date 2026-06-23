@@ -21,18 +21,14 @@ useSeoMeta({
   title,
   ogTitle: title,
   description,
-  ogDescription: description
+  ogDescription: description,
+  ogImage: 'https://nlfts.dev/og/main.png',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  twitterCard: 'summary_large_image',
+  twitterImage: 'https://nlfts.dev/og/main.png'
 })
-
-if (post.value.image?.src) {
-  defineOgImage({
-    url: post.value.image.src
-  })
-} else {
-  defineOgImageComponent('Saas', {
-    headline: 'Blog'
-  })
-}
 </script>
 
 <template>
