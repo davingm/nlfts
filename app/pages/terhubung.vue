@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-screen bg-white dark:bg-[#060606] text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
     
-    <header class="px-6 py-32 text-center max-w-4xl mx-auto space-y-8">
-      <h1 class="text-5xl md:text-7xl font-light tracking-tight text-zinc-950 dark:text-white leading-tight">
+    <header class="px-6 py-16 md:py-24 lg:py-32 text-center max-w-4xl mx-auto space-y-6 md:space-y-8">
+      <h1 class="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-zinc-950 dark:text-white leading-tight">
         Mari membangun ekosistem digital bersama.
       </h1>
       <p class="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-light">
@@ -11,9 +11,9 @@
     </header>
 
     <!-- Section Discord -->
-  <section class="bg-zinc-50 dark:bg-black py-32 text-zinc-900 dark:text-white transition-colors duration-300">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="grid items-center gap-20 lg:grid-cols-[480px_1fr]">
+  <section class="bg-zinc-50 dark:bg-black py-16 md:py-24 lg:py-32 text-zinc-900 dark:text-white transition-colors duration-300">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid items-center gap-10 lg:gap-20 lg:grid-cols-[480px_1fr]">
  
         <!-- LEFT -->
         <div class="max-w-lg">
@@ -29,7 +29,7 @@
             mendapatkan update terbaru, berbagi karya, dan
             berinteraksi dengan anggota lain kapan saja.
           </p>
-          <div class="mt-10 flex gap-4">
+          <div class="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4">
             <NuxtLink
               to="/discord"
               external
@@ -48,7 +48,7 @@
         </div>
  
         <!-- RIGHT: Discord Window -->
-        <div class="relative lg:-mr-30">
+        <div class="relative">
           <div class="absolute inset-0 -z-10 blur-3xl opacity-20 bg-[#5865F2]" />
  
           <div class="overflow-hidden rounded-2xl border border-zinc-800 bg-[#0d0d10] shadow-[0_40px_100px_rgba(0,0,0,0.5)] w-full">
@@ -62,10 +62,10 @@
             </div>
  
             <!-- Discord Body -->
-            <div class="flex h-[420px]">
+            <div class="flex h-[340px] sm:h-[380px] md:h-[420px]">
  
               <!-- Server Icons Sidebar -->
-              <div class="w-[68px] border-r border-zinc-800 bg-[#09090b] flex flex-col items-center gap-3 py-4">
+              <div class="hidden sm:flex w-[68px] border-r border-zinc-800 bg-[#09090b] flex-col items-center gap-3 py-4">
                 <div class="relative">
                   <div class="h-12 w-12 rounded-2xl bg-[#5865F2] flex items-center justify-center text-white font-bold text-lg cursor-pointer">
                     F
@@ -79,7 +79,7 @@
               </div>
  
               <!-- Channel List -->
-              <div class="w-[200px] border-r border-zinc-800 bg-[#111214] flex flex-col">
+              <div class="hidden md:flex w-[200px] border-r border-zinc-800 bg-[#111214] flex-col">
                 <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800 cursor-pointer hover:bg-zinc-800/50 transition">
                   <h3 class="text-sm font-semibold text-white truncate">FTs Project</h3>
                   <svg class="w-4 h-4 text-zinc-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -394,12 +394,12 @@
   </section>
 
   <!-- Section WhatsApp -->
-     <section class="bg-white dark:bg-black py-32 text-zinc-900 dark:text-white transition-colors duration-300">
-    <div class="mx-auto max-w-7xl px-6">
-      <div class="grid items-center gap-20 lg:grid-cols-[1fr_480px]">
+     <section class="bg-white dark:bg-black py-16 md:py-24 lg:py-32 text-zinc-900 dark:text-white transition-colors duration-300">
+    <div class="mx-auto max-w-7xl px-4 md:px-6">
+      <div class="grid items-center gap-10 lg:gap-20 lg:grid-cols-[1fr_480px]">
  
         <!-- LEFT: WhatsApp Window -->
-        <div class="relative lg:-ml-30">
+        <div class="relative order-2 lg:order-1">
           <!-- Glow -->
           <div class="absolute inset-0 -z-10 blur-3xl opacity-20 bg-[#25D366]" />
  
@@ -415,10 +415,10 @@
             </div>
  
             <!-- WhatsApp Body -->
-            <div class="flex h-[480px]">
+            <div class="flex h-[380px] sm:h-[430px] md:h-[480px]">
  
               <!-- Sidebar: Chat List -->
-              <div class="w-[260px] border-r border-zinc-800 bg-[#111214] flex flex-col">
+              <div class="hidden sm:flex w-[220px] md:w-[260px] border-r border-zinc-800 bg-[#111214] flex-col">
  
                 <!-- WA Header -->
                 <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800">
@@ -735,7 +735,7 @@
         </div>
  
         <!-- RIGHT: Text & CTA -->
-        <div class="max-w-lg">
+        <div class="max-w-lg order-1 lg:order-2">
           <span class="mb-6 inline-flex rounded-full border border-zinc-200 dark:border-zinc-800 px-4 py-1 text-xs tracking-[0.2em] uppercase text-zinc-500">
             Community
           </span>
@@ -746,7 +746,7 @@
           <p class="mt-8 text-base leading-8 text-zinc-600 dark:text-zinc-400">
             Komunikasi cepat dan santai dengan komunitas lokal. Dapatkan update acara, pengumuman terbaru, dan ngobrol langsung bareng anggota kapan saja.
           </p>
-          <div class="mt-10 flex gap-4">
+          <div class="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4">
             <NuxtLink
               to="/wa"
               external
@@ -786,7 +786,7 @@
   </section>
  
   <!-- Section GitHub Discussion -->
-  <section class="py-32 bg-zinc-50 dark:bg-black/20 border-t border-zinc-200 dark:border-zinc-800 transition-colors duration-300">
+  <section class="py-16 md:py-24 lg:py-32 bg-zinc-50 dark:bg-black/20 border-t border-zinc-200 dark:border-zinc-800 transition-colors duration-300">
     <div class="mx-auto max-w-7xl px-6">
       <div class="mb-16 text-center max-w-2xl mx-auto space-y-4">
         <span class="inline-flex rounded-full border border-zinc-200 dark:border-zinc-800 px-4 py-1 text-xs tracking-[0.2em] uppercase text-zinc-500">
@@ -803,7 +803,7 @@
     </div>
   </section>
  
-<section class="relative px-6 py-24 bg-black dark:bg-white text-zinc-900 dark:text-zinc-100 text-center overflow-hidden border-t border-zinc-200 dark:border-zinc-800 transition-colors duration-300" >
+<section class="relative px-4 md:px-6 py-16 md:py-24 bg-black dark:bg-white text-zinc-900 dark:text-zinc-100 text-center overflow-hidden border-t border-zinc-200 dark:border-zinc-800 transition-colors duration-300">
   <div class="absolute left-0 bottom-0 w-64 h-64 hidden lg:block translate-x-[-10%] translate-y-[10%]">
       <img src="/images/arisu.webp" alt="Kei Chibi" class="w-full h-full object-contain" />
     </div>
