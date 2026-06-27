@@ -42,9 +42,11 @@ const columns = [
 
 const socialLinks = [
   { icon: 'i-simple-icons-github', to: 'https://github.com/NLFTs', label: 'GitHub' },
-  { icon: 'i-simple-icons-instagram', to: 'https://nlfts.dev/instagram', label: 'Instagram' },
-  { icon: 'i-simple-icons-whatsapp', to: 'https://nlfts.dev/wa', label: 'WhatsApp' },
-  { icon: 'i-simple-icons-tiktok', to: 'https://nlfts.dev/tiktok', label: 'TikTok' }
+  { icon: 'i-simple-icons-instagram', to: '/instagram', label: 'Instagram' },
+  { icon: 'i-simple-icons-whatsapp', to: '/wa', label: 'WhatsApp' },
+  { icon: 'i-simple-icons-tiktok', to: '/tiktok', label: 'TikTok' },
+  { icon: 'i-simple-icons-linkedin', to: '/linkedin', label: 'LinkedIn' },
+  { icon: 'i-simple-icons-discord', to: '/discord', label: 'Discord' }
 ]
 
 // Elite Magnetic Link Effect
@@ -139,14 +141,14 @@ const onSocialLeave = (e: MouseEvent) => {
 
 // Giant Text Parallax
 const onGiantMove = (e: MouseEvent) => {
-  const el = document.querySelector(".giant-branding")
+  const el = document.querySelector<HTMLElement>(".giant-branding")
   if (!el) return
-  const xPercent = (e.clientX / window.innerWidth - 0.5) * 10
-  const yPercent = (e.clientY / window.innerHeight - 0.5) * 5
+  const x = (e.clientX / window.innerWidth - 0.5) * 40
+  const y = (e.clientY / window.innerHeight - 0.5) * 18
   gsap.to(el, {
-    xPercent,
-    yPercent,
-    duration: 1,
+    x,
+    y,
+    duration: 0.6,
     ease: "power2.out"
   })
 }
@@ -215,9 +217,9 @@ const onGiantMove = (e: MouseEvent) => {
   </div>
 
 <!-- GIANT BRANDING TEXT -->
-      <div class="relative mt-40 select-none pointer-events-none">
+      <div class="relative mt-40 select-none pointer-events-none overflow-visible">
         <h1
-          class="text-center text-[clamp(180px,25vw,520px)] font-[1000] leading-none tracking-[-0.08em]"
+          class="giant-branding relative z-10 w-full text-center text-[clamp(180px,25vw,520px)] max-lg:text-[clamp(120px,18vw,520px)] font-[1000] leading-none tracking-[-0.08em] whitespace-nowrap transform-gpu will-change-transform"
         >
           <span class="text-zinc-900 dark:text-white">
             NLFT
