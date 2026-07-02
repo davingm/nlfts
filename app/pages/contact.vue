@@ -15,11 +15,13 @@ interface Interest {
 }
 
 const interests: Interest[] = [
-  { label: 'UI/UX', value: 'ui-ux' },
+  { label: 'UX/DX', value: 'ux-dx' },
   { label: 'Development', value: 'development' },
   { label: 'Branding', value: 'branding' },
-  { label: '3D Animation', value: '3d-animation' },
-  { label: 'Business automation', value: 'business-automation' },
+  { label: 'Game Development', value: 'game-development' },
+  { label: 'Business Automation', value: 'business-automation' },
+  { label: 'Event Meetup', value: 'event-meetup' },
+  { label: 'Partner', value: 'partner' },
 ]
 
 const socials = [
@@ -36,9 +38,131 @@ const form = reactive({
   company: '',
   email: '',
   phone: '',
-  interest: 'ui-ux',
+  interest: 'ux-dx',
   message: '',
 })
+
+// ── Phone country picker ──────────────────────────────────────────────────────
+interface CountryPhone {
+  code: string      // dial code e.g. '+62'
+  flag: string      // emoji flag
+  name: string
+  placeholder: string
+  // groups: how many digits in each dash-segment (left to right)
+  groups: number[]
+  // max raw digits (no dash, no code)
+  maxDigits: number
+}
+
+const COUNTRIES: CountryPhone[] = [
+  {
+    code: '+62',
+    flag: '\uD83C\uDDEE\uD83C\uDDE9', // 🇮🇩
+    name: 'Indonesia',
+    placeholder: '812-3456-7890',
+    groups: [3, 4, 4],
+    maxDigits: 11,
+  },
+  {
+    code: '+60',
+    flag: '\uD83C\uDDF2\uD83C\uDDFE', // 🇲🇾
+    name: 'Malaysia',
+    placeholder: '12-3456-7890',
+    groups: [2, 4, 4],
+    maxDigits: 10,
+  },
+  {
+    code: '+86',
+    flag: '\uD83C\uDDE8\uD83C\uDDF3', // 🇨🇳
+    name: 'China',
+    placeholder: '138-1234-5678',
+    groups: [3, 4, 4],
+    maxDigits: 11,
+  },
+]
+
+const selectedCountry = ref<CountryPhone>(COUNTRIES[0])
+const phoneDigits = ref('')     // digits only, no dashes
+const phoneDropdownOpen = ref(false)
+
+// Format digits into groups separated by '-'
+function formatWithDashes(digits: string, groups: number[]): string {
+  let result = ''
+  let pos = 0
+  for (let i = 0; i < groups.length; i++) {
+    const chunk = digits.slice(pos, pos + groups[i])
+    if (!chunk) break
+    if (i > 0) result += '-'
+    result += chunk
+    pos += groups[i]
+  }
+  // remaining digits beyond defined groups
+  const remaining = digits.slice(pos)
+  if (remaining) result += '-' + remaining
+  return result
+}
+
+// Formatted display value
+const phoneFormatted = computed(() =>
+  formatWithDashes(phoneDigits.value, selectedCountry.value.groups)
+)
+
+// Keep form.phone in sync as full international number
+watch([phoneDigits, selectedCountry], () => {
+  form.phone = phoneDigits.value
+    ? selectedCountry.value.code + phoneDigits.value
+    : ''
+})
+
+// Handle input: strip non-digits, cap at maxDigits
+function onPhoneInput(e: Event) {
+  const raw = (e.target as HTMLInputElement).value
+  const digits = raw.replace(/\D/g, '').slice(0, selectedCountry.value.maxDigits)
+  phoneDigits.value = digits
+  // Set the display value formatted
+  ;(e.target as HTMLInputElement).value = phoneFormatted.value
+}
+
+// When country changes, clear the number
+function selectCountry(c: CountryPhone) {
+  selectedCountry.value = c
+  phoneDigits.value = ''
+  phoneDropdownOpen.value = false
+}
+
+// ── Validation ──────────────────────────────────────────────────────
+// fullName: 1+ kata, minimal 3 huruf total (hanya huruf + spasi)
+const nameError = computed(() => {
+  if (!form.fullName) return ''
+  const trimmed = form.fullName.trim()
+  if (trimmed.length < 3) return 'Nama minimal 3 huruf'
+  if (!/^[\p{L}\s'-]+$/u.test(trimmed)) return 'Nama hanya boleh berisi huruf'
+  return ''
+})
+
+// email: wajib ada @ dan domain dengan TLD
+const emailError = computed(() => {
+  if (!form.email) return ''
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/
+  if (!emailRegex.test(form.email)) return 'Format email tidak valid (contoh: nama@domain.com)'
+  return ''
+})
+
+// phone: validate digit count per country
+const phoneError = computed(() => {
+  if (!phoneDigits.value) return ''
+  const len = phoneDigits.value.length
+  const min = selectedCountry.value.maxDigits - 1
+  const max = selectedCountry.value.maxDigits
+  if (len < min || len > max) {
+    return `Nomor ${selectedCountry.value.name} harus ${min}–${max} digit`
+  }
+  return ''
+})
+
+const hasValidationError = computed(() =>
+  !!nameError.value || !!emailError.value || !!phoneError.value
+)
 
 const submitting = ref(false)
 const submitted = ref(false)
@@ -119,6 +243,10 @@ onUnmounted(() => {
 })
 
 async function onSubmit() {
+  if (hasValidationError.value) {
+    errorMessage.value = 'Mohon perbaiki kesalahan pada form terlebih dahulu.'
+    return
+  }
   if (!turnstileToken.value) {
     errorMessage.value = 'Silakan selesaikan tantangan verifikasi Turnstile terlebih dahulu.'
     return
@@ -144,8 +272,9 @@ async function onSubmit() {
       form.company = ''
       form.email = ''
       form.phone = ''
-      form.interest = 'ui-ux'
+      form.interest = 'ux-dx'
       form.message = ''
+      phoneDigits.value = ''
       turnstileToken.value = ''
       
       // Reset Turnstile widget for the next submission
@@ -242,18 +371,27 @@ async function onSubmit() {
 
         <form class="mt-8 flex flex-col gap-8" @submit.prevent="onSubmit">
           <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-            <label class="flex flex-col gap-2">
-              <span class="text-sm text-zinc-500 dark:text-zinc-400">Full name</span>
+            <!-- Nama Lengkap -->
+            <label class="flex flex-col gap-1">
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Nama Lengkap</span>
               <input
                 v-model="form.fullName"
                 type="text"
                 required
-                class="border-b border-zinc-300 bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white"
+                placeholder="Min. 3 huruf"
+                :class="[
+                  'border-b bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 transition-colors',
+                  nameError && form.fullName
+                    ? 'border-rose-500 focus:border-rose-600'
+                    : 'border-zinc-300 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white'
+                ]"
               />
+              <span v-if="nameError && form.fullName" class="text-xs text-rose-500 mt-0.5">{{ nameError }}</span>
             </label>
 
-            <label class="flex flex-col gap-2">
-              <span class="text-sm text-zinc-500 dark:text-zinc-400">Company</span>
+            <!-- Perusahaan -->
+            <label class="flex flex-col gap-1">
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Perusahaan</span>
               <input
                 v-model="form.company"
                 type="text"
@@ -261,24 +399,92 @@ async function onSubmit() {
               />
             </label>
 
-            <label class="flex flex-col gap-2">
+            <!-- Email -->
+            <label class="flex flex-col gap-1">
               <span class="text-sm text-zinc-500 dark:text-zinc-400">Email</span>
               <input
                 v-model="form.email"
-                type="email"
+                type="text"
                 required
-                class="border-b border-zinc-300 bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white"
+                placeholder="nama@domain.com"
+                :class="[
+                  'border-b bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 transition-colors',
+                  emailError && form.email
+                    ? 'border-rose-500 focus:border-rose-600'
+                    : 'border-zinc-300 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white'
+                ]"
               />
+              <span v-if="emailError && form.email" class="text-xs text-rose-500 mt-0.5">{{ emailError }}</span>
             </label>
 
-            <label class="flex flex-col gap-2">
-              <span class="text-sm text-zinc-500 dark:text-zinc-400">Phone</span>
-              <input
-                v-model="form.phone"
-                type="tel"
-                class="border-b border-zinc-300 bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white"
-              />
-            </label>
+            <!-- Nomor Telepon -->
+            <div class="flex flex-col gap-1">
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Nomor Telepon</span>
+              <div class="relative flex items-end gap-0">
+
+                <!-- Country dropdown trigger -->
+                <div class="relative">
+                  <button
+                    type="button"
+                    class="flex items-center gap-1.5 border-b border-zinc-300 pb-2 pr-2 text-sm outline-none transition-colors hover:border-zinc-600 dark:border-zinc-700 dark:hover:border-zinc-400"
+                    @click="phoneDropdownOpen = !phoneDropdownOpen"
+                    @blur="() => setTimeout(() => { phoneDropdownOpen = false }, 150)"
+                    aria-haspopup="listbox"
+                    :aria-expanded="phoneDropdownOpen"
+                  >
+                    <span class="text-base leading-none" aria-hidden="true">{{ selectedCountry.flag }}</span>
+                    <span class="text-zinc-700 dark:text-zinc-300">{{ selectedCountry.code }}</span>
+                    <svg class="h-3 w-3 text-zinc-400 transition-transform" :class="{ 'rotate-180': phoneDropdownOpen }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+
+                  <!-- Dropdown list -->
+                  <Transition
+                    enter-active-class="transition-all duration-200 ease-out"
+                    enter-from-class="opacity-0 -translate-y-1 scale-95"
+                    enter-to-class="opacity-100 translate-y-0 scale-100"
+                    leave-active-class="transition-all duration-150 ease-in"
+                    leave-from-class="opacity-100 translate-y-0 scale-100"
+                    leave-to-class="opacity-0 -translate-y-1 scale-95"
+                  >
+                    <ul
+                      v-if="phoneDropdownOpen"
+                      role="listbox"
+                      class="absolute left-0 top-full z-50 mt-1 w-48 rounded-xl border border-zinc-200 bg-white py-1 shadow-lg dark:border-zinc-700 dark:bg-zinc-900"
+                    >
+                      <li
+                        v-for="c in COUNTRIES"
+                        :key="c.code"
+                        role="option"
+                        :aria-selected="selectedCountry.code === c.code"
+                        class="flex cursor-pointer items-center gap-2.5 px-3 py-2 text-sm transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                        :class="selectedCountry.code === c.code ? 'text-orange-500 font-medium' : 'text-zinc-700 dark:text-zinc-300'"
+                        @click="selectCountry(c)"
+                      >
+                        <span class="text-base">{{ c.flag }}</span>
+                        <span>{{ c.name }}</span>
+                        <span class="ml-auto text-xs text-zinc-400">{{ c.code }}</span>
+                      </li>
+                    </ul>
+                  </Transition>
+                </div>
+
+                <!-- Number input -->
+                <input
+                  :value="phoneFormatted"
+                  type="tel"
+                  inputmode="numeric"
+                  :placeholder="selectedCountry.placeholder"
+                  :class="[
+                    'flex-1 border-b bg-transparent pb-2 pl-2 text-sm outline-none placeholder:text-zinc-400 transition-colors',
+                    phoneError && phoneDigits
+                      ? 'border-rose-500 focus:border-rose-600'
+                      : 'border-zinc-300 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white'
+                  ]"
+                  @input="onPhoneInput"
+                />
+              </div>
+              <span v-if="phoneError && phoneDigits" class="text-xs text-rose-500 mt-0.5">{{ phoneError }}</span>
+            </div>
           </div>
 
         <div class="flex flex-col gap-3">

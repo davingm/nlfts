@@ -144,110 +144,90 @@ const onSocialLeave = (e: MouseEvent) => {
   })
 }
 
-// Giant Text Parallax
-const onGiantMove = (e: MouseEvent) => {
-  const el = document.querySelector<HTMLElement>(".giant-branding")
-  if (!el) return
-  const x = (e.clientX / window.innerWidth - 0.5) * 40
-  const y = (e.clientY / window.innerHeight - 0.5) * 18
-  gsap.to(el, {
-    x,
-    y,
-    duration: 0.6,
-    ease: "power2.out"
-  })
-}
+
 </script>
 
 <template>
-    <footer 
-    class="relative bg-white dark:bg-[#09090b] pt-24 pb-0 overflow-hidden border-t border-zinc-200/80 dark:border-zinc-800"
-    @mousemove="onGiantMove"
+  <footer
+    class="relative bg-white dark:bg-[#09090b] pt-24 overflow-hidden border-t border-zinc-200/80 dark:border-zinc-800"
   >
-    <UContainer>
+    <UContainer class="pb-[380px] lg:pb-[480px]">
       <!-- TOP GRID -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
-    
-    <!-- BRANDING & UTILITY -->
-    <div class="lg:col-span-4 flex flex-col justify-between">
-      <div class="space-y-6">
-        <span class="text-xl font-bold tracking-tighter text-gray-900 dark:text-white">NLFT<span class="text-primary-500">s</span></span>
-        <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[240px] leading-relaxed">
-          Membangun masa depan perangkat lunak melalui kolaborasi komunitas.
-        </p>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+
+        <!-- BRANDING & UTILITY -->
+        <div class="lg:col-span-4 flex flex-col justify-between">
+          <div class="space-y-6">
+            <span class="text-xl font-bold tracking-tighter text-gray-900 dark:text-white">NLFT<span class="text-primary-500">s</span></span>
+            <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[240px] leading-relaxed">
+              Membangun masa depan perangkat lunak melalui kolaborasi komunitas.
+            </p>
+          </div>
+
+          <div class="mt-8 lg:mt-0 text-[10px] uppercase tracking-widest text-gray-400">
+            &copy; {{ new Date().getFullYear() }} NLFTs. All rights reserved.
+          </div>
+        </div>
+
+        <!-- LINKS -->
+        <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div v-for="col in columns" :key="col.label" class="space-y-6">
+            <h3 class="text-[10px] font-bold uppercase tracking-widest text-gray-900 dark:text-white">
+              {{ col.label }}
+            </h3>
+            <ul class="space-y-3">
+              <li v-for="link in col.children" :key="link.label">
+                <NuxtLink
+                  :to="link.to"
+                  class="text-sm text-gray-500 hover:text-primary-500 dark:text-gray-400 transition-colors duration-200"
+                >
+                  {{ link.label }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      
-      <div class="mt-8 lg:mt-0 text-[10px] uppercase tracking-widest text-gray-400">
-        &copy; {{ new Date().getFullYear() }} NLFTs. All rights reserved.
-      </div>
-    </div>
 
-    <!-- LINKS -->
-    <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
-      <div v-for="col in columns" :key="col.label" class="space-y-6">
-        <h3 class="text-[10px] font-bold uppercase tracking-widest text-gray-900 dark:text-white">
-          {{ col.label }}
-        </h3>
-        <ul class="space-y-3">
-          <li v-for="link in col.children" :key="link.label">
-            <NuxtLink 
-              :to="link.to"
-              class="text-sm text-gray-500 hover:text-primary-500 dark:text-gray-400 transition-colors duration-200"
-            >
-              {{ link.label }}
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+      <!-- SOCIALS BOTTOM BAR -->
+      <div class="mt-24 flex items-center justify-between border-t border-gray-100 dark:border-gray-800 pt-8">
+        <div class="flex items-center gap-6">
+          <NuxtLink
+            v-for="social in socialLinks"
+            :key="social.label"
+            :to="social.to"
+            target="_blank"
+            class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+          >
+            <UIcon :name="social.icon" class="w-5 h-5" />
+          </NuxtLink>
+        </div>
 
-  <!-- SOCIALS BOTTOM BAR -->
-  <div class="mt-24 flex items-center justify-between border-t border-gray-100 dark:border-gray-800 pt-8">
-    <div class="flex items-center gap-6">
-      <NuxtLink 
-        v-for="social in socialLinks" 
-        :key="social.label"
-        :to="social.to"
-        target="_blank"
-        class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-      >
-        <UIcon :name="social.icon" class="w-5 h-5" />
-      </NuxtLink>
-    </div>
-    
-    <div class="flex gap-6 text-[11px] font-medium text-gray-400">
-      <!-- Removed broken internal links to avoid prerendering 404 routes -->
-    </div>
-  </div>
-
-<!-- GIANT BRANDING TEXT -->
-      <div class="relative mt-40 select-none pointer-events-none overflow-visible">
-        <h1
-          class="giant-branding relative z-10 w-full text-center text-[clamp(180px,25vw,520px)] max-lg:text-[clamp(120px,18vw,520px)] font-[1000] leading-none tracking-[-0.08em] whitespace-nowrap transform-gpu will-change-transform"
-        >
-          <span class="text-zinc-900 dark:text-white">
-            NLFT
-          </span>
-          <span class="text-primary-500">
-            s
-          </span>
-        </h1>
-
-        <!-- Dark fade overlay -->
-        <div
-          class="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-white dark:from-[#09090b] via-white/90 dark:via-[#09090b]/90 to-transparent"
-        />
+        <div class="flex gap-6 text-[11px] font-medium text-gray-400">
+          <!-- Removed broken internal links to avoid prerendering 404 routes -->
+        </div>
       </div>
     </UContainer>
+
+    <!-- GIANT BRANDING TEXT — menempel persis di bawah footer -->
+    <div
+      class="absolute bottom-0 left-0 right-0 select-none pointer-events-none overflow-hidden"
+      aria-hidden="true"
+    >
+      <h1
+        class="giant-branding w-full text-center text-[clamp(180px,25vw,520px)] max-lg:text-[clamp(120px,18vw,520px)] font-[1000] leading-none tracking-[-0.08em] whitespace-nowrap"
+        style="transform: translateY(28%);"
+      >
+        <span class="text-zinc-900 dark:text-white">NLFT</span><span class="text-primary-500">s</span>
+      </h1>
+
+      <!-- Efek tenggelam ke kegelapan / darkness -->
+      <div
+        class="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-white dark:from-[#09090b] via-white/80 dark:via-[#09090b]/80 to-transparent pointer-events-none"
+      />
+    </div>
   </footer>
 </template>
-
-<style scoped>
-footer {
-  font-feature-settings: "cv11", "ss01", "cv01";
-}
-</style>
 
 <style scoped>
 footer {
