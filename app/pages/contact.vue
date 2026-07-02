@@ -201,7 +201,9 @@ async function onSubmit() {
           <img
             src="/images/donasi.png"
             alt="NLFTs Support Illustration"
-            class="h-auto w-full object-contain"
+            class="h-auto w-full object-contain select-none pointer-events-none"
+            draggable="false"
+            @contextmenu.prevent
           />
         </div>
 
@@ -222,14 +224,14 @@ async function onSubmit() {
                 </div>
 
           <a
-            href="mailto:hello@nlfts.dev"
+            href="mailto:team@nlfts.dev"
             class="flex items-center gap-2 text-sm text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 dark:text-zinc-300 dark:decoration-zinc-700 dark:hover:text-white"
           >
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8">
               <rect x="3" y="5" width="18" height="14" rx="2" />
               <path d="m3 7 9 6 9-6" />
             </svg>
-            hello@nlfts.dev
+            team@nlfts.dev
           </a>
         </div>
       </div>
@@ -320,15 +322,36 @@ async function onSubmit() {
           </div>
 
           <button
-            type="submit"
-            :disabled="submitting"
-            class="flex w-full items-center justify-center gap-2 rounded-full bg-zinc-900 py-4 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-zinc-800 disabled:opacity-60 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+          type="submit"
+          :disabled="submitting"
+          class="group relative w-full cursor-pointer overflow-hidden rounded-full py-4 text-sm font-semibold uppercase tracking-wide transition-all duration-300 disabled:opacity-60"
+        >
+          <!-- 1. Default background: at the bottom (z-0) -->
+          <span 
+            class="absolute inset-0 z-0 bg-zinc-900 dark:bg-[#ffffff]"
+          ></span>
+
+          <!-- 2. Hover background: slides up on top (z-10) with wave SVG -->
+          <span 
+            class="absolute inset-0 z-10 h-full w-full translate-y-[110%] bg-[#EA5E00] transition-transform duration-700 ease-out group-hover:translate-y-0"
           >
+            <svg 
+              class="absolute left-0 -top-[27px] h-[28px] w-[200%] fill-[#EA5E00] animate-wave pointer-events-none"
+              viewBox="0 0 240 28"
+              preserveAspectRatio="none"
+            >
+              <path d="M0 18 Q 30 0, 60 18 T 120 18 Q 150 0, 180 18 T 240 18 L 240 28 L 0 28 Z" />
+            </svg>
+          </span>
+
+          <!-- 3. Text/Icon content: on top of everything (z-20) -->
+          <span class="relative z-20 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-white dark:text-black dark:group-hover:text-white">
             <span>{{ submitting ? 'Sending...' : 'Send' }}</span>
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
-          </button>
+          </span>
+        </button>
 
           <p v-if="submitted" class="text-sm text-emerald-600 dark:text-emerald-400">
             Terima kasih! Pesanmu sudah kami terima, tim kami akan segera menghubungi kamu.
@@ -339,3 +362,21 @@ async function onSubmit() {
     </div>
   </div>
 </template>
+
+<style scoped>
+@keyframes waveMotion {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(0.8);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+}
+
+.animate-wave {
+  animation: waveMotion 3s linear infinite;
+}
+</style>

@@ -54,8 +54,8 @@ export default defineEventHandler(async (event) => {
     <description>Tips, tutorial, dan info seputar web development, hosting, game server, dan aplikasi Android dari tim NLFTs.</description>
     <language>id</language>
     <copyright>Copyright ${new Date().getFullYear()} NLFTs</copyright>
-    <managingEditor>halo@NLFTs.dev (NLFTs)</managingEditor>
-    <webMaster>halo@NLFTs.dev (NLFTs)</webMaster>
+    <managingEditor>team@NLFTs.dev (NLFTs)</managingEditor>
+    <webMaster>team@NLFTs.dev (NLFTs)</webMaster>
     <lastBuildDate>${now}</lastBuildDate>
     <ttl>60</ttl>
     <image>

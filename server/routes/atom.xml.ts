@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
   <link rel="self" href="${baseUrl}/atom.xml" type="application/atom+xml"/>
   <id>${baseUrl}/</id>
   <updated>${updated}</updated>
-  <author><name>NLFTs</name><email>halo@NLFTs.dev</email></author>
+  <author><name>NLFTs</name><email>team@NLFTs.dev</email></author>
   <icon>${baseUrl}/nlfts.webp</icon>
   ${entries}
 </feed>`
