@@ -85,7 +85,7 @@
             <!-- Text -->
             <span
               class="transition-all duration-300 ease-out
-                    group-hover:-translate-y-8 group-hover:opacity-0"
+                    group-hover:-translate-y-8 group-hover:opacity-0 text-black dark:text-white"
             >
               View docs
             </span>
@@ -96,7 +96,7 @@
               class="absolute size-4 opacity-0 translate-y-8
                     transition-all duration-300 ease-out
                     group-hover:translate-y-0
-                    group-hover:opacity-100"
+                    group-hover:opacity-100 text-black dark:text-white"
             />
           </NuxtLink>
         </div>
