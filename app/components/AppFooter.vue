@@ -1,41 +1,46 @@
 <script setup lang="ts">
 import gsap from 'gsap'
 
+
 const columns = [
   {
-    label: 'product',
+    label: 'Product',
     children: [
-      { label: 'Website Company Profile' },
-      { label: 'Landing Page' },
-      { label: 'Toko Online' },
-      { label: 'SEO Optimization' }
+      { label: 'Nuxt Module', to: '/products/nuxt-module' },
+      { label: 'Starter Kit', to: '/products/starter-kit' },
+      { label: 'Templates', to: '/products/templates' },
+      { label: 'Kursus Insinyur Situs Moderen', to: '/courses/modern-site' }
     ]
   },
   {
     label: 'Server & Hosting',
     children: [
-      { label: 'Setup Hosting & Domain' },
-      { label: 'Game Server' },
-      { label: 'Instalasi Panel' },
-      { label: 'Maintenance & Support' }
+      { label: 'Setup Hosting & Domain', to: '/hosting/setup' },
+      { label: 'Game Server', to: '/hosting/game-server' },
+      { label: 'Instalasi Panel', to: '/hosting/panel' },
+      { label: 'Maintenance & Support', to: '/hosting/maintenance' }
     ]
   },
   {
     label: 'Perusahaan',
     children: [
-      { label: 'Tentang Kami' },
-      { label: 'Portofolio' },
-      { label: 'Blog & Info' },
-      { label: 'Kontak' }
+      { label: 'Tentang', to: '/about' },
+      { label: 'DevLovers', to: '/members' },
+      { label: 'Blog', to: '/blog' },
+      { label: 'Sponsors', to: '/sponsor'},
+      { label: 'Kontak', to: '/contact' },
+      { label: 'Mitra', to: '/partners'},
+      { label: 'Donasi', to: '/donate'},
+      { label: 'Meetup', to: '/meetup'}
     ]
   },
   {
     label: 'Legal',
     children: [
-      { label: 'Kebijakan Privasi' },
-      { label: 'Syarat & Ketentuan' },
-      { label: 'FAQ' },
-      { label: 'Dukungan' }
+      { label: 'Kebijakan Privasi', to: '/legal/privacy' },
+      { label: 'Syarat & Ketentuan', to: '/legal/terms' },
+      { label: 'FAQ', to: '/faq' },
+      { label: 'Dukungan 24/7', to: '/support' }
     ]
   }
 ]

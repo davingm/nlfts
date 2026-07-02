@@ -12,6 +12,14 @@ export default defineNuxtConfig({
     enabled: true
   },
 
+  runtimeConfig: {
+    turnstileSecretKey: process.env.SECRET_KEY || '',
+    resendApiKey: process.env.RESEND_API_KEY || '',
+    public: {
+      turnstileSiteKey: process.env.SITE_KEY || ''
+    }
+  },
+
   css: ['~/assets/css/main.css'],
 
   vue: {
