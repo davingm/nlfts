@@ -196,6 +196,15 @@ async function onSubmit() {
           Ubah visi Anda menjadi pengalaman digital yang memukau
         </p>
 
+        <!-- Image Donasi -->
+        <div class="mt-8 mb-6 max-w-[280px] sm:max-w-[320px]">
+          <img
+            src="/images/donasi.png"
+            alt="NLFTs Support Illustration"
+            class="h-auto w-full object-contain"
+          />
+        </div>
+
         <div class="mt-auto flex flex-col gap-6 pt-16">
             <div class="flex items-center gap-3">
                 <a

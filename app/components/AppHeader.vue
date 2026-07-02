@@ -195,7 +195,7 @@ const Resources = [
       { label: "Sponsor", to: "https://github.com/sponsors/nlfts", target: "_blank", external: true },
       { label: "Marketplace", to: "https://github.com/NLFTs", target: "_blank", external: true },
       { label: "Partner", to: "/terhubung" },
-      { label: "Contact Us", to: "/terhubung" },
+      { label: "Contact Us", to: "/contact" },
       { label: "Community ↗", to: "https://discord.gg/uNc3r3ZKQx", target: "_blank", external: true }
     ]
   }

@@ -8,10 +8,6 @@
           "value": "nginx/1.24.0 (Ubuntu)"
         },
         {
-          "key": "x-powered-by",
-          "value": "PHP/8.2.12"
-        },
-        {
           "key": "via",
           "value": "1.1 proxy.NLFTs.dev (Varnish/7.4)"
         },

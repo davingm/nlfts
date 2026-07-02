@@ -30,7 +30,7 @@ const columns = [
       { label: 'Sponsors', to: '/sponsor'},
       { label: 'Kontak', to: '/contact' },
       { label: 'Mitra', to: '/partners'},
-      { label: 'Donasi', to: '/donate'},
+      { label: 'Donasi', to: '/donasi'},
       { label: 'Meetup', to: '/meetup'}
     ]
   },
