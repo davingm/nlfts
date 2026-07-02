@@ -29,6 +29,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    '/api/**': { prerender: false },
     '/docs': { redirect: '/docs/getting-started', prerender: false },
     '/blog/**': { prerender: true },
     '/docs/**': { prerender: true },

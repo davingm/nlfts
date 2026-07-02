@@ -10,7 +10,7 @@
     "build": "nuxt build",
     "predev": "node ./scripts/ensure-payload.js",
     "generate": "nuxt generate",
-    "vercel-build": "nuxt generate",
+    "vercel-build": "nuxt build",
     "dev": "nuxt dev",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
