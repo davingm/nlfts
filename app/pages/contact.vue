@@ -18,7 +18,7 @@ const interests: Interest[] = [
   { label: 'UX/DX', value: 'ux-dx' },
   { label: 'Development', value: 'development' },
   { label: 'Branding', value: 'branding' },
-  { label: 'Game Development', value: 'game-development' },
+  { label: '3D', value: '3d' },
   { label: 'Business Automation', value: 'business-automation' },
   { label: 'Event Meetup', value: 'event-meetup' },
   { label: 'Partner', value: 'partner' },
@@ -42,95 +42,7 @@ const form = reactive({
   message: '',
 })
 
-// ── Phone country picker ──────────────────────────────────────────────────────
-interface CountryPhone {
-  code: string      // dial code e.g. '+62'
-  flag: string      // emoji flag
-  name: string
-  placeholder: string
-  // groups: how many digits in each dash-segment (left to right)
-  groups: number[]
-  // max raw digits (no dash, no code)
-  maxDigits: number
-}
-
-const COUNTRIES: CountryPhone[] = [
-  {
-    code: '+62',
-    flag: '\uD83C\uDDEE\uD83C\uDDE9', // 🇮🇩
-    name: 'Indonesia',
-    placeholder: '812-3456-7890',
-    groups: [3, 4, 4],
-    maxDigits: 11,
-  },
-  {
-    code: '+60',
-    flag: '\uD83C\uDDF2\uD83C\uDDFE', // 🇲🇾
-    name: 'Malaysia',
-    placeholder: '12-3456-7890',
-    groups: [2, 4, 4],
-    maxDigits: 10,
-  },
-  {
-    code: '+86',
-    flag: '\uD83C\uDDE8\uD83C\uDDF3', // 🇨🇳
-    name: 'China',
-    placeholder: '138-1234-5678',
-    groups: [3, 4, 4],
-    maxDigits: 11,
-  },
-]
-
-const selectedCountry = ref<CountryPhone>(COUNTRIES[0])
-const phoneDigits = ref('')     // digits only, no dashes
-const phoneDropdownOpen = ref(false)
-
-// Format digits into groups separated by '-'
-function formatWithDashes(digits: string, groups: number[]): string {
-  let result = ''
-  let pos = 0
-  for (let i = 0; i < groups.length; i++) {
-    const chunk = digits.slice(pos, pos + groups[i])
-    if (!chunk) break
-    if (i > 0) result += '-'
-    result += chunk
-    pos += groups[i]
-  }
-  // remaining digits beyond defined groups
-  const remaining = digits.slice(pos)
-  if (remaining) result += '-' + remaining
-  return result
-}
-
-// Formatted display value
-const phoneFormatted = computed(() =>
-  formatWithDashes(phoneDigits.value, selectedCountry.value.groups)
-)
-
-// Keep form.phone in sync as full international number
-watch([phoneDigits, selectedCountry], () => {
-  form.phone = phoneDigits.value
-    ? selectedCountry.value.code + phoneDigits.value
-    : ''
-})
-
-// Handle input: strip non-digits, cap at maxDigits
-function onPhoneInput(e: Event) {
-  const raw = (e.target as HTMLInputElement).value
-  const digits = raw.replace(/\D/g, '').slice(0, selectedCountry.value.maxDigits)
-  phoneDigits.value = digits
-  // Set the display value formatted
-  ;(e.target as HTMLInputElement).value = phoneFormatted.value
-}
-
-// When country changes, clear the number
-function selectCountry(c: CountryPhone) {
-  selectedCountry.value = c
-  phoneDigits.value = ''
-  phoneDropdownOpen.value = false
-}
-
-// ── Validation ──────────────────────────────────────────────────────
+// ── Validation ──────────────────────────────────────────────────────────────
 // fullName: 1+ kata, minimal 3 huruf total (hanya huruf + spasi)
 const nameError = computed(() => {
   if (!form.fullName) return ''
@@ -148,14 +60,15 @@ const emailError = computed(() => {
   return ''
 })
 
-// phone: validate digit count per country
+// phone: hanya Indonesia (+62/08), Malaysia (+60/01), China (+86/1[3-9])
 const phoneError = computed(() => {
-  if (!phoneDigits.value) return ''
-  const len = phoneDigits.value.length
-  const min = selectedCountry.value.maxDigits - 1
-  const max = selectedCountry.value.maxDigits
-  if (len < min || len > max) {
-    return `Nomor ${selectedCountry.value.name} harus ${min}–${max} digit`
+  if (!form.phone) return ''
+  const cleaned = form.phone.replace(/[\s\-().]/g, '')
+  const idRegex = /^(\+62|0)[2-9][0-9]{6,11}$/
+  const myRegex = /^(\+60|0)[1-9][0-9]{7,9}$/
+  const cnRegex = /^(\+86|0086)?1[3-9][0-9]{9}$/
+  if (!idRegex.test(cleaned) && !myRegex.test(cleaned) && !cnRegex.test(cleaned)) {
+    return 'Hanya nomor Indonesia (+62), Malaysia (+60), atau China (+86) yang diizinkan'
   }
   return ''
 })
@@ -272,9 +185,8 @@ async function onSubmit() {
       form.company = ''
       form.email = ''
       form.phone = ''
-      form.interest = 'ux-dx'
+      form.interest = 'ui-ux'
       form.message = ''
-      phoneDigits.value = ''
       turnstileToken.value = ''
       
       // Reset Turnstile widget for the next submission
@@ -418,73 +330,21 @@ async function onSubmit() {
             </label>
 
             <!-- Nomor Telepon -->
-            <div class="flex flex-col gap-1">
+            <label class="flex flex-col gap-1">
               <span class="text-sm text-zinc-500 dark:text-zinc-400">Nomor Telepon</span>
-              <div class="relative flex items-end gap-0">
-
-                <!-- Country dropdown trigger -->
-                <div class="relative">
-                  <button
-                    type="button"
-                    class="flex items-center gap-1.5 border-b border-zinc-300 pb-2 pr-2 text-sm outline-none transition-colors hover:border-zinc-600 dark:border-zinc-700 dark:hover:border-zinc-400"
-                    @click="phoneDropdownOpen = !phoneDropdownOpen"
-                    @blur="() => setTimeout(() => { phoneDropdownOpen = false }, 150)"
-                    aria-haspopup="listbox"
-                    :aria-expanded="phoneDropdownOpen"
-                  >
-                    <span class="text-base leading-none" aria-hidden="true">{{ selectedCountry.flag }}</span>
-                    <span class="text-zinc-700 dark:text-zinc-300">{{ selectedCountry.code }}</span>
-                    <svg class="h-3 w-3 text-zinc-400 transition-transform" :class="{ 'rotate-180': phoneDropdownOpen }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-                  </button>
-
-                  <!-- Dropdown list -->
-                  <Transition
-                    enter-active-class="transition-all duration-200 ease-out"
-                    enter-from-class="opacity-0 -translate-y-1 scale-95"
-                    enter-to-class="opacity-100 translate-y-0 scale-100"
-                    leave-active-class="transition-all duration-150 ease-in"
-                    leave-from-class="opacity-100 translate-y-0 scale-100"
-                    leave-to-class="opacity-0 -translate-y-1 scale-95"
-                  >
-                    <ul
-                      v-if="phoneDropdownOpen"
-                      role="listbox"
-                      class="absolute left-0 top-full z-50 mt-1 w-48 rounded-xl border border-zinc-200 bg-white py-1 shadow-lg dark:border-zinc-700 dark:bg-zinc-900"
-                    >
-                      <li
-                        v-for="c in COUNTRIES"
-                        :key="c.code"
-                        role="option"
-                        :aria-selected="selectedCountry.code === c.code"
-                        class="flex cursor-pointer items-center gap-2.5 px-3 py-2 text-sm transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800"
-                        :class="selectedCountry.code === c.code ? 'text-orange-500 font-medium' : 'text-zinc-700 dark:text-zinc-300'"
-                        @click="selectCountry(c)"
-                      >
-                        <span class="text-base">{{ c.flag }}</span>
-                        <span>{{ c.name }}</span>
-                        <span class="ml-auto text-xs text-zinc-400">{{ c.code }}</span>
-                      </li>
-                    </ul>
-                  </Transition>
-                </div>
-
-                <!-- Number input -->
-                <input
-                  :value="phoneFormatted"
-                  type="tel"
-                  inputmode="numeric"
-                  :placeholder="selectedCountry.placeholder"
-                  :class="[
-                    'flex-1 border-b bg-transparent pb-2 pl-2 text-sm outline-none placeholder:text-zinc-400 transition-colors',
-                    phoneError && phoneDigits
-                      ? 'border-rose-500 focus:border-rose-600'
-                      : 'border-zinc-300 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white'
-                  ]"
-                  @input="onPhoneInput"
-                />
-              </div>
-              <span v-if="phoneError && phoneDigits" class="text-xs text-rose-500 mt-0.5">{{ phoneError }}</span>
-            </div>
+              <input
+                v-model="form.phone"
+                type="tel"
+                placeholder="+62 / +60 / +86"
+                :class="[
+                  'border-b bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 transition-colors',
+                  phoneError && form.phone
+                    ? 'border-rose-500 focus:border-rose-600'
+                    : 'border-zinc-300 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white'
+                ]"
+              />
+              <span v-if="phoneError && form.phone" class="text-xs text-rose-500 mt-0.5">{{ phoneError }}</span>
+            </label>
           </div>
 
         <div class="flex flex-col gap-3">
