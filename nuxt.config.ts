@@ -37,7 +37,6 @@ export default defineNuxtConfig({
       prerender: true,
       headers: {
         'server': 'nginx/1.24.0 (Ubuntu)',
-        'x-powered-by': 'PHP/8.2.12',
         'x-cache': 'HIT from proxy.NLFTs.dev',
         'x-cache-hits': '3',
         'via': '1.1 proxy.NLFTs.dev (Varnish/7.4)',

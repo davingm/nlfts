@@ -15,11 +15,13 @@ interface Interest {
 }
 
 const interests: Interest[] = [
-  { label: 'UI/UX', value: 'ui-ux' },
+  { label: 'UX/DX', value: 'ux-dx' },
   { label: 'Development', value: 'development' },
   { label: 'Branding', value: 'branding' },
-  { label: '3D Animation', value: '3d-animation' },
-  { label: 'Business automation', value: 'business-automation' },
+  { label: '3D', value: '3d' },
+  { label: 'Business Automation', value: 'business-automation' },
+  { label: 'Event Meetup', value: 'event-meetup' },
+  { label: 'Partner', value: 'partner' },
 ]
 
 const socials = [
@@ -36,9 +38,44 @@ const form = reactive({
   company: '',
   email: '',
   phone: '',
-  interest: 'ui-ux',
+  interest: 'ux-dx',
   message: '',
 })
+
+// ── Validation ──────────────────────────────────────────────────────────────
+// fullName: 1+ kata, minimal 3 huruf total (hanya huruf + spasi)
+const nameError = computed(() => {
+  if (!form.fullName) return ''
+  const trimmed = form.fullName.trim()
+  if (trimmed.length < 3) return 'Nama minimal 3 huruf'
+  if (!/^[\p{L}\s'-]+$/u.test(trimmed)) return 'Nama hanya boleh berisi huruf'
+  return ''
+})
+
+// email: wajib ada @ dan domain dengan TLD
+const emailError = computed(() => {
+  if (!form.email) return ''
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/
+  if (!emailRegex.test(form.email)) return 'Format email tidak valid (contoh: nama@domain.com)'
+  return ''
+})
+
+// phone: hanya Indonesia (+62/08), Malaysia (+60/01), China (+86/1[3-9])
+const phoneError = computed(() => {
+  if (!form.phone) return ''
+  const cleaned = form.phone.replace(/[\s\-().]/g, '')
+  const idRegex = /^(\+62|0)[2-9][0-9]{6,11}$/
+  const myRegex = /^(\+60|0)[1-9][0-9]{7,9}$/
+  const cnRegex = /^(\+86|0086)?1[3-9][0-9]{9}$/
+  if (!idRegex.test(cleaned) && !myRegex.test(cleaned) && !cnRegex.test(cleaned)) {
+    return 'Hanya nomor Indonesia (+62), Malaysia (+60), atau China (+86) yang diizinkan'
+  }
+  return ''
+})
+
+const hasValidationError = computed(() =>
+  !!nameError.value || !!emailError.value || !!phoneError.value
+)
 
 const submitting = ref(false)
 const submitted = ref(false)
@@ -119,6 +156,10 @@ onUnmounted(() => {
 })
 
 async function onSubmit() {
+  if (hasValidationError.value) {
+    errorMessage.value = 'Mohon perbaiki kesalahan pada form terlebih dahulu.'
+    return
+  }
   if (!turnstileToken.value) {
     errorMessage.value = 'Silakan selesaikan tantangan verifikasi Turnstile terlebih dahulu.'
     return
@@ -196,6 +237,17 @@ async function onSubmit() {
           Ubah visi Anda menjadi pengalaman digital yang memukau
         </p>
 
+        <!-- Image Donasi -->
+        <div class="mt-8 mb-6 max-w-[280px] sm:max-w-[320px]">
+          <img
+            src="/images/donasi.png"
+            alt="NLFTs Support Illustration"
+            class="h-auto w-full object-contain select-none pointer-events-none"
+            draggable="false"
+            @contextmenu.prevent
+          />
+        </div>
+
         <div class="mt-auto flex flex-col gap-6 pt-16">
             <div class="flex items-center gap-3">
                 <a
@@ -213,14 +265,14 @@ async function onSubmit() {
                 </div>
 
           <a
-            href="mailto:hello@nlfts.dev"
+            href="mailto:team@nlfts.dev"
             class="flex items-center gap-2 text-sm text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 dark:text-zinc-300 dark:decoration-zinc-700 dark:hover:text-white"
           >
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8">
               <rect x="3" y="5" width="18" height="14" rx="2" />
               <path d="m3 7 9 6 9-6" />
             </svg>
-            hello@nlfts.dev
+            team@nlfts.dev
           </a>
         </div>
       </div>
@@ -231,18 +283,27 @@ async function onSubmit() {
 
         <form class="mt-8 flex flex-col gap-8" @submit.prevent="onSubmit">
           <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-            <label class="flex flex-col gap-2">
-              <span class="text-sm text-zinc-500 dark:text-zinc-400">Full name</span>
+            <!-- Nama Lengkap -->
+            <label class="flex flex-col gap-1">
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Nama Lengkap</span>
               <input
                 v-model="form.fullName"
                 type="text"
                 required
-                class="border-b border-zinc-300 bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white"
+                placeholder="Min. 3 huruf"
+                :class="[
+                  'border-b bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 transition-colors',
+                  nameError && form.fullName
+                    ? 'border-rose-500 focus:border-rose-600'
+                    : 'border-zinc-300 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white'
+                ]"
               />
+              <span v-if="nameError && form.fullName" class="text-xs text-rose-500 mt-0.5">{{ nameError }}</span>
             </label>
 
-            <label class="flex flex-col gap-2">
-              <span class="text-sm text-zinc-500 dark:text-zinc-400">Company</span>
+            <!-- Perusahaan -->
+            <label class="flex flex-col gap-1">
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Perusahaan</span>
               <input
                 v-model="form.company"
                 type="text"
@@ -250,23 +311,39 @@ async function onSubmit() {
               />
             </label>
 
-            <label class="flex flex-col gap-2">
+            <!-- Email -->
+            <label class="flex flex-col gap-1">
               <span class="text-sm text-zinc-500 dark:text-zinc-400">Email</span>
               <input
                 v-model="form.email"
-                type="email"
+                type="text"
                 required
-                class="border-b border-zinc-300 bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white"
+                placeholder="nama@domain.com"
+                :class="[
+                  'border-b bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 transition-colors',
+                  emailError && form.email
+                    ? 'border-rose-500 focus:border-rose-600'
+                    : 'border-zinc-300 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white'
+                ]"
               />
+              <span v-if="emailError && form.email" class="text-xs text-rose-500 mt-0.5">{{ emailError }}</span>
             </label>
 
-            <label class="flex flex-col gap-2">
-              <span class="text-sm text-zinc-500 dark:text-zinc-400">Phone</span>
+            <!-- Nomor Telepon -->
+            <label class="flex flex-col gap-1">
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Nomor Telepon</span>
               <input
                 v-model="form.phone"
                 type="tel"
-                class="border-b border-zinc-300 bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white"
+                placeholder="+62 / +60 / +86"
+                :class="[
+                  'border-b bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 transition-colors',
+                  phoneError && form.phone
+                    ? 'border-rose-500 focus:border-rose-600'
+                    : 'border-zinc-300 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white'
+                ]"
               />
+              <span v-if="phoneError && form.phone" class="text-xs text-rose-500 mt-0.5">{{ phoneError }}</span>
             </label>
           </div>
 
@@ -311,15 +388,36 @@ async function onSubmit() {
           </div>
 
           <button
-            type="submit"
-            :disabled="submitting"
-            class="flex w-full items-center justify-center gap-2 rounded-full bg-zinc-900 py-4 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-zinc-800 disabled:opacity-60 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+          type="submit"
+          :disabled="submitting"
+          class="group relative w-full cursor-pointer overflow-hidden rounded-full py-4 text-sm font-semibold uppercase tracking-wide transition-all duration-300 disabled:opacity-60"
+        >
+          <!-- 1. Default background: at the bottom (z-0) -->
+          <span 
+            class="absolute inset-0 z-0 bg-zinc-900 dark:bg-[#ffffff]"
+          ></span>
+
+          <!-- 2. Hover background: slides up on top (z-10) with wave SVG -->
+          <span 
+            class="absolute inset-0 z-10 h-full w-full translate-y-[110%] bg-[#EA5E00] transition-transform duration-700 ease-out group-hover:translate-y-0"
           >
+            <svg 
+              class="absolute left-0 -top-[27px] h-[28px] w-[200%] fill-[#EA5E00] animate-wave pointer-events-none"
+              viewBox="0 0 240 28"
+              preserveAspectRatio="none"
+            >
+              <path d="M0 18 Q 30 0, 60 18 T 120 18 Q 150 0, 180 18 T 240 18 L 240 28 L 0 28 Z" />
+            </svg>
+          </span>
+
+          <!-- 3. Text/Icon content: on top of everything (z-20) -->
+          <span class="relative z-20 flex items-center justify-center gap-2 text-white transition-colors duration-300 group-hover:text-white dark:text-black dark:group-hover:text-white">
             <span>{{ submitting ? 'Sending...' : 'Send' }}</span>
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M13 6l6 6-6 6" />
             </svg>
-          </button>
+          </span>
+        </button>
 
           <p v-if="submitted" class="text-sm text-emerald-600 dark:text-emerald-400">
             Terima kasih! Pesanmu sudah kami terima, tim kami akan segera menghubungi kamu.
@@ -330,3 +428,21 @@ async function onSubmit() {
     </div>
   </div>
 </template>
+
+<style scoped>
+@keyframes waveMotion {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(0.8);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+}
+
+.animate-wave {
+  animation: waveMotion 3s linear infinite;
+}
+</style>
