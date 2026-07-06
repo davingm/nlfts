@@ -65,6 +65,8 @@ onMounted(() => {
               :src="person.avatar" 
               :alt="person.name" 
               class="w-full h-full object-cover"
+              width="64"
+              height="64"
               loading="lazy"
             />
           </div>

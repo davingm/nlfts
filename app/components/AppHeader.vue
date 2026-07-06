@@ -280,6 +280,7 @@ const Resources = [
           
           <button
             class="lg:hidden p-1.5 rounded-md text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
+            aria-label="Buka menu navigasi"
             @click="openMobile"
           >
             <UIcon name="i-lucide-menu" class="w-5 h-5" />

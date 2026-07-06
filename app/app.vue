@@ -27,11 +27,16 @@ useHead(() => ({
   link: [
     { rel: 'icon', type: 'image/png', href: '/nlfts.webp' },
     { rel: 'canonical', href: canonicalUrl.value },
+    // Preconnect to font origins for faster discovery
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+    // Google Fonts — non-render-blocking (media=print swap trick)
+    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap', media: 'print', onload: "this.media='all'" },
     // RSS feeds
     { rel: 'alternate', type: 'application/rss+xml', title: 'NLFTs Blog RSS', href: 'https://NLFTs.dev/rss.xml' },
     { rel: 'alternate', type: 'application/atom+xml', title: 'NLFTs Blog Atom', href: 'https://NLFTs.dev/atom.xml' },
-    // Algolia DocSearch CSS signature (TrapStack)
-    { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.css', 'data-trapstack': 'algolia' }
+    // Algolia DocSearch CSS signature (TrapStack) — loaded async, non-blocking
+    { rel: 'preload', as: 'style', href: 'https://cdn.jsdelivr.net/npm/@docsearch/css@3/dist/style.css', onload: "this.rel='stylesheet'", 'data-trapstack': 'algolia' }
   ],
 
   script: [

@@ -25,9 +25,12 @@
 
         <div class="sticky top-24 w-full">
           <div class="relative w-full aspect-[4/3] overflow-hidden dark:border-white/10">
-            <img 
-              src="/location/indo.webp" 
-              alt="Tim sedang berkolaborasi" 
+            <NuxtImg
+              src="/location/indo.webp"
+              alt="Tim sedang berkolaborasi"
+              width="473"
+              height="473"
+              loading="lazy"
               class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
             />
             
