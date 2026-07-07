@@ -1,6 +1,8 @@
 {
   "name": "nuxt-ui-template-saas",
   "private": true,
+  "license": "AGPL-3.0-only",
+  "description": "A Nuxt-based project with AGPL-3.0-only primary licensing and third-party notices for included dependencies.",
   "type": "module",
   "engines": {
     "node": ">=22.0.0",
