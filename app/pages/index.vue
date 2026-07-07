@@ -238,7 +238,18 @@ onUnmounted(() => {
 <main>
   <div class="relative overflow-hidden selection:bg-emerald-500/30 pb-32">
     <div class="absolute inset-0 bg-gradient-to-b from-white dark:from-black via-orange-400 to-black z-0"></div>
-    <div class="absolute inset-0 -bottom-40 z-[1] bg-[url('/images/gunung-transpert.webp')] bg-cover bg-center bg-no-repeat"></div>
+    <!-- Hero background — NuxtImg for LCP optimization (fetchpriority=high, no lazy) -->
+    <NuxtImg
+      src="/images/gunung-transpert.webp"
+      alt=""
+      aria-hidden="true"
+      fetchpriority="high"
+      :loading="undefined"
+      width="1920"
+      height="1080"
+      class="absolute inset-0 w-full h-full object-cover object-center z-[1] pointer-events-none select-none"
+      style="margin-bottom: -10rem;"
+    />
 
     <div class="relative z-10 pt-12 md:pt-16 pb-2">
       <div class="max-w-[1500px] mx-auto px-6 sm:px-12 md:px-16">
@@ -292,22 +303,28 @@ onUnmounted(() => {
             >
             <div class="relative w-full h-full flex items-center justify-center">
                 <div :class="`brand-item-current-${i} absolute inset-0 flex items-center justify-center`">
-                  <img 
-                    v-if="slotItem.current?.isImage" 
-                    :src="slotItem.current.logo" 
-                    class="h-8 sm:h-10 md:h-12 w-full object-contain invert opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale" 
-                    :alt="slotItem.current.name" 
+                  <NuxtImg
+                    v-if="slotItem.current?.isImage"
+                    :src="slotItem.current.logo"
+                    :alt="slotItem.current.name"
+                    width="112"
+                    height="48"
+                    loading="lazy"
+                    class="h-8 sm:h-10 md:h-12 w-full object-contain invert opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale"
                     @error="(e) => handleImageError(e, i, false)"
                   />
                   <span v-else class="text-base sm:text-lg font-bold text-white/70">{{ slotItem.current?.name }}</span>
                 </div>
 
                 <div :class="`brand-item-incoming-${i} absolute inset-0 flex items-center justify-center`" style="transform: translateY(100%); opacity: 0;">
-                  <img 
-                    v-if="slotItem.next?.isImage" 
-                    :src="slotItem.next.logo" 
-                    class="h-8 sm:h-10 md:h-12 w-full object-contain invert opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale" 
-                    :alt="slotItem.next.name" 
+                  <NuxtImg
+                    v-if="slotItem.next?.isImage"
+                    :src="slotItem.next.logo"
+                    :alt="slotItem.next.name"
+                    width="112"
+                    height="48"
+                    loading="lazy"
+                    class="h-8 sm:h-10 md:h-12 w-full object-contain invert opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale"
                     @error="(e) => handleImageError(e, i, true)"
                   />
                   <span v-else class="text-base sm:text-lg font-bold text-white/70">{{ slotItem.next?.name }}</span>

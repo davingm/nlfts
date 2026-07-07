@@ -22,6 +22,24 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  image: {
+    // Use @nuxt/image built-in optimizer (sharp is already installed)
+    quality: 80,
+    format: ['webp', 'avif'],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536
+    },
+    // Allow optimization of external images (GitHub avatars, vectorlogo.zone)
+    domains: ['avatars.githubusercontent.com', 'www.vectorlogo.zone', 'i.pravatar.cc'],
+    // ipx provider for local static images
+    provider: 'ipx'
+  },
+
   vue: {
     compilerOptions: {
       isCustomElement: (tag: string) => tag === 'app-root'

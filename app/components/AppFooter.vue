@@ -197,6 +197,7 @@ const onSocialLeave = (e: MouseEvent) => {
             :key="social.label"
             :to="social.to"
             target="_blank"
+            :aria-label="social.label"
             class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
             <UIcon :name="social.icon" class="w-5 h-5" />
