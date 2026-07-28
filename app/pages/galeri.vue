@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen bg-white dark:bg-black font-sans transition-colors duration-200">
+  <div class="min-h-screen bg-white dark:bg-[#09090b] font-sans transition-colors duration-200">
 
     <!-- ─── HEADER ──────────────────────────────────────────── -->
-    <header class="sticky top-0 z-30 border-b border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-black/90 backdrop-blur-sm">
+    <header class="sticky top-0 z-30 border-b border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-[#09090b]/90 backdrop-blur-sm">
       <div class="max-w-screen-xl mx-auto px-6 h-12 flex items-center justify-between">
         <span class="text-[11px] font-medium tracking-[0.1em] uppercase text-zinc-400 dark:text-zinc-600 shrink-0">
           Gallery
@@ -43,7 +43,7 @@
     </section>
 
     <!-- ─── SUBHEADER ───────────────────────────────────────── -->
-    <section class="max-w-screen-xl mx-auto border-x border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-black/80 px-6 py-3 backdrop-blur-sm">
+    <section class="max-w-screen-xl mx-auto border-x border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-[#09090b]/80 px-6 py-3 backdrop-blur-sm">
       <div class="flex flex-wrap items-center justify-between gap-3">
         <nav class="flex flex-wrap items-center gap-1">
           <button
@@ -94,7 +94,7 @@
       <Transition name="lb">
         <div
           v-if="lightbox"
-          class="fixed inset-0 z-50 bg-white/98 dark:bg-black/98 flex flex-col"
+          class="fixed inset-0 z-50 bg-white/98 dark:bg-[#09090b]/98 flex flex-col"
           @keydown.esc="closeLightbox"
           tabindex="-1"
           ref="lbEl"
@@ -171,12 +171,20 @@
 import { ref, computed, nextTick } from 'vue'
 
 useSeoMeta({
-  title: 'Gallery — NLFTs',
-  description: 'Dokumentasi visual proyek dan karya NLFTs. Dari prototipe hingga produk jadi.',
-  ogTitle: 'Gallery — NLFTs',
-  ogDescription: 'Galeri visual dari karya dan proyek NLFTs.',
+  title: 'Galeri — Dokumentasi Visual Proyek & Event NLFTs',
+  ogTitle: 'Galeri — Dokumentasi Visual Proyek & Event NLFTs',
+  description: 'Galeri foto dan visual dokumentasi proyek, UI design, event meetup, dan behind the scenes komunitas developer NLFTs Indonesia.',
+  ogDescription: 'Dokumentasi visual NLFTs: proyek, UI design, event meetup, dan momen behind the scenes komunitas developer Indonesia.',
   ogImage: 'https://nlfts.dev/og/gallery.png',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageType: 'image/png',
+  ogUrl: 'https://nlfts.dev/galeri',
+  ogType: 'website',
   twitterCard: 'summary_large_image',
+  twitterTitle: 'Galeri NLFTs — Dokumentasi Visual Komunitas Developer Indonesia',
+  twitterDescription: 'Foto proyek, event, dan behind the scenes komunitas NLFTs.',
+  twitterImage: 'https://nlfts.dev/og/gallery.png',
 })
 
 // ── Filters ───────────────────────────────────────────

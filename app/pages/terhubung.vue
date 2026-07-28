@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-white dark:bg-[#060606] text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+  <div class="min-h-screen bg-white dark:bg-[#09090b] text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
     
     <header class="px-6 py-16 md:py-24 lg:py-32 text-center max-w-4xl mx-auto space-y-6 md:space-y-8">
       <h1 class="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-zinc-950 dark:text-white leading-tight">
@@ -11,7 +11,7 @@
     </header>
 
     <!-- Section Discord -->
-  <section class="bg-zinc-50 dark:bg-black py-16 md:py-24 lg:py-32 text-zinc-900 dark:text-white transition-colors duration-300">
+  <section class="bg-zinc-50 dark:bg-[#09090b] py-16 md:py-24 lg:py-32 text-zinc-900 dark:text-white transition-colors duration-300">
     <div class="mx-auto max-w-7xl px-4 md:px-6">
       <div class="grid items-center gap-10 lg:gap-20 lg:grid-cols-[480px_1fr]">
  
@@ -58,7 +58,7 @@
               <span class="h-3 w-3 rounded-full bg-red-500" />
               <span class="h-3 w-3 rounded-full bg-yellow-500" />
               <span class="h-3 w-3 rounded-full bg-green-500" />
-              <div class="ml-auto text-xs text-zinc-500">FTs Project</div>
+              <div class="ml-auto text-xs text-zinc-500">NLFTs C-OSS</div>
             </div>
  
             <!-- Discord Body -->
@@ -81,7 +81,7 @@
               <!-- Channel List -->
               <div class="hidden md:flex w-[200px] border-r border-zinc-800 bg-[#111214] flex-col">
                 <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800 cursor-pointer hover:bg-zinc-800/50 transition">
-                  <h3 class="text-sm font-semibold text-white truncate">FTs Project</h3>
+                  <h3 class="text-sm font-semibold text-white truncate">NLFTs C-OSS</h3>
                   <svg class="w-4 h-4 text-zinc-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                   </svg>
@@ -214,7 +214,7 @@
                         </div>
                         <p class="text-sm font-bold text-white mb-1">👋 Halo Pengembang !!!</p>
                         <p class="text-[11px] text-zinc-300 leading-relaxed">
-                          Selamat datang di server Discord resmi <span class="font-semibold text-white">FTs Project</span> — ini adalah tempat untuk mengobrol tentang Dunia Web Developer, mengajukan pertanyaan, memamerkan proyek Anda, dan berkolaborasi dengan pengembang lain!!!.
+                          Selamat datang di server Discord resmi <span class="font-semibold text-white">NLFTs C-OSS</span> — ini adalah tempat untuk mengobrol tentang Dunia Web Developer, mengajukan pertanyaan, memamerkan proyek Anda, dan berkolaborasi dengan pengembang lain!!!.
                         </p>
                         <div class="mt-2 border-l-2 border-[#5865F2] bg-zinc-800/60 rounded-r px-2.5 py-1.5">
                           <p class="text-[10px] text-zinc-400 leading-relaxed">
@@ -394,7 +394,7 @@
   </section>
 
   <!-- Section WhatsApp -->
-     <section class="bg-white dark:bg-black py-16 md:py-24 lg:py-32 text-zinc-900 dark:text-white transition-colors duration-300">
+     <section class="bg-white dark:bg-[#09090b] py-16 md:py-24 lg:py-32 text-zinc-900 dark:text-white transition-colors duration-300">
     <div class="mx-auto max-w-7xl px-4 md:px-6">
       <div class="grid items-center gap-10 lg:gap-20 lg:grid-cols-[1fr_480px]">
  
@@ -528,7 +528,7 @@
                       <div>
                         <div class="bg-[#1f2c34] rounded-2xl rounded-tl-sm px-3 py-2 text-left">
                           <p class="text-[10px] font-semibold text-violet-400 mb-0.5">davingm</p>
-                          <p class="text-[11px] text-zinc-200 leading-relaxed">Selamat datang semua di grup <span class="font-semibold text-[#25D366]">FTs Project</span>! 🎉 Ini tempat kita ngobrol soal web dev, share project, dan kolaborasi bareng.</p>
+                          <p class="text-[11px] text-zinc-200 leading-relaxed">Selamat datang semua di grup <span class="font-semibold text-[#25D366]">NLFTs C-OSS</span>! 🎉 Ini tempat kita ngobrol soal web dev, share project, dan kolaborasi bareng.</p>
                           <p class="text-[9px] text-zinc-600 mt-1 text-right">08.17 ✓✓</p>
                         </div>
                       </div>
@@ -669,19 +669,19 @@
                     </div>
                     <div class="flex gap-2 max-w-[85%]">
                       <div class="w-6 h-6 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0 mt-1">
-                        <img src="https://avatars.githubusercontent.com/u/232498018?s=130&v=4" alt="Habsy" class="w-full h-full object-cover rounded-full">
+                        <img src="https://github.com/BeedBest.png" alt="Habsy" class="w-full h-full object-cover rounded-full">
                       </div>
                       <div class="bg-[#1f2c34] rounded-2xl rounded-tl-sm px-3 py-2">
-                        <p class="text-[11px] text-zinc-200">Bang mau bahas Compiler Java yang kemaren kita buat? </p>
+                        <p class="text-[11px] text-zinc-200">Bang mau Nyoba Praktikin Topologi yang kemaren kita buat di cisco? </p>
                         <p class="text-[9px] text-zinc-600 mt-1 text-right">02.00 ✓✓</p>
                       </div>
                     </div>
                     <div class="flex justify-end">
                       <div class="max-w-[75%]">
                         <div class="bg-[#005c4b] rounded-2xl rounded-tr-sm px-3 py-2">
-                          <p class="text-[11px] text-zinc-200">Kenapa harus jam 2 subuh woi 😭. install package baru aja lewat Maven</p>
+                          <p class="text-[11px] text-zinc-200">Kenapa harus jam 2 subuh woi 😭. nanti aku datang ke ruang server agak telat</p>
                           <div class="flex items-center justify-end gap-1 mt-1">
-                            <p class="text-[9px] text-zinc-400">20.13</p>
+                            <p class="text-[9px] text-zinc-400">02.10</p>
                             <svg class="w-3 h-3 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24"><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
                           </div>
                         </div>
@@ -689,20 +689,20 @@
                     </div>
                     <div class="flex gap-2 max-w-[85%]">
                       <div class="w-6 h-6 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0 mt-1">
-                        <img src="https://avatars.githubusercontent.com/u/232498018?s=130&v=4" alt="Habsy" class="w-full h-full object-cover rounded-full">
+                        <img src="https://github.com/BeedBest.png" alt="Habsy" class="w-full h-full object-cover rounded-full">
                       </div>
                       <div class="bg-[#1f2c34] rounded-2xl rounded-tl-sm px-3 py-2">
-                        <p class="text-[11px] text-zinc-200">Maaf Bang, soalnya saya gak bisa tidur karena error </p>
-                        <p class="text-[9px] text-zinc-600 mt-1 text-right">02.00 ✓✓</p>
+                        <p class="text-[11px] text-zinc-200">Maaf Bang, soalnya saya gak bisa tidur takut lupa </p>
+                        <p class="text-[9px] text-zinc-600 mt-1 text-right">02.20 ✓✓</p>
                       </div>
                     </div>
                     <div class="flex gap-2 max-w-[85%]">
                       <div class="w-6 h-6 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0 mt-1">
-                        <img src="https://avatars.githubusercontent.com/u/232498018?s=130&v=4" alt="Habsy" class="w-full h-full object-cover rounded-full">
+                        <img src="https://github.com/BeedBest.png" alt="Habsy" class="w-full h-full object-cover rounded-full">
                       </div>
                       <div class="bg-[#1f2c34] rounded-2xl rounded-tl-sm px-3 py-2">
-                        <p class="text-[11px] text-zinc-200">siap, ini lagi install Maven </p>
-                        <p class="text-[9px] text-zinc-600 mt-1 text-right">02.00 ✓✓</p>
+                        <p class="text-[11px] text-zinc-200">siap, di tunggu yaa bang </p>
+                        <p class="text-[9px] text-zinc-600 mt-1 text-right">02.20 ✓✓</p>
                       </div>
                     </div>
                   </template>
@@ -884,7 +884,7 @@ function toggleCategory(key: 'info' | 'text' | 'voice') {
 const voiceUsers24 = ref([
   { name: 'Sidikqst', initial: 'https://avatars.githubusercontent.com/u/230048582?s=130&v=4', color: 'bg-gradient-to-br from-blue-500 to-cyan-600', muted: false },
   { name: 'davingm', initial: 'https://avatars.githubusercontent.com/u/228851591?v=4', color: 'bg-gradient-to-br from-rose-500 to-pink-700', muted: true },
-  { name: 'lintangnwy', initial: 'https://avatars.githubusercontent.com/u/216552062?s=130&v=4', color: 'bg-gradient-to-br from-amber-500 to-orange-600', muted: false },
+  { name: 'Bara', initial: 'https://github.com/barabr0.png', color: 'bg-gradient-to-br from-amber-500 to-orange-600', muted: false },
 ])
 
 
@@ -894,7 +894,7 @@ const activeChat = ref('fts-group')
 const chatList = ref([
   {
     id: 'fts-group',
-    name: 'FTs Project 🚀',
+    name: 'NLFTs C-OSS 🚀',
     initial: './team/nlfts.webp',
     avatarColor: 'bg-gradient-to-br from-[#25D366] to-emerald-700',
     isGroup: true,
@@ -919,8 +919,8 @@ const chatList = ref([
   },
   {
     id: 'rehan-dm',
-    name: 'Miftah',
-    initial: 'https://avatars.githubusercontent.com/u/232498018?s=130&v=4',
+    name: 'ajrin',
+    initial: 'https://github.com/BeedBest.png',
     avatarColor: 'bg-gradient-to-br from-amber-500 to-orange-600',
     isGroup: false,
     online: false,
