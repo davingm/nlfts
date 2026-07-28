@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+  <div class="min-h-screen bg-gray-50 dark:bg-[#09090b] py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
     <div class="max-w-7xl mx-auto">
       <!-- Header dengan toggle dark/light -->
       <div class="flex justify-between items-center mb-10">
@@ -28,7 +28,7 @@
             v-model="searchQuery"
             type="text"
             placeholder="Cari kontributor..."
-            class="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-400/30 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200"
+            class="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:focus:ring-blue-400/30 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-200"
           />
           <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -41,7 +41,7 @@
         <div
           v-for="contributor in filteredContributors"
           :key="contributor.name"
-          class="group bg-white dark:bg-[#121212] rounded-2xl border border-gray-200/80 dark:border-gray-800/80 shadow-sm hover:shadow-md dark:hover:shadow-gray-800/30 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 p-5 flex flex-col"
+          class="group bg-white dark:bg-zinc-900/60 rounded-2xl border border-gray-200/80 dark:border-gray-800/80 shadow-sm hover:shadow-md dark:hover:shadow-gray-800/30 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 p-5 flex flex-col"
         >
           <!-- Avatar & Nama -->
           <div class="flex items-start gap-4">
@@ -92,18 +92,20 @@
 // 1. METADATA (useHead) dengan moto global (opsional)
 // ============================================================
 useSeoMeta({
-  title: 'Memberes — Kontributor',
-  description: 'Daftar kontributor proyek Memberes dengan moto dan tech stack masing-masing.',
-  ogTitle: 'Memberes — Kontributor',
-  ogDescription: 'Kenali para kontributor Memberes dan keahlian mereka.',
-  ogImage: 'https://nlfts.dev/og/main.png',
+  title: 'Members — Kontributor NLFTs, Developer Open Source Indonesia',
+  ogTitle: 'Members — Kontributor NLFTs, Developer Open Source Indonesia',
+  description: 'Kenali 25+ kontributor aktif NLFTs — developer Indonesia yang membangun ekosistem open-source dengan stack modern: Nuxt, Vue, TypeScript, Laravel, Flutter, dan banyak lagi.',
+  ogDescription: 'Daftar kontributor NLFTs: developer open-source Indonesia dengan berbagai keahlian teknologi modern.',
+  ogImage: 'https://nlfts.dev/og/members.png',
   ogImageWidth: 1200,
   ogImageHeight: 630,
   ogImageType: 'image/png',
+  ogUrl: 'https://nlfts.dev/members',
+  ogType: 'website',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Memberes — Kontributor',
-  twitterDescription: 'Kenali para kontributor Memberes dan keahlian mereka.',
-  twitterImage: 'https://nlfts.dev/og/main.png'
+  twitterTitle: 'Members NLFTs — Developer Open Source Indonesia',
+  twitterDescription: '25+ kontributor aktif NLFTs dengan stack Nuxt, Vue, TypeScript, dan lainnya.',
+  twitterImage: 'https://nlfts.dev/og/members.png',
 })
 
 useHead({
@@ -172,10 +174,10 @@ const contributors = [
     techStack: ['TypeScript', 'astrojs', 'pyqt', 'docker']
   },
   {
-    name: 'Lintangnwy',
-    avatar: 'https://avatars.githubusercontent.com/u/216552062?s=130&v=4',
+    name: 'Ajrin',
+    avatar: 'https://github.com/BeedBest.png',
     moto: 'Tulis kode yang bisa dibaca manusia',
-    techStack: ['nuxt', 'TypeScript', 'PostgreSQL', 'java', 'spring boot']
+    techStack: ['html', 'css', 'javascript']
   },
   {
     name: 'teguh',
@@ -196,10 +198,10 @@ const contributors = [
     techStack: ['JavaScript', 'Node', 'next', 'laravel', 'react']
   },
   {
-    name: 'Mifah',
-    avatar: 'https://avatars.githubusercontent.com/u/232498018?s=130&v=4',
+    name: 'Habsy',
+    avatar: 'https://github.com/clarkaiden.png',
     moto: 'Rapi, cepat, dan efisien',
-    techStack: ['java', 'spring boot', 'next.js', 'python', 'javascript', 'django']
+    techStack: ['html', 'css', 'javascript']
   },
   {
     name: 'Vahlzzz',

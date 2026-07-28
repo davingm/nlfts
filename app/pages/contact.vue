@@ -210,7 +210,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white text-zinc-900 dark:bg-black dark:text-white transition-colors">
+  <div class="min-h-screen bg-white text-zinc-900 dark:bg-[#09090b] dark:text-white transition-colors">
     <div class="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-16 px-6 py-16 md:px-12 md:py-24 lg:grid-cols-2 lg:gap-12 lg:py-32">
 
       <!-- Left column -->

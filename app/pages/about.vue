@@ -1,10 +1,10 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Tentang NLFTs — Komunitas Developer Indonesia',
-  ogTitle: 'Tentang NLFTs — Komunitas Developer Indonesia',
-  description: 'NLFTs adalah perusahaan sekaligus komunitas developer yang berfokus pada Developer Experience (Dx), adopsi teknologi modern, dan kolaborasi intensif 24 jam.',
-  ogDescription: 'NLFTs adalah perusahaan sekaligus komunitas developer yang berfokus pada Developer Experience (Dx), adopsi teknologi modern, dan kolaborasi intensif 24 jam.',
-  ogImage: 'https://nlfts.dev/og/main.png',
+  title: 'Tentang NLFTs — Komunitas Developer & Startup Teknologi Indonesia',
+  ogTitle: 'Tentang NLFTs — Komunitas Developer & Startup Teknologi Indonesia',
+  description: 'NLFTs adalah startup sekaligus komunitas developer open-source Indonesia yang berfokus pada Developer Experience (DX), adopsi teknologi modern seperti Nuxt, Vue, TypeScript, dan kolaborasi intensif 24 jam.',
+  ogDescription: 'Kenali NLFTs — startup komunitas developer Indonesia yang membangun ekosistem teknologi open-source. Berfokus pada kolaborasi, DX, dan inovasi teknologi modern.',
+  ogImage: 'https://nlfts.dev/og/about.png',
   ogImageWidth: 1200,
   ogImageHeight: 630,
   ogImageType: 'image/png',
@@ -12,13 +12,13 @@ useSeoMeta({
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Tentang NLFTs — Komunitas Developer Indonesia',
-  twitterDescription: 'NLFTs adalah perusahaan sekaligus komunitas developer yang berfokus pada Developer Experience (Dx), adopsi teknologi modern, dan kolaborasi intensif 24 jam.',
-  twitterImage: 'https://nlfts.dev/og/main.png',
+  twitterDescription: 'Startup komunitas developer open-source Indonesia. Nuxt, Vue, TypeScript, kolaborasi 24/7.',
+  twitterImage: 'https://nlfts.dev/og/about.png',
 })
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col font-sans bg-white text-zinc-900 dark:bg-black dark:text-white">
+  <div class="min-h-screen flex flex-col font-sans bg-white text-zinc-900 dark:bg-[#09090b] dark:text-white">
 
 
     <!-- Banner Header -->
@@ -127,7 +127,7 @@ useSeoMeta({
           <div class="flex flex-col gap-6">
 
             <div
-              class="w-full h-72 rounded-lg overflow-hidden border bg-zinc-100 border-zinc-200 dark:bg-zinc-900 dark:border-zinc-800"
+              class="w-full h-72 rounded-lg overflow-hidden border bg-zinc-100 border-zinc-200 dark:bg-zinc-800 dark:border-zinc-800"
             >
               <img
                 src="/images/studio.webp"

@@ -64,7 +64,7 @@ const discussions = [
   },
   {
     id: 2,
-    title: 'Selamat datang di FTs Project — baca dulu ya!',
+    title: 'Selamat datang di NLFTs C-OSS — baca dulu ya!',
     author: 'nairha',
     authorAvatar: 'https://avatars.githubusercontent.com/u/204519754?s=130&v=4',
     username: 'nairha',
@@ -76,7 +76,7 @@ const discussions = [
     answered: false,
     date: '30 Jan 2026',
     timeAgo: '4 bulan lalu',
-    body: 'Selamat datang di GitHub Discussions resmi **FTs Project** — ini adalah tempat untuk mengobrol tentang Dunia Web Developer, mengajukan pertanyaan, memamerkan proyek Anda, dan berkolaborasi dengan pengembang lain!',
+    body: 'Selamat datang di GitHub Discussions resmi **NLFTs C-OSS** — ini adalah tempat untuk mengobrol tentang Dunia Web Developer, mengajukan pertanyaan, memamerkan proyek Anda, dan berkolaborasi dengan pengembang lain!',
     replies: [
       {
         id: 1,
@@ -205,7 +205,7 @@ function avatarColor(username) {
         </svg>
         github.com / NLFTs / discussions
       </div>
-      <div class="ml-auto text-[11px] text-zinc-500">FTs Project</div>
+      <div class="ml-auto text-[11px] text-zinc-500">NLFTs C-OSS</div>
     </div>
 
     <!-- GitHub Top Nav -->

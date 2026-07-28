@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-white dark:bg-[#060606] text-zinc-900 dark:text-white px-6 py-24 transition-colors duration-300">
+  <div class="min-h-screen bg-white dark:bg-[#09090b] text-zinc-900 dark:text-white px-6 py-24 transition-colors duration-300">
     <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start">
       
       <!-- Sisi Kiri: Judul dan Gambar -->
@@ -24,7 +24,7 @@
         <div 
           v-for="(faq, index) in faqs" 
           :key="index"
-          class="border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-zinc-50 dark:bg-[#0a0a0a] overflow-hidden transition-all duration-300"
+          class="border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-zinc-50 dark:bg-zinc-900/30 overflow-hidden transition-all duration-300"
         >
           <button 
             @click="toggle(index)"
@@ -52,20 +52,20 @@
 import { ref } from 'vue';
 
 useSeoMeta({
-  title: 'FAQ — Pertanyaan Umum NLFTs',
-  ogTitle: 'FAQ — Pertanyaan Umum NLFTs',
-  description: 'Pertanyaan yang sering diajukan seputar komunitas NLFTs, syarat bergabung, teknologi yang digunakan, dan cara berkontribusi.',
-  ogDescription: 'Pertanyaan yang sering diajukan seputar komunitas NLFTs, syarat bergabung, teknologi yang digunakan, dan cara berkontribusi.',
-  ogImage: 'https://nlfts.dev/og/main.png',
+  title: 'FAQ — Pertanyaan Umum tentang Komunitas NLFTs',
+  ogTitle: 'FAQ — Pertanyaan Umum tentang Komunitas NLFTs',
+  description: 'Jawaban lengkap untuk pertanyaan seputar komunitas NLFTs: cara bergabung, syarat keanggotaan, teknologi yang dibahas (Nuxt, Vue, TypeScript), event, mentoring, dan kontribusi open-source.',
+  ogDescription: 'FAQ lengkap komunitas developer NLFTs: cara bergabung, teknologi yang dibahas, event, mentoring, dan kontribusi open-source Indonesia.',
+  ogImage: 'https://nlfts.dev/og/faq.png',
   ogImageWidth: 1200,
   ogImageHeight: 630,
   ogImageType: 'image/png',
   ogUrl: 'https://nlfts.dev/faq',
   ogType: 'website',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'FAQ — Pertanyaan Umum NLFTs',
-  twitterDescription: 'Pertanyaan yang sering diajukan seputar komunitas NLFTs, syarat bergabung, teknologi yang digunakan, dan cara berkontribusi.',
-  twitterImage: 'https://nlfts.dev/og/main.png',
+  twitterTitle: 'FAQ — Komunitas Developer NLFTs',
+  twitterDescription: 'Jawaban lengkap tentang komunitas NLFTs, cara bergabung, dan teknologi yang dipelajari.',
+  twitterImage: 'https://nlfts.dev/og/faq.png',
 })
 
 const activeIndex = ref<number | null>(0);

@@ -6,19 +6,17 @@ const columns = [
   {
     label: 'Product',
     children: [
-      { label: 'Nuxt Module', to: '/products/nuxt-module' },
-      { label: 'Starter Kit', to: '/products/starter-kit' },
-      { label: 'Templates', to: '/products/templates' },
-      { label: 'Kursus Insinyur Situs Moderen', to: '/courses/modern-site' }
+      { label: 'Edu Docs', to: 'https://edu.nlfts.dev' },
+      { label: 'FTs CLI', to : 'https://github.com/Vuxilabs/fts-cli'},
     ]
   },
   {
-    label: 'Server & Hosting',
+    label: 'Partner',
     children: [
-      { label: 'Setup Hosting & Domain', to: '/hosting/setup' },
-      { label: 'Game Server', to: '/hosting/game-server' },
-      { label: 'Instalasi Panel', to: '/hosting/panel' },
-      { label: 'Maintenance & Support', to: '/hosting/maintenance' }
+      { label: 'Grantara Indonesia', to: 'https://grabals-official.vercel.app/' },
+      { label: 'Vuxilabs', to: 'https://github.com/vuxilabs' },
+      { label: 'Rakitweb Solution', to: 'https://rakitweb.site' },
+      { label: 'Storia Market Place', to: 'https://storia-market.vercel.app' }
     ]
   },
   {

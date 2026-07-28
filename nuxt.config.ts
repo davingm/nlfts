@@ -12,6 +12,30 @@ export default defineNuxtConfig({
     enabled: true
   },
 
+  // Global SEO defaults — overridden per-page with useSeoMeta()
+  app: {
+    head: {
+      htmlAttrs: { lang: 'id' },
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      meta: [
+        { name: 'theme-color', content: '#09090b' },
+        { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+        { name: 'author', content: 'NLFTs — Komunitas Developer Indonesia' },
+        { name: 'keywords', content: 'NLFTs, komunitas developer Indonesia, komunitas IT Bandung, Nuxt komunitas, Vue developer Indonesia, open source Indonesia, komunitas programmer, belajar coding Indonesia, web developer Indonesia, komunitas teknologi' },
+        { property: 'og:site_name', content: 'NLFTs' },
+        { property: 'og:locale', content: 'id_ID' },
+        { name: 'twitter:site', content: '@nlfts' },
+        { name: 'twitter:creator', content: '@nlfts' },
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://nlfts.dev' },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'alternate', type: 'application/rss+xml', title: 'NLFTs Blog RSS', href: 'https://nlfts.dev/rss.xml' },
+      ]
+    }
+  },
+
   runtimeConfig: {
     turnstileSecretKey: process.env.SECRET_KEY || '',
     resendApiKey: process.env.RESEND_API_KEY || '',
@@ -47,17 +71,18 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    // API routes: SSR only (cannot prerender)
     '/api/**': { prerender: false },
+    // Contact page: SSR (has form + API + Turnstile)
+    '/contact': { prerender: false },
+    // Docs redirect: SSR
     '/docs': { redirect: '/docs/getting-started', prerender: false },
+    // All other routes: SSG (prerendered)
     '/blog/**': { prerender: true },
     '/docs/**': { prerender: true },
     '/**': {
       prerender: true,
       headers: {
-        'server': 'nginx/1.24.0 (Ubuntu)',
-        'x-cache': 'HIT from proxy.NLFTs.dev',
-        'x-cache-hits': '3',
-        'via': '1.1 proxy.NLFTs.dev (Varnish/7.4)',
         'x-content-type-options': 'nosniff',
         'x-frame-options': 'SAMEORIGIN',
         'referrer-policy': 'strict-origin-when-cross-origin',

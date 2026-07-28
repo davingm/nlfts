@@ -122,9 +122,9 @@ const testimonials = [
 {
 id: 1,
 col: 0,
-name: 'Lintang Wijaya',
-role: 'Pemilik Group besar Kota Jaya',
-avatar: 'https://avatars.githubusercontent.com/u/216552062?s=130&v=4',
+name: 'davingm',
+role: 'DevOps Infra',
+avatar: 'https://github.com/davingm.png',
 text: `<strong>NLFTs mengubah cara saya memandang pengembangan perangkat lunak.</strong> Fokusnya bukan sekadar menyelesaikan masalah, tetapi membangun solusi yang modern, scalable, dan berkelanjutan.`
 },
 {
@@ -156,9 +156,9 @@ text: `<strong>NLFTs bukan sekadar komunitas, tetapi tempat berkumpulnya develop
 {
 id: 5,
 col: 1,
-name: 'Miftah Aufar',
-role: 'Spring Architect',
-avatar: 'https://avatars.githubusercontent.com/u/232498018?s=130&v=4',
+name: 'ajrin',
+role: 'DevOps Cloud',
+avatar: 'https://github.com/BeedBest.png',
 text: `Yang membuat NLFTs berbeda adalah budaya open source yang kuat. Anggotanya aktif berkontribusi pada ekosistem Nuxt sekaligus mengembangkan framework dan tooling internal sendiri.`
 },
 
