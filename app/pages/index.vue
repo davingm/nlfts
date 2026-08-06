@@ -20,7 +20,20 @@ useSeoMeta({
 })
 
 
+const copied = ref(false)
 
+const copyCommand = async () => {
+  try {
+    await navigator.clipboard.writeText('npm install nlfts-devtools')
+    copied.value = true
+
+    setTimeout(() => {
+      copied.value = false
+    }, 2000)
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 </script>
 
@@ -44,6 +57,34 @@ useSeoMeta({
           Radical <br>
           <span class="font-normal tracking-normal text-neutral-400 dark:text-neutral-500">Community.</span>
         </h1>
+
+        <div class="mt-10">
+          <button
+            @click="copyCommand"
+            class="group inline-flex items-center gap-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 px-4 py-3 transition-all hover:border-neutral-300 dark:hover:border-neutral-700 hover:shadow-sm"
+          >
+            <code class="font-mono text-sm text-neutral-700 dark:text-neutral-300">
+              npm install nlfts-devtools
+            </code>
+
+            <div
+              class="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-950"
+            >
+              <Icon
+                :name="copied ? 'lucide:check' : 'lucide:copy'"
+                class="h-4 w-4"
+              />
+            </div>
+          </button>
+
+          <p
+            class="mt-2 text-xs text-neutral-500 transition-opacity"
+            :class="copied ? 'opacity-100' : 'opacity-0'"
+          >
+            Command berhasil disalin.
+          </p>
+        </div>
+
       </div>
 
       <!-- Right Supporting Info & Actions -->

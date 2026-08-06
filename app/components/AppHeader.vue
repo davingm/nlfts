@@ -2,22 +2,6 @@
 import { ref, nextTick, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 
-// ── Navigation Data (UTUH & LENGKAP) ───────────────────────────
-const productLinks = [
-  { icon: 'i-lucide-globe', label: 'Jasa Pembuatan Website', desc: 'Company profile, landing page, toko online.', to: '/jasa' },
-  { icon: 'i-lucide-server', label: 'Hosting & Domain Setup', desc: 'Setup, migrasi, dan konfigurasi server.', to: '/#product' },
-  { icon: 'i-simple-icons-nuxtdotjs', label: 'Nuxtjs', desc: 'Framework Vue super cepat untuk web modern.', to: '/#product', color: '#00DC82' },
-  { icon: 'i-lucide-smartphone', label: 'Aplikasi Android', desc: 'Pembuatan aplikasi Android custom.', to: '/#product' },
-  { icon: 'i-lucide-gamepad-2', label: 'Game Server', desc: 'Minecraft, CS:GO, GTA, dan lainnya.', to: '/#product' },
-  { icon: 'i-simple-icons-nestjs', label: 'Nestjs', desc: 'Backend Node.js yang scalable & enterprise-grade.', to: '/#product', color: '#E0234E' }
-]
-
-const paketLinks = [  
-  { icon: 'i-lucide-rocket', label: 'Paket Website Starter', desc: '5-10 halaman + hosting + domain, Rp350rb-750rb.', to: '/jasa/situs-statis' },
-  { icon: 'i-lucide-star', label: 'Paket Website Pro', desc: 'Custom + SEO + maintenance 3 bulan, Rp1,5jt-4jt.', to: '/jasa/aplikasi-web' },
-  { icon: 'i-lucide-server', label: 'Paket Game Server', desc: 'Panel + config + maintenance, Rp200rb-800rb/bulan.', to: '/pricing' },
-  { icon: 'i-lucide-smartphone', label: 'Paket Android', desc: 'Aplikasi POS & kasir, Rp500rb/bulan.', to: '/pricing-android' }
-]
 
 const upcomingEvents = [
   { day: '404', month: '', title: 'Tidak Ada Event', location: 'Bersih' },
@@ -192,7 +176,7 @@ const Resources = [
   {
     title: "",
     links: [
-      { label: "Sponsor", to: "https://github.com/sponsors/nlfts", target: "_blank", external: true },
+      { label: "Sponsor", to: "/donation", target: "_blank", external: true },
       { label: "Marketplace", to: "https://github.com/NLFTs", target: "_blank", external: true },
       { label: "Partner", to: "/terhubung" },
       { label: "Contact Us", to: "/contact" },
@@ -214,10 +198,10 @@ const Resources = [
     <div class="w-full bg-zinc-950 text-zinc-200 py-2 px-5 sm:px-6 flex items-center justify-between text-[11px] font-normal tracking-tight border-b border-zinc-800">
        <div class="flex items-center gap-2 mx-auto sm:mx-0">
           <span class="inline-flex items-center justify-center bg-zinc-800 text-[9px] font-bold px-1.5 py-0.5 rounded text-white tracking-widest">FREE</span>
-          <span class="text-zinc-300">Konsultasi pembuatan platform digital gratis via WhatsApp.</span>
+          <span class="text-zinc-300">Gabung Komunitas gratis via WhatsApp.</span>
        </div>
        <NuxtLink to="https://nlfts.dev/wa" target="_blank" class="hidden sm:flex items-center gap-1 font-medium hover:text-white transition-colors">
-          Hubungi Kami <UIcon name="i-lucide-arrow-right" class="w-3.5 h-3.5" />
+          Mari Terhubung <UIcon name="i-lucide-arrow-right" class="w-3.5 h-3.5" />
        </NuxtLink>
     </div>
 
