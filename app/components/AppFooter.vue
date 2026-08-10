@@ -6,8 +6,10 @@ const columns = [
   {
     label: 'Product',
     children: [
-      { label: 'Edu Docs', to: 'https://edu.nlfts.dev' },
-      { label: 'FTs CLI', to : 'https://github.com/Vuxilabs/fts-cli'},
+      { label: 'Education', to: 'https://edu.nlfts.dev' },
+      { label: 'FTs DevTools', to : 'https://github.com/Vuxilabs/fts-devtools'},
+      { label: 'Travellings.id', to : 'https://tv.nlfts.dev' },
+      { label: 'Lions Pos', to: 'https://github.com/nlfts/Lions-Pos' }
     ]
   },
   {
@@ -23,13 +25,15 @@ const columns = [
     label: 'Perusahaan',
     children: [
       { label: 'Tentang', to: '/about' },
+      { label: 'Karir', to: '/karir' },
+      { label: 'terhubung', to: '/terhubung' },
       { label: 'DevLovers', to: '/members' },
       { label: 'Blog', to: '/blog' },
-      { label: 'Sponsors', to: '/sponsor'},
+      { label: 'Sponsors', to: 'https://github.com/sponsors/NLFTs'},
       { label: 'Kontak', to: '/contact' },
       { label: 'Mitra', to: '/partners'},
       { label: 'Donasi', to: '/donasi'},
-      { label: 'Meetup', to: '/meetup'}
+      { label: 'Meet', to: 'https://cal.com/nlfts' }
     ]
   },
   {

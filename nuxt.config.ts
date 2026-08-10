@@ -113,6 +113,12 @@ export default defineNuxtConfig({
         '/docs/getting-started'
       ],
       crawlLinks: true
+    },
+    // Beritahu Nitro bahwa better-sqlite3 adalah native module — jangan di-bundle.
+    // Ini mencegah ERR_DLOPEN_FAILED di Vercel karena binary .node tidak boleh
+    // di-inline ke dalam bundle JavaScript.
+    externals: {
+      external: ['better-sqlite3']
     }
   },
 
