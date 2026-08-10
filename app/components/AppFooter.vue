@@ -39,10 +39,11 @@ const columns = [
   {
     label: 'Legal',
     children: [
-      { label: 'Kebijakan Privasi', to: '/legal/privacy' },
-      { label: 'Syarat & Ketentuan', to: '/legal/terms' },
+      { label: 'Kebijakan Privasi', to: '/docs/legal/privacy' },
+      { label: 'Syarat & Ketentuan', to: '/docs/legal/tos' },
+      { label: 'Kebijakan Anti-Bullying', to: '/docs/legal/anti-bully' },
       { label: 'FAQ', to: '/faq' },
-      { label: 'Dukungan 24/7', to: '/support' }
+      { label: 'Dukungan 24/7', to: '/discord' }
     ]
   }
 ]
