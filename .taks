@@ -1,0 +1,424 @@
+
+
+# 1 Buat Rate Milit pada contant
+
+Misalnya attacker melakukan:
+
+```log
+POST /api/contact
+POST /api/contact
+POST /api/contact
+POST /api/contact
+...
+
+dengan token Turnstile yang valid/diperoleh secara otomatis.
+
+Setiap request bisa menyebabkan:
+
+Vercel
+ ↓
+Turnstile
+ ↓
+Resend
+
+dan itu bisa mahal.
+
+Rate limit di /api/contact sangat disarankan.
+
+Misalnya konsepnya:
+
+IP
+ ↓
+maksimal X request / menit
+ ↓
+baru boleh masuk Turnstile
+ ↓
+baru boleh Resend
+
+Jangan melakukan:
+
+request
+ ↓
+Turnstile
+ ↓
+Resend
+ ↓
+baru rate limit
+
+karena sudah terlambat.
+
+
+
+
+# 2 Contant bisa saja di bobol menggunakan SQL injection 
+
+
+Coba baca File /server/api/contact.post.ts
+2. HTML email kamu punya potensi HTML injection
+
+Ini lebih penting dari sekadar limit.
+
+Kamu memasukkan input user langsung:
+
+${fullName}
+${company}
+${email}
+${phone}
+${interest}
+${message}
+
+ke HTML email.
+
+Misalnya user memasukkan sesuatu yang mengandung markup HTML, markup tersebut akan masuk ke email.
+
+Karena ini email HTML, sebaiknya escape HTML sebelum dimasukkan:
+
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;')
+
+Kemudian:
+
+const safeFullName = escapeHtml(fullName)
+const safeCompany = escapeHtml(company || '-')
+const safeEmail = escapeHtml(email)
+const safePhone = escapeHtml(phone || '-')
+const safeInterest = escapeHtml(interest)
+const safeMessage = escapeHtml(message || 'Tidak ada pesan tambahan.')
+
+Lalu gunakan safeFullName, dst.
+
+Dan ada satu hal yang menjelaskan pertanyaanmu sebelumnya
+
+Request besar:
+
+389 KB
+401 KB
+
+yang kamu tunjukkan tadi tidak terlihat seperti request dari kode /api/contact ini.
+
+Kode ini hanya mengirim:
+
+POST → Cloudflare Turnstile
+POST → Resend
+
+Sedangkan request yang kamu lihat:
+
+XHR
+normal?lang=auto
+389 KB
+401 KB
+
+kemungkinan berasal dari service lain yang kamu pakai untuk content/render/translation, bukan dari Resend contact API ini.
+
+Jadi aku tidak akan menghubungkan request 400 KB itu dengan endpoint contact ini tanpa melihat Request URL-nya.
+
+
+# di halmaan contant Coba buat Nomor auto format
+
+Nomor telepon hanya tersedia dalam 3 negara Indonesia , Malaysia , dan China
+Selain nomor itu tidak boleh
+
+dan gunakan Select option pada bagian nomor
+
+jika user klik ID maka ketika ketik 882001289177 auto format menjadi 882-0012-89177
+
+
+
+
+# 3 dan coba selesaikan masalah yang di laporkan agents ku di vercel tapi anda jangan harus langsung percaya validasi apa yang sebenarnya terjadi dari sisi Framwork dan sisi Server vercel
+
+Nah, **ini log yang sangat penting**. Kita sekarang menemukan masalah nyata di deployment-mu — dan ini **bukan masalah payload atau bot**.
+
+Yang terjadi:
+
+```text
+GET /contact
+   ↓
+Nuxt Content
+   ↓
+POST /__nuxt_content/docs/query
+   ↓
+better-sqlite3
+   ↓
+💥 ERR_DLOPEN_FAILED
+   ↓
+500
+```
+
+Pesan utamanya:
+
+```text
+Module did not self-register:
+better_sqlite3.node
+```
+
+## 🔴 Ini harus diperbaiki
+
+`better-sqlite3` adalah **native Node.js module**. Dia bukan JavaScript murni; ada binary:
+
+```text
+better_sqlite3.node
+```
+
+Vercel mencoba menjalankan binary tersebut, tetapi binary yang ter-deploy **tidak kompatibel dengan runtime environment Vercel**.
+
+Makanya:
+
+```text
+ERR_DLOPEN_FAILED
+Module did not self-register
+```
+
+Ini bukan sekadar warning.
+
+Kamu mendapatkan:
+
+```text
+statusCode: 500
+unhandled: true
+fatal: false
+```
+
+Artinya request tersebut **benar-benar gagal di server**.
+
+---
+
+# Kenapa `/contact` bisa memanggil Nuxt Content?
+
+Ini bagian yang menarik.
+
+Log:
+
+```text
+GET /contact
+```
+
+kemudian:
+
+```text
+POST /__nuxt_content/docs/query
+```
+
+berarti halaman `/contact` kamu kemungkinan menggunakan **Nuxt Content** untuk mengambil content.
+
+Misalnya ada sesuatu seperti:
+
+```ts
+await queryContent(...)
+```
+
+atau API/content composable yang pada akhirnya melakukan:
+
+```text
+/__nuxt_content/docs/query
+```
+
+Dan Nuxt Content menggunakan SQLite untuk sebagian prosesnya.
+
+---
+
+# Ini juga berhubungan dengan target "hemat Vercel"
+
+Sebelumnya kita ingin:
+
+```text
+website ringan
+↓
+sedikit Function
+↓
+sedikit CPU
+```
+
+Sekarang ternyata ada:
+
+```text
+/contact
+   ↓
+Nuxt Content query
+   ↓
+SQLite
+   ↓
+better-sqlite3
+   ↓
+Vercel
+```
+
+Ini **lebih berat** daripada halaman statis biasa.
+
+Dan yang lebih buruk:
+
+> request tersebut sedang error.
+
+Jadi sebelum optimasi performa, **kita harus membereskan deployment compatibility ini dulu.**
+
+---
+
+# Tentang `_nuxt_icon`
+
+Ini:
+
+```text
+/api/_nuxt_icon/heroicons.json
+/api/_nuxt_icon/simple-icons.json
+/api/_nuxt_icon/lucide.json
+```
+
+status:
+
+```text
+200
+200
+200
+```
+
+**normal.**
+
+Itu Nuxt Icon.
+
+Bahkan ini:
+
+```text
+/api/_nuxt_icon/simple-icons.json
+204
+```
+
+juga bukan masalah keamanan.
+
+Jadi kita bisa abaikan untuk sekarang.
+
+---
+
+# Yang juga bisa kita abaikan
+
+Ini:
+
+```text
+/meetup/_payload.json
+404
+```
+
+masih bukan masalah utama.
+
+Sekarang kita punya prioritas yang jauh lebih jelas:
+
+```text
+🔴 better-sqlite3 ERR_DLOPEN_FAILED
+🟠 Nuxt Content query di /contact
+🟡 API/contact resource usage
+🟢 Nuxt payload 404
+🟢 Nuxt Icon
+```
+
+---
+
+# Kenapa `better-sqlite3` bisa gagal di Vercel?
+
+Biasanya karena **native binary yang ter-install/bundled tidak cocok dengan runtime tempat function dijalankan**.
+
+Contohnya:
+
+```text
+Local development
+    ↓
+Windows/macOS/Linux
+    ↓
+better-sqlite3 binary A
+```
+
+sedangkan:
+
+```text
+Vercel
+    ↓
+Linux environment
+    ↓
+Node runtime tertentu
+    ↓
+binary A tidak cocok
+```
+
+atau dependency tersebut dibundle dengan cara yang membuat native module-nya tidak bekerja sebagaimana mestinya.
+
+---
+
+# Aku sarankan jangan langsung menghapus `better-sqlite3`
+
+Karena kita perlu tahu **versi Nuxt Content dan Nuxt yang kamu gunakan**.
+
+Cek:
+
+```bash
+npm list @nuxt/content nuxt better-sqlite3
+```
+
+atau kalau pakai pnpm:
+
+```bash
+pnpm why better-sqlite3
+pnpm list @nuxt/content nuxt better-sqlite3
+```
+
+Kirim hasilnya.
+
+Aku terutama ingin melihat:
+
+```text
+nuxt
+@nuxt/content
+better-sqlite3
+```
+
+versinya.
+
+---
+
+## Satu hal lagi yang sangat penting
+
+Kalau website kamu **sebenarnya hanya membutuhkan content statis**, kita mungkin bisa mengubah arsitekturnya supaya:
+
+```text
+Nuxt Content
+      ↓
+build time
+      ↓
+static/prerendered
+      ↓
+Cloudflare CDN
+```
+
+daripada:
+
+```text
+User
+ ↓
+Vercel Function
+ ↓
+Nuxt Content
+ ↓
+SQLite
+ ↓
+query
+```
+
+Itu akan sangat cocok dengan tujuanmu:
+
+> **NLFTs harus seringan mungkin dan sehemat mungkin limit Vercel.**
+
+Kalau content kamu tidak perlu berubah real-time, **jangan query SQLite di setiap request user.**
+
+### Jadi untuk sekarang, langkah pertama:
+
+Kirim hasil:
+
+```bash
+npm list nuxt @nuxt/content better-sqlite3
+```
+
+dan kalau bisa juga isi `nuxt.config.ts` kamu (khusus bagian `modules`, `nitro`, `routeRules`, dan `content`).
+
+Dari situ kita bisa tentukan apakah lebih baik **memperbaiki native SQLite**, **mengubah Nuxt Content ke mode yang lebih cocok untuk Vercel**, atau **prerender halaman content supaya Vercel hampir tidak disentuh sama sekali**.

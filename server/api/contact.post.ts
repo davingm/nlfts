@@ -1,6 +1,50 @@
 import { z } from 'zod'
 import { Resend } from 'resend'
 
+// ── In-memory rate limiter ────────────────────────────────────────────────────
+// Struktur: Map<ip, { count: number, resetAt: number }>
+const rateLimitMap = new Map<string, { count: number, resetAt: number }>()
+
+const RATE_LIMIT_MAX = 5       // maksimal 5 request
+const RATE_LIMIT_WINDOW = 60   // per 60 detik
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const entry = rateLimitMap.get(ip)
+
+  if (!entry || now > entry.resetAt) {
+    // Window baru
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW * 1000 })
+    return true
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX) {
+    return false // limit tercapai
+  }
+
+  entry.count++
+  return true
+}
+
+// Bersihkan entry lama secara berkala agar Map tidak terus membesar
+setInterval(() => {
+  const now = Date.now()
+  for (const [ip, entry] of rateLimitMap.entries()) {
+    if (now > entry.resetAt) rateLimitMap.delete(ip)
+  }
+}, 5 * 60 * 1000)
+
+// ── HTML escaping ─────────────────────────────────────────────────────────────
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;')
+}
+
+// ── Schema ────────────────────────────────────────────────────────────────────
 const contactSchema = z.object({
   fullName: z.string().min(1, 'Nama lengkap wajib diisi'),
   company: z.string().optional(),
@@ -19,6 +63,15 @@ interface TurnstileVerifyResponse {
 }
 
 export default defineEventHandler(async (event) => {
+  // ── 0. Rate limit — sebelum apapun lainnya ───────────────────────────────
+  const ip = getRequestIP(event) || 'unknown'
+  if (!checkRateLimit(ip)) {
+    throw createError({
+      statusCode: 429,
+      statusMessage: 'Terlalu banyak permintaan. Silakan tunggu sebentar lalu coba lagi.'
+    })
+  }
+
   const config = useRuntimeConfig(event)
   const secretKey = config.turnstileSecretKey
   const resendApiKey = config.resendApiKey
@@ -37,7 +90,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // 1. Parse and validate request body
+  // ── 1. Parse dan validasi body ───────────────────────────────────────────
   const body = await readBody(event)
   const parseResult = contactSchema.safeParse(body)
 
@@ -51,13 +104,13 @@ export default defineEventHandler(async (event) => {
 
   const { fullName, company, email, phone, interest, message, turnstileToken } = parseResult.data
 
-  // 2. Verify Cloudflare Turnstile token
+  // ── 2. Verifikasi Cloudflare Turnstile ───────────────────────────────────
   const verification = await $fetch<TurnstileVerifyResponse>('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
     body: {
       secret: secretKey,
       response: turnstileToken,
-      remoteip: getRequestIP(event) || undefined
+      remoteip: ip !== 'unknown' ? ip : undefined
     }
   })
 
@@ -69,13 +122,21 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // 3. Send email using Resend SDK
+  // ── 3. Escape HTML semua input user ─────────────────────────────────────
+  const safeFullName = escapeHtml(fullName)
+  const safeCompany = escapeHtml(company || '-')
+  const safeEmail = escapeHtml(email)
+  const safePhone = escapeHtml(phone || '-')
+  const safeInterest = escapeHtml(interest)
+  const safeMessage = escapeHtml(message || 'Tidak ada pesan tambahan.')
+
+  // ── 4. Kirim email via Resend ────────────────────────────────────────────
   const resend = new Resend(resendApiKey)
   const { error } = await resend.emails.send({
     from: 'onboarding@resend.dev',
     to: 'team@nlfts.dev',
     replyTo: email,
-    subject: `Pesan Baru dari ${fullName} — NLFTs Contact Form`,
+    subject: `Pesan Baru dari ${safeFullName} — NLFTs Contact Form`,
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e4e4e7; border-radius: 8px;">
         <h2 style="color: #ea580c; border-bottom: 2px solid #f97316; padding-bottom: 10px; margin-top: 0;">Pesan Kontak Baru</h2>
@@ -83,25 +144,25 @@ export default defineEventHandler(async (event) => {
         <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
           <tr>
             <td style="padding: 8px 0; font-weight: bold; width: 140px; color: #4b5563;">Nama Lengkap:</td>
-            <td style="padding: 8px 0; color: #1f2937;">${fullName}</td>
+            <td style="padding: 8px 0; color: #1f2937;">${safeFullName}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; font-weight: bold; color: #4b5563;">Perusahaan:</td>
-            <td style="padding: 8px 0; color: #1f2937;">${company || '-'}</td>
+            <td style="padding: 8px 0; color: #1f2937;">${safeCompany}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; font-weight: bold; color: #4b5563;">Email:</td>
-            <td style="padding: 8px 0; color: #1f2937;"><a href="mailto:${email}" style="color: #ea580c; text-decoration: none;">${email}</a></td>
+            <td style="padding: 8px 0; color: #1f2937;"><a href="mailto:${safeEmail}" style="color: #ea580c; text-decoration: none;">${safeEmail}</a></td>
           </tr>
           <tr>
             <td style="padding: 8px 0; font-weight: bold; color: #4b5563;">No. Telepon:</td>
-            <td style="padding: 8px 0; color: #1f2937;">${phone || '-'}</td>
+            <td style="padding: 8px 0; color: #1f2937;">${safePhone}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; font-weight: bold; color: #4b5563;">Minat Proyek:</td>
             <td style="padding: 8px 0; color: #1f2937;">
               <span style="background-color: #ffedd5; color: #ea580c; padding: 2px 8px; border-radius: 9999px; font-size: 13px; font-weight: 500;">
-                ${interest}
+                ${safeInterest}
               </span>
             </td>
           </tr>
@@ -110,7 +171,7 @@ export default defineEventHandler(async (event) => {
         <div style="margin-top: 25px;">
           <h4 style="margin-bottom: 8px; color: #4b5563;">Detail Pesan:</h4>
           <div style="white-space: pre-line; background-color: #f4f4f5; padding: 15px; border-radius: 6px; border: 1px solid #e4e4e7; color: #27272a; line-height: 1.5; font-size: 14px;">
-            ${message || 'Tidak ada pesan tambahan.'}
+            ${safeMessage}
           </div>
         </div>
         

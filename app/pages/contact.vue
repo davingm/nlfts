@@ -14,6 +14,80 @@ interface Interest {
   value: string
 }
 
+interface Country {
+  code: string
+  label: string
+  prefix: string
+  placeholder: string
+  // regex untuk validasi nomor lokal (tanpa kode negara)
+  localRegex: RegExp
+  // fungsi auto-format: menerima digit-only, mengembalikan string berformat
+  format: (digits: string) => string
+}
+
+// ── Country phone config ─────────────────────────────────────────────────────
+const countries: Country[] = [
+  {
+    code: 'ID',
+    label: '🇮🇩 ID +62',
+    prefix: '+62',
+    placeholder: '8xx-xxxx-xxxxx',
+    localRegex: /^[2-9][0-9]{6,11}$/,
+    format: (digits: string) => {
+      // 882001289177 → 882-0012-89177
+      if (digits.length <= 3) return digits
+      if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`
+      return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 12)}`
+    }
+  },
+  {
+    code: 'MY',
+    label: '🇲🇾 MY +60',
+    prefix: '+60',
+    placeholder: '1x-xxxx-xxxx',
+    localRegex: /^[1-9][0-9]{7,9}$/,
+    format: (digits: string) => {
+      // 121234567 → 12-1234-567
+      if (digits.length <= 2) return digits
+      if (digits.length <= 6) return `${digits.slice(0, 2)}-${digits.slice(2)}`
+      return `${digits.slice(0, 2)}-${digits.slice(2, 6)}-${digits.slice(6, 10)}`
+    }
+  },
+  {
+    code: 'CN',
+    label: '🇨🇳 CN +86',
+    prefix: '+86',
+    placeholder: '1xx-xxxx-xxxx',
+    localRegex: /^1[3-9][0-9]{9}$/,
+    format: (digits: string) => {
+      // 13812345678 → 138-1234-5678
+      if (digits.length <= 3) return digits
+      if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`
+      return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 11)}`
+    }
+  }
+]
+
+const selectedCountry = ref<Country>(countries[0]!)
+const phoneLocal = ref('') // digits + dash yang diketik user
+
+// Auto-format saat user mengetik
+function onPhoneInput(e: Event) {
+  const raw = (e.target as HTMLInputElement).value
+  // Ambil hanya digit
+  const digits = raw.replace(/\D/g, '')
+  const country = selectedCountry.value
+  const formatted = country.format(digits)
+  phoneLocal.value = formatted
+  // Update form.phone = prefix + localNumber (tanpa dash, untuk validasi/kirim)
+  form.phone = `${country.prefix}${digits}`
+}
+
+function onCountryChange() {
+  phoneLocal.value = ''
+  form.phone = ''
+}
+
 const interests: Interest[] = [
   { label: 'UX/DX', value: 'ux-dx' },
   { label: 'Development', value: 'development' },
@@ -60,15 +134,12 @@ const emailError = computed(() => {
   return ''
 })
 
-// phone: hanya Indonesia (+62/08), Malaysia (+60/01), China (+86/1[3-9])
+// phone: validasi berdasarkan negara yang dipilih
 const phoneError = computed(() => {
-  if (!form.phone) return ''
-  const cleaned = form.phone.replace(/[\s\-().]/g, '')
-  const idRegex = /^(\+62|0)[2-9][0-9]{6,11}$/
-  const myRegex = /^(\+60|0)[1-9][0-9]{7,9}$/
-  const cnRegex = /^(\+86|0086)?1[3-9][0-9]{9}$/
-  if (!idRegex.test(cleaned) && !myRegex.test(cleaned) && !cnRegex.test(cleaned)) {
-    return 'Hanya nomor Indonesia (+62), Malaysia (+60), atau China (+86) yang diizinkan'
+  if (!phoneLocal.value) return ''
+  const digits = phoneLocal.value.replace(/\D/g, '')
+  if (!selectedCountry.value.localRegex.test(digits)) {
+    return `Format nomor ${selectedCountry.value.label.split(' ')[1]} tidak valid`
   }
   return ''
 })
@@ -187,6 +258,8 @@ async function onSubmit() {
       form.phone = ''
       form.interest = 'ui-ux'
       form.message = ''
+      phoneLocal.value = ''
+      selectedCountry.value = countries[0]!
       turnstileToken.value = ''
       
       // Reset Turnstile widget for the next submission
@@ -332,18 +405,33 @@ async function onSubmit() {
             <!-- Nomor Telepon -->
             <label class="flex flex-col gap-1">
               <span class="text-sm text-zinc-500 dark:text-zinc-400">Nomor Telepon</span>
-              <input
-                v-model="form.phone"
-                type="tel"
-                placeholder="+62 / +60 / +86"
-                :class="[
-                  'border-b bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400 transition-colors',
-                  phoneError && form.phone
-                    ? 'border-rose-500 focus:border-rose-600'
-                    : 'border-zinc-300 focus:border-zinc-900 dark:border-zinc-700 dark:focus:border-white'
-                ]"
-              />
-              <span v-if="phoneError && form.phone" class="text-xs text-rose-500 mt-0.5">{{ phoneError }}</span>
+              <div class="flex gap-2 border-b transition-colors"
+                :class="phoneError && phoneLocal
+                  ? 'border-rose-500'
+                  : 'border-zinc-300 dark:border-zinc-700'"
+              >
+                <!-- Country selector -->
+                <select
+                  v-model="selectedCountry"
+                  @change="onCountryChange"
+                  class="shrink-0 bg-transparent pb-2 text-sm outline-none cursor-pointer text-zinc-700 dark:text-zinc-300 pr-1"
+                >
+                  <option
+                    v-for="c in countries"
+                    :key="c.code"
+                    :value="c"
+                  >{{ c.label }}</option>
+                </select>
+                <!-- Number input -->
+                <input
+                  :value="phoneLocal"
+                  @input="onPhoneInput"
+                  type="tel"
+                  :placeholder="selectedCountry.placeholder"
+                  class="flex-1 bg-transparent pb-2 text-sm outline-none placeholder:text-zinc-400"
+                />
+              </div>
+              <span v-if="phoneError && phoneLocal" class="text-xs text-rose-500 mt-0.5">{{ phoneError }}</span>
             </label>
           </div>
 
