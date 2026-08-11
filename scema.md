@@ -263,6 +263,68 @@ erDiagram
     }
 ```
 
+
+# Singkat Version
+
+```mermaid
+erDiagram
+    SUPPLIER ||--o{ PENERIMAAN : mengirim
+    PETUGAS_GUDANG ||--o{ PENERIMAAN : memproses
+
+    PENERIMAAN ||--|{ DETAIL_PENERIMAAN : memiliki
+    BARANG ||--o{ DETAIL_PENERIMAAN : tercatat
+
+    KATEGORI ||--o{ BARANG : memiliki
+    RAK ||--o{ BARANG : menyimpan
+
+    KARYAWAN ||--o{ PERMINTAAN : mengajukan
+    PETUGAS_GUDANG ||--o{ PERMINTAAN : memproses
+
+    PERMINTAAN ||--|{ DETAIL_PERMINTAAN : memiliki
+    BARANG ||--o{ DETAIL_PERMINTAAN : diminta
+
+
+    SUPPLIER {
+        int id_supplier
+    }
+
+    PETUGAS_GUDANG {
+        int id_petugas
+    }
+
+    PENERIMAAN {
+        int id_penerimaan
+    }
+
+    DETAIL_PENERIMAAN {
+        int id_detail_terima
+    }
+
+    BARANG {
+        int id_barang
+    }
+
+    KATEGORI {
+        int id_kategori
+    }
+
+    RAK {
+        int id_rak
+    }
+
+    KARYAWAN {
+        int id_karyawan
+    }
+
+    PERMINTAAN {
+        int id_permintaan
+    }
+
+    DETAIL_PERMINTAAN {
+        int id_detail_minta
+    }
+```
+
 ---
 
 ## 7. Skema Database
