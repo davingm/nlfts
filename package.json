@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-ui-template-saas",
+  "name": "tuxi nlfts-starter-dev",
   "private": true,
   "license": "AGPL-3.0-only",
   "description": "A Nuxt-based project with AGPL-3.0-only primary licensing and third-party notices for included dependencies.",
@@ -17,7 +17,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "knip": "knip",
+    "test": "vitest"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.100",
@@ -36,9 +38,13 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.15.2",
+    "@nuxt/test-utils": "^4.1.0",
     "eslint": "^10.1.0",
+    "happy-dom": "^20.11.2",
+    "knip": "^6.32.1",
     "sharp": "^0.35.2",
     "typescript": "^6.0.2",
+    "vitest": "^4.1.10",
     "vue-tsc": "^3.2.6",
     "wrangler": "^4.103.0"
   },
