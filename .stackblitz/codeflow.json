@@ -1,0 +1,7 @@
+{
+  "pnpm": {
+    "overrides": {
+        // "playwright": "1.42.0"
+    }
+  }
+}
