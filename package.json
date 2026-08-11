@@ -18,6 +18,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
+    "knip": "knip",
     "test": "vitest"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
     "@nuxt/test-utils": "^4.1.0",
     "eslint": "^10.1.0",
     "happy-dom": "^20.11.2",
+    "knip": "^6.32.1",
     "sharp": "^0.35.2",
     "typescript": "^6.0.2",
     "vitest": "^4.1.10",

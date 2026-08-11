@@ -1,0 +1,30 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schemas/knip.json",
+  "nuxt": {
+    "entry": [
+      "app/app.vue",
+      "app/pages/**/*.{vue,ts,js}",
+      "app/components/**/*.{vue,ts,js}",
+      "app/layouts/**/*.{vue,ts,js}",
+      "server/api/**/*.{ts,js}",
+      "server/routes/**/*.{ts,js}",
+      "nuxt.config.ts",
+      "content.config.ts"
+    ]
+  },
+  "entry": [
+    "app/types/index.d.ts",
+    "scripts/**/*.js"
+  ],
+  "project": [
+    "app/**/*.{vue,ts,js}",
+    "server/**/*.{ts,js}",
+    "scripts/**/*.js"
+  ],
+  "ignoreDependencies": [
+    "@iconify-json/lucide",
+    "@iconify-json/simple-icons",
+    "h3",
+    "sharp"
+  ]
+}
