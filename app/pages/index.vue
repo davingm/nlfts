@@ -54,6 +54,50 @@ const toggleVideo = () => {
   </section>
 </div>
 
+  <!-- Feature grid -->
+  <section class="relative mx-1 mt-10 overflow-hidden rounded-[18px] bg-[#f2f2f2] px-3 py-3 text-zinc-900 transition-colors duration-500 dark:bg-[#111111] dark:text-white sm:mx-3 sm:mt-14 sm:px-7 sm:py-5">
+    <div class="pointer-events-none absolute inset-0 opacity-60 [background-image:radial-gradient(#cfcfcf_0.8px,transparent_0.8px)] [background-size:12px_12px] dark:opacity-40 dark:[background-image:radial-gradient(#474747_0.8px,transparent_0.8px)]" />
+    <div class="relative mx-auto grid max-w-[1500px] grid-cols-1 gap-3 lg:grid-cols-12 lg:grid-rows-[350px_350px]">
+      <article class="relative flex min-h-[300px] flex-col justify-end overflow-hidden rounded-[6px] border border-zinc-300 bg-white p-7 dark:border-zinc-700/70 dark:bg-[#151515] lg:col-span-8 lg:row-span-1">
+        <div class="absolute left-6 top-6 h-14 w-14 rounded-[4px] bg-[#ff5b22]" />
+        <div class="absolute left-16 top-16 h-7 w-7 rounded-[3px] bg-[#f5e9e4]" />
+        <div class="max-w-[380px]">
+          <h2 class="text-base font-semibold tracking-tight">Komunitas untuk workflow developer modern</h2>
+          <p class="mt-2 text-sm leading-[1.25] text-zinc-600 dark:text-zinc-400">Berbagi pengetahuan, membangun website, dan berkolaborasi melalui Git, open source, serta tools yang dipakai developer setiap hari.</p>
+        </div>
+      </article>
+
+      <article class="flex min-h-[300px] flex-col rounded-[6px] bg-[#ff5b22] p-7 text-white lg:col-span-4 lg:row-span-1">
+        <h2 class="max-w-[300px] text-base font-semibold leading-tight">Satu ruang untuk ide, kode, dan kolaborasi</h2>
+        <p class="mt-2 max-w-[315px] text-sm font-medium leading-[1.25]">Terhubung dengan developer Indonesia untuk bertukar insight, menemukan rekan, dan menciptakan solusi digital yang berdampak.</p>
+      </article>
+
+      <article class="relative flex min-h-[300px] flex-col justify-end rounded-[6px] border border-zinc-300 bg-white p-7 dark:border-zinc-700/70 dark:bg-[#151515] lg:col-span-4 lg:row-span-1">
+        <div class="max-w-[300px]">
+          <h2 class="text-base font-semibold tracking-tight">Website aman sejak awal</h2>
+          <p class="mt-2 text-sm leading-[1.25] text-zinc-600 dark:text-zinc-400">Pelajari praktik keamanan modern, performa web, dan arsitektur yang tangguh agar setiap produk digital siap tumbuh sejak hari pertama.</p>
+        </div>
+      </article>
+
+      <article class="relative min-h-[350px] overflow-hidden rounded-[6px] border border-zinc-300 bg-white p-7 dark:border-zinc-700/70 dark:bg-[#151515] lg:col-span-8 lg:row-span-1">
+        <div class="max-w-[380px]">
+          <h2 class="text-base font-semibold tracking-tight">Melangkah bersama teknologi paling mutakhir</h2>
+          <p class="mt-2 text-sm leading-[1.25] text-zinc-600 dark:text-zinc-400">Eksplorasi AI, cloud, framework modern, dan tools terbaru untuk membangun pengalaman web yang lebih cerdas, cepat, dan relevan.</p>
+        </div>
+        <div class="absolute bottom-0 right-0 w-[62%] max-w-[560px] translate-y-1 overflow-hidden rounded-tl-[12px] border border-zinc-300 bg-zinc-100 shadow-2xl dark:border-zinc-700 dark:bg-[#191919]">
+          <div class="border-b border-zinc-300 px-4 py-3 text-[11px] text-zinc-700 dark:border-zinc-700 dark:text-zinc-300">Menyiapkan ruang kolaborasi developer...</div>
+          <div class="space-y-2 px-4 py-3 text-[11px] text-zinc-600 dark:text-zinc-500">
+            <div class="text-[#ff5b22]"><span class="mr-2 inline-block h-2 w-2 rounded-full bg-[#ff5b22]" />3 project kolaborasi aktif</div>
+            <div><span class="mr-2 text-zinc-500 dark:text-zinc-600">↳</span><strong class="rounded bg-zinc-200 px-2 py-1 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">web-community</strong><span class="mx-2">→</span>berbagi insight</div>
+            <div><span class="mr-2 text-zinc-500 dark:text-zinc-600">↳</span><strong class="rounded bg-zinc-200 px-2 py-1 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">open-source</strong><span class="mx-2">→</span>membangun solusi</div>
+            <div class="pt-1 text-[#ff5b22]">▦ Eksplorasi teknologi modern...</div>
+          </div>
+          <div class="border-t border-zinc-300 px-3 py-3 text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">&gt; <span class="ml-1 inline-block h-3 w-1 animate-pulse bg-zinc-500 align-middle dark:bg-zinc-400" /></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <ProfileSection />
   <BlogSection />
   <DevSection />
