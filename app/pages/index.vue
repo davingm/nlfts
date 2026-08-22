@@ -19,102 +19,38 @@ useSeoMeta({
   twitterImage: 'https://nlfts.dev/og/main.png',
 })
 
+const videoFrame = ref<HTMLIFrameElement | null>(null)
+const videoPlaying = ref(true)
 
-const copied = ref(false)
-
-const copyCommand = async () => {
-  try {
-    await navigator.clipboard.writeText('npm install nlfts-devtools')
-    copied.value = true
-
-    setTimeout(() => {
-      copied.value = false
-    }, 2000)
-  } catch (err) {
-    console.error(err)
-  }
+const toggleVideo = () => {
+  const command = videoPlaying.value ? 'pauseVideo' : 'playVideo'
+  videoFrame.value?.contentWindow?.postMessage(JSON.stringify({
+    event: 'command',
+    func: command,
+    args: []
+  }), '*')
+  videoPlaying.value = !videoPlaying.value
 }
 
 </script>
 
 <template>
 <main>
-  <div class="relative overflow-hidden selection:bg-emerald-500/20 bg-white text-gray-950 dark:bg-[#09090b] dark:text-white">
+  <div class="relative overflow-hidden bg-[#ededed] text-gray-950 dark:bg-[#090909] dark:text-white">
   <!-- Hero Section -->
-  <section class="relative min-h-screen flex flex-col justify-between px-6 sm:px-16 py-12 bg-white dark:bg-[#09090b] text-neutral-900 dark:text-neutral-100 transition-colors duration-500 overflow-hidden">
-    
-    <!-- Top Bar / Minimal Brand -->
-    <div class="w-full flex items-center justify-between z-10 text-xs tracking-[0.2em] uppercase font-mono text-neutral-500 dark:text-neutral-400">
-      <span>2026</span>
-    </div>
-
-    <!-- Center Content: Asymmetric, Architectural Layout -->
-    <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-end my-auto z-10">
-      
-      <!-- Left Hero Statement -->
-      <div class="lg:col-span-8">
-        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extralight tracking-tight leading-[0.95]">
-          Radical <br>
-          <span class="font-normal tracking-normal text-neutral-400 dark:text-neutral-500">Community.</span>
-        </h1>
-
-        <div class="mt-10">
-          <button
-            @click="copyCommand"
-            class="group inline-flex items-center gap-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 px-4 py-3 transition-all hover:border-neutral-300 dark:hover:border-neutral-700 hover:shadow-sm"
-          >
-            <code class="font-mono text-sm text-neutral-700 dark:text-neutral-300">
-              npm install nlfts-devtools
-            </code>
-
-            <div
-              class="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-950"
-            >
-              <Icon
-                :name="copied ? 'lucide:check' : 'lucide:copy'"
-                class="h-4 w-4"
-              />
-            </div>
-          </button>
-
-          <p
-            class="mt-2 text-xs text-neutral-500 transition-opacity"
-            :class="copied ? 'opacity-100' : 'opacity-0'"
-          >
-            Command berhasil disalin.
-          </p>
-        </div>
-
+  <section class="relative mx-1 mt-4 overflow-hidden rounded-[18px] bg-[#111111] px-4 pb-24 pt-12 text-white transition-colors duration-500 sm:mx-3 sm:mt-5 sm:pb-32 sm:pt-16">
+    <div class="relative z-10 mx-auto flex max-w-[1500px] flex-col items-center text-center">
+      <div class="flex items-center gap-3 text-sm font-medium sm:gap-4 sm:text-base">
+        <span>World of the Day</span>
+        <span class="rounded border border-zinc-400 px-2 py-1 font-normal leading-none dark:border-zinc-600">Aug 22, 2026</span>
+        <span class="hidden sm:inline"> Developer Community</span>
       </div>
 
-      <!-- Right Supporting Info & Actions -->
-      <div class="lg:col-span-4 flex flex-col items-start lg:items-end justify-end space-y-8">
-        <p class="text-sm sm:text-base font-light text-neutral-600 dark:text-neutral-400 max-w-sm lg:text-right leading-relaxed">
-          Setiap kode yang Anda bagikan dan setiap diskusi yang Anda ikuti membantu Indonesia menjadi lebih mandiri secara teknologi.
-        </p>
-        
-        <div class="flex items-center space-x-6 text-sm font-medium">
-          <a href="/terhubung" class="group relative py-2 inline-flex items-center gap-2 overflow-hidden">
-            <span class="relative z-10 transition-colors duration-300">Bergabung</span>
-            <span class="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
-            <div class="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-900 dark:bg-neutral-100"></div>
-          </a>
-          <a href="/contact" class="text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300">
-            Kontak
-          </a>
-        </div>
-      </div>
-
+      <h1 class="mt-12 max-w-[1200px] text-[clamp(4.25rem,11.8vw,11.5rem)] font-bold uppercase leading-[0.83] tracking-[-0.07em] sm:mt-14">
+        <span class="block">Never Say</span>
+        <span class="block">Never</span>
+      </h1>
     </div>
-
-    <!-- Bottom Abstract Structural Line -->
-    <div class="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-neutral-200 dark:border-neutral-900 text-xs text-neutral-400 dark:text-neutral-60 z-10">
-      <div>Grantara Indonesia</div>
-      <div>PrataRyn</div>
-      <div>Vuxilabs</div>
-      <div>GG-Boys</div>
-    </div>
-
   </section>
 </div>
 
