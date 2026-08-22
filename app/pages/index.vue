@@ -59,8 +59,10 @@ const toggleVideo = () => {
     <div class="pointer-events-none absolute inset-0 opacity-60 [background-image:radial-gradient(#cfcfcf_0.8px,transparent_0.8px)] [background-size:12px_12px] dark:opacity-40 dark:[background-image:radial-gradient(#474747_0.8px,transparent_0.8px)]" />
     <div class="relative mx-auto grid max-w-[1500px] grid-cols-1 gap-3 lg:grid-cols-12 lg:grid-rows-[350px_350px]">
       <article class="relative flex min-h-[300px] flex-col justify-end overflow-hidden rounded-[6px] border border-zinc-300 bg-white p-7 dark:border-zinc-700/70 dark:bg-[#151515] lg:col-span-8 lg:row-span-1">
-        <div class="absolute left-6 top-6 h-14 w-14 rounded-[4px] bg-[#ff5b22]" />
-        <div class="absolute left-16 top-16 h-7 w-7 rounded-[3px] bg-[#f5e9e4]" />
+        <div class="absolute left-6 top-6 flex h-14 w-14 items-center justify-center rounded-[4px] bg-[#1A1A1A]">
+          <Icon name="simple-icons:nuxt" class="h-8 w-8 text-[#00DC82]" />
+        </div>
+        <div class="absolute left-16 top-16 h-7 w-7 rounded-[3px] bg-[#ff5b22]" />
         <div class="max-w-[380px]">
           <h2 class="text-base font-semibold tracking-tight">Komunitas untuk workflow developer modern</h2>
           <p class="mt-2 text-sm leading-[1.25] text-zinc-600 dark:text-zinc-400">Berbagi pengetahuan, membangun website, dan berkolaborasi melalui Git, open source, serta tools yang dipakai developer setiap hari.</p>

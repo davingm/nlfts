@@ -255,12 +255,12 @@ const Resources = [
           >
             <div class="flex items-center gap-2.5">
               <UIcon name="i-lucide-search" class="h-4 w-4 text-zinc-500 transition-colors group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-200" />
-              <span class="text-sm text-zinc-500 transition-colors group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-200">Search by Inspiration</span>
+              <span class="text-sm text-zinc-500 transition-colors group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-200">Search Repository</span>
             </div>
           </button>
 
           <div class="hidden xl:flex items-center gap-5 whitespace-nowrap">
-            <NuxtLink to="/contact" class="inline-flex h-[52px] items-center rounded-[11px] border border-zinc-900 px-6 text-sm font-semibold text-zinc-900 transition-colors hover:bg-zinc-900 dark:border-zinc-300 dark:text-zinc-100 dark:hover:bg-white dark:hover:text-zinc-900">Contact</NuxtLink>
+            <NuxtLink to="/terhubung" class="inline-flex h-[52px] items-center rounded-[11px] border border-zinc-900 px-6 text-sm font-semibold text-zinc-900 transition-colors hover:bg-zinc-900 dark:border-zinc-300 dark:text-zinc-100 dark:hover:bg-white dark:hover:text-zinc-900">Bergabung</NuxtLink>
           </div>
 
           <UColorModeButton size="sm" class="hidden lg:flex text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-50 bg-transparent hover:bg-zinc-100 dark:hover:bg-zinc-900 border-none shadow-none" />
